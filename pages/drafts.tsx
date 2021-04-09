@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
 import prisma from '../lib/prisma';
 import Router from 'next/router';
+import { DatasetProps } from '../components/Post';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -29,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 type Props = {
-  datasets: any[];
+  datasets: DatasetProps[];
 };
 
 const Drafts: React.FC<Props> = props => {
@@ -47,36 +48,22 @@ const Drafts: React.FC<Props> = props => {
   return (
     <Layout>
       <div className="page">
-        <h1>My Datasets</h1>
+        <h1 className="text-3xl">My Datasets</h1>
         <main>
           {props.datasets.map(dataset => (
             <div
               key={dataset.id}
-              className="post"
+              className="rounded-xl bg-gray-50 p-8 m-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
               onClick={() => Router.push(`/dataset/${dataset.id}`)}
             >
-              {JSON.stringify(dataset)}
-              <img
-                src={`${process.env.BUCKET_BASEURL}${dataset.filepath}`}
-              ></img>
+              <h1 className="text-xl">{dataset.title}</h1>
+              <h3 className="text-indigo-700 font-semibold">
+                by {dataset.publisher.name}
+              </h3>
             </div>
           ))}
         </main>
       </div>
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
     </Layout>
   );
 };
