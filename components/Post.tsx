@@ -1,31 +1,20 @@
-import React from "react";
-import Router from "next/router";
+import React from 'react';
+import Router from 'next/router';
 
-export type PostProps = {
+export type DatasetProps = {
   id: number;
   title: string;
-  author: {
+  publisher: {
     name: string;
     email: string;
   } | null;
-  content: string;
-  published: boolean;
+  filepath: string;
+  data: any;
 };
 
-const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : "Unknown author";
+const Post: React.FC<{ post: DatasetProps }> = ({ post }) => {
   return (
-    <div onClick={() => Router.push("/post/[id]", `/post/${post.id}`)}>
-      <h2>{post.title}</h2>
-      <small>By {authorName}</small>
-      <div>{post.content}</div>
-      <style jsx>{`
-        div {
-          color: inherit;
-          padding: 2rem;
-        }
-      `}</style>
-    </div>
+    <div onClick={() => Router.push('/post/[id]', `/post/${post.id}`)}></div>
   );
 };
 

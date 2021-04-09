@@ -1,9 +1,9 @@
-import { GetStaticProps } from "next";
-import React from "react";
-import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from "../lib/prisma";
-import Image from "next/image";
+import { GetStaticProps } from 'next';
+import React from 'react';
+import Layout from '../components/Layout';
+import Post, { PostProps } from '../components/Post';
+import prisma from '../lib/prisma';
+import Image from 'next/image';
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
@@ -11,9 +11,9 @@ export const getStaticProps: GetStaticProps = async () => {
     where: { published: true },
     include: {
       author: {
-        select: { name: true },
-      },
-    },
+        select: { name: true }
+      }
+    }
   });
   return { props: { feed } };
 };
@@ -46,7 +46,7 @@ const Home: React.FC<Props> = (props: Props) => {
       <h1>Public Feed</h1>
 
       <main>
-        {props.feed.map((post) => (
+        {props.feed.map(post => (
           <div key={post.id} className="post">
             <Post post={post} />
           </div>

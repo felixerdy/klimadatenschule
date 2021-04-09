@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { signOut, useSession } from "next-auth/client";
-import Image from "next/image";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/client';
+import Image from 'next/image';
 
 const Header: React.FC = () => {
   const router = useRouter();
 
-  const isActive: (pathname: string) => boolean = (pathname) =>
+  const isActive: (pathname: string) => boolean = pathname =>
     router.pathname === pathname;
 
   const [session, loading] = useSession();
 
   const [open, setOpen] = useState(false);
 
-  const NavButton: React.FC<React.HTMLAttributes<HTMLButtonElement>> = (
-    props
-  ) => {
+  const NavButton: React.FC<
+    React.HTMLAttributes<HTMLButtonElement>
+  > = props => {
     return (
       <button
         className={
           props.className ||
-          "px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`"
+          'px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`'
         }
         onClick={props.onClick}
       >
@@ -34,12 +34,12 @@ const Header: React.FC = () => {
     href: string;
     text: string;
   }
-  const NavButtonLink: React.FC<NavButtonLinkProps> = (props) => {
+  const NavButtonLink: React.FC<NavButtonLinkProps> = props => {
     return (
       <Link href={props.href}>
         <a
           className={`${
-            isActive(props.href) ? "text-gray-900 bg-gray-200" : ""
+            isActive(props.href) ? 'text-gray-900 bg-gray-200' : ''
           } px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`}
         >
           {props.text}
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
     );
   };
 
-  const LoginButton: React.FC<NavButtonLinkProps> = (props) => {
+  const LoginButton: React.FC<NavButtonLinkProps> = props => {
     return (
       <Link href={props.href}>
         <a
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
         className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
       >
         <div className="p-4 flex flex-row items-center justify-between">
-          <Link href={"/"}>
+          <Link href={'/'}>
             <a
               href="/"
               className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
@@ -99,7 +99,7 @@ const Header: React.FC = () => {
         </div>
         <nav
           className={`${
-            open ? "flex" : "hidden"
+            open ? 'flex' : 'hidden'
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
           <NavButtonLink href="/create" text="New Post" />
