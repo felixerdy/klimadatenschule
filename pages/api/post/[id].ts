@@ -15,7 +15,7 @@ export default async function handle(req, res) {
 
       // Get User
       const user = await prisma.user.findUnique({
-        where: { id: token.sub }
+        where: { email: token.email }
       });
 
       // Get post to delete

@@ -1,25 +1,24 @@
 import { GetStaticProps } from 'next';
 import React from 'react';
 import Layout from '../components/Layout';
-import Post, { PostProps } from '../components/Post';
+import Post, { DatasetProps } from '../components/Post';
 import prisma from '../lib/prisma';
 import Image from 'next/image';
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
-    where: { published: true },
+  const datasets = await prisma.dataset.findMany({
     include: {
-      author: {
+      publisher: {
         select: { name: true }
       }
     }
   });
-  return { props: { feed } };
+  return { props: { datasets } };
 };
 
 type Props = {
-  feed: PostProps[];
+  datasets: DatasetProps[];
 };
 
 const Home: React.FC<Props> = (props: Props) => {
@@ -46,7 +45,7 @@ const Home: React.FC<Props> = (props: Props) => {
       <h1>Public Feed</h1>
 
       <main>
-        {props.feed.map(post => (
+        {props.datasets.map(post => (
           <div key={post.id} className="post">
             <Post post={post} />
           </div>
