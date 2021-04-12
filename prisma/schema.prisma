@@ -24,6 +24,8 @@ model Dataset {
   title       String
   description String
   filepath    String
+  filetype    String
+  data        Json
   createdAt   DateTime @default(now()) @map(name: "created_at")
   updatedAt   DateTime @updatedAt @map(name: "updated_at")
   official    Boolean  @default(false)
