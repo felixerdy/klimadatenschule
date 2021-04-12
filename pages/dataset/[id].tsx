@@ -20,19 +20,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       }
     }
   });
-  const file = await axios.get(
-    `${process.env.BUCKET_BASEURL}${dataset.filepath}`
-  );
-  const csvAsJson = await csv().fromString(file.data);
-  return {
-    props: {
-      ...dataset,
-      data: csvAsJson
-    }
-  };
+  if (dataset) {
+    const file = await axios.get(
+      `${process.env.BUCKET_BASEURL}${dataset.filepath}`
+    );
+    const csvAsJson = await csv().fromString(file.data);
+    return {
+      props: {
+        ...dataset,
+        data: csvAsJson
+      }
+    };
+  } else {
+    return { props: {} };
+  }
 };
 
-async function deletePost(id: number): Promise<void> {
+async function deleteDataset(id: number): Promise<void> {
   await fetch(`/api/dataset/${id}`, {
     method: 'DELETE'
   });
@@ -43,6 +47,10 @@ const Dataset: React.FC<DatasetProps> = props => {
   const [session, loading] = useSession();
   if (loading) {
     return <div>Authenticating ...</div>;
+  }
+
+  if (Object.keys(props).length === 0) {
+    return <div>Nout found</div>;
   }
 
   const userHasValidSession = Boolean(session);
@@ -73,10 +81,20 @@ const Dataset: React.FC<DatasetProps> = props => {
   return (
     <Layout>
       <div>
-        <h2>{title}</h2>
+        <h2 className="text-gray-800 text-4xl">{title}</h2>
         <p>By {props?.publisher?.name || 'Unknown author'}</p>
       </div>
-      <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+      {datasetBelongsToUser && (
+        <div className="my-4">
+          <button
+            onClick={() => deleteDataset(props.id)}
+            className={`text-white bg-red-700 px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-red-900 focus:bg-gray focus:outline-none focus:shadow-outline`}
+          >
+            Datensatz löschen
+          </button>
+        </div>
+      )}
+      <div className="shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg">
         <table
           {...getTableProps()}
           className="min-w-full divide-y divide-gray-200"

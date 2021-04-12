@@ -20,7 +20,7 @@ const Draft: React.FC = () => {
         method: 'POST',
         body: formData
       });
-      await Router.push('/drafts');
+      await Router.push('/dataset/my');
     } catch (error) {
       console.error(error);
     }

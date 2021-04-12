@@ -104,8 +104,9 @@ const Header: React.FC = () => {
             open ? 'flex' : 'hidden'
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
-          <NavButtonLink href="/dataset/create" text="Upload Dataset" />
-          <NavButtonLink href="/dataset/my" text="My Datasets" />
+          <NavButtonLink href="/dataset" text="Datensätze" />
+          <NavButtonLink href="#" text="Werkzeuge" />
+          <NavButtonLink href="#" text="Projekte" />
           {session ? (
             <div className="relative inline-block text-left z-10">
               <Dropdown></Dropdown>

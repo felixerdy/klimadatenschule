@@ -34,6 +34,38 @@ export default async function handle(
         res.status(404);
       }
     }
+  }
+  if (req.method === 'DELETE') {
+    const token = await jwt.getToken({ req, secret });
+
+    if (token) {
+      // Signed in
+
+      // Get User
+      const user = await prisma.user.findUnique({
+        where: { email: token.email }
+      });
+
+      // Get post to delete
+      const dataset = await prisma.dataset.findUnique({
+        where: { id: datasetId }
+      });
+
+      // user is author of post
+      if (user && user.id === dataset.publisherId) {
+        await prisma.dataset.delete({
+          where: { id: datasetId }
+        });
+        res.json(dataset);
+      } else {
+        // Not allowed
+        res.status(405);
+      }
+    } else {
+      // Not Signed in
+      res.status(401);
+    }
+    res.end();
   } else {
     throw new Error(
       `The HTTP ${req.method} method is not supported at this route.`

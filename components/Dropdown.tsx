@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { useSession, signOut } from 'next-auth/client';
+import Link from 'next/link';
 
 const Dropdown = () => {
   const [session, loading] = useSession();
@@ -36,6 +37,35 @@ const Dropdown = () => {
                 <p className="text-sm font-medium leading-5 text-gray-900 truncate">
                   {session.user.name}
                 </p>
+              </div>
+
+              <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link href="/dataset/my">
+                      <a
+                        className={`${
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                      >
+                        Meine Datensätze
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <Link href="/dataset/create">
+                      <a
+                        className={`${
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                      >
+                        Datensatz erstellen
+                      </a>
+                    </Link>
+                  )}
+                </Menu.Item>
               </div>
 
               <div className="py-1">

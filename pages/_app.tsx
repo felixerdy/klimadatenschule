@@ -5,7 +5,7 @@ import '@fontsource/poppins/800.css';
 
 import 'tailwindcss/tailwind.css';
 
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Transition from '../components/Transition';
 
 import { Provider } from 'next-auth/client';
@@ -17,6 +17,24 @@ import Footer from '../components/Footer';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
+
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const start = () => {
+      setLoading(true);
+    };
+    const end = () => {
+      setLoading(false);
+    };
+    Router.events.on('routeChangeStart', start);
+    Router.events.on('routeChangeComplete', end);
+    Router.events.on('routeChangeError', end);
+    return () => {
+      Router.events.off('routeChangeStart', start);
+      Router.events.off('routeChangeComplete', end);
+      Router.events.off('routeChangeError', end);
+    };
+  }, []);
 
   return (
     <Provider session={pageProps.session}>
