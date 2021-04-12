@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/client';
 import Image from 'next/image';
+import { Menu } from '@headlessui/react';
+import Dropdown from './Dropdown';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -102,10 +104,12 @@ const Header: React.FC = () => {
             open ? 'flex' : 'hidden'
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
-          <NavButtonLink href="/create" text="New Post" />
-          <NavButtonLink href="/drafts" text="My Drafts" />
+          <NavButtonLink href="/dataset/create" text="Upload Dataset" />
+          <NavButtonLink href="/dataset/my" text="My Datasets" />
           {session ? (
-            <NavButton onClick={() => signOut()}>Logout</NavButton>
+            <div className="relative inline-block text-left z-10">
+              <Dropdown></Dropdown>
+            </div>
           ) : (
             <LoginButton href="/api/auth/signin" text="Login" />
           )}

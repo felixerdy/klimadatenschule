@@ -15,15 +15,16 @@
   },
   "dependencies": {
     "@fontsource/poppins": "^4.2.2",
-    "@prisma/client": "^2.19.0",
+    "@headlessui/react": "^0.3.2",
+    "@prisma/client": "^2.20.1",
     "@tailwindcss/typography": "^0.4.0",
-    "aws-sdk": "^2.881.0",
+    "aws-sdk": "^2.884.0",
     "axios": "^0.21.1",
     "csvtojson": "^2.0.10",
     "formidable": "^1.2.2",
     "husky": ">=6",
-    "next": "10.0.9",
-    "next-auth": "^3.13.3",
+    "next": "10.1.3",
+    "next-auth": "^3.14.6",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-table": "^7.6.3",
@@ -37,11 +38,11 @@
     "autoprefixer": "^10.2.5",
     "babel-plugin-superjson-next": "^0.2.3",
     "lint-staged": "^10.5.4",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.10",
     "prettier": "^2.2.1",
     "prettier-plugin-prisma": "^0.7.0",
-    "prisma": "2.19.0",
-    "tailwindcss": "^2.0.4",
-    "typescript": "^4.2.3"
+    "prisma": "2.20.1",
+    "tailwindcss": "^2.1.1",
+    "typescript": "^4.2.4"
   }
 }
