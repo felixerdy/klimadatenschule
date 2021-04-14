@@ -105,7 +105,7 @@ const Header: React.FC = () => {
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
           <NavButtonLink href="/dataset" text="Datensätze" />
-          <NavButtonLink href="#" text="Werkzeuge" />
+          <NavButtonLink href="/tools" text="Werkzeuge" />
           <NavButtonLink href="#" text="Projekte" />
           {session ? (
             <div className="relative inline-block text-left z-10">
