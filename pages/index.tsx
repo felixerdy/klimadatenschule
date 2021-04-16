@@ -4,6 +4,7 @@ import { DatasetProps } from '../components/Post';
 import prisma from '../lib/prisma';
 import Image from 'next/image';
 import Router from 'next/router';
+import FlowCO2Calculator from '../components/FlowCO2Calculator';
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
@@ -36,6 +37,9 @@ const Home: React.FC<Props> = (props: Props) => {
           <span className="block">Daten</span>
           <span className="block">Schule</span>
         </h1>
+      </div>
+      <div className="h-80">
+        <FlowCO2Calculator></FlowCO2Calculator>
       </div>
 
       <section className="mt-10">
