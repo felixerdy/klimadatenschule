@@ -16,23 +16,42 @@ const SliderNode = memo<any>(({ data, id }) => {
   const valueTextMap = ['kein', 'wenig', 'viel', 'sehr viel'];
   const typeTextMap = {
     meat: {
-      start: '🐄  Ich esse',
+      icon: '🐄',
+      iconNone: '🌱',
+      start: 'Ich esse',
       end: 'Fleisch'
     },
     paper: {
-      start: '📄  Ich verbrauche',
+      icon: '📄',
+      iconNone: '🧑‍💻',
+      start: 'Ich verbrauche',
       end: 'Papier'
     },
     car: {
-      start: '🚗  Ich fahre',
+      icon: '🚗',
+      iconNone: '🚴‍♂️',
+      start: 'Ich fahre',
       end: 'Auto'
     }
   };
 
   return (
-    <>
+    <div className="bg-gray-50 p-2 shadow-lg rounded border-gray-600 border-solid border-2">
       <Handle type="source" position={Position.Right} />
       <div>
+        <p className="w-full text-center">
+          {data.value > 0 ? (
+            Array(Number(data.value)).fill(
+              <span className="mx-2 text-2xl">
+                {typeTextMap[data.type].icon}
+              </span>
+            )
+          ) : (
+            <span className="mx-2 text-2xl">
+              {typeTextMap[data.type].iconNone}
+            </span>
+          )}
+        </p>
         {typeTextMap[data.type].start}{' '}
         <strong>{valueTextMap[data.value]}</strong> {typeTextMap[data.type].end}
       </div>
@@ -44,7 +63,7 @@ const SliderNode = memo<any>(({ data, id }) => {
         min={0}
         max={3}
       />
-    </>
+    </div>
   );
 });
 
@@ -52,8 +71,19 @@ const CO2Node = memo<any>(({ data }) => {
   const textMap = ['sehr wenig', 'wenig', 'viel', 'sehr viel'];
 
   return (
-    <>
+    <div className="p-2 shadow-lg rounded border-gray-600 border-solid border-2 bg-gray-800 text-white">
       <Handle type="target" position={Position.Left} />
+      <div>
+        <p className="w-full text-center">
+          {data.value > 0 ? (
+            Array(Number(Math.ceil(data.value / 3))).fill(
+              <span className="mx-2 text-2xl">🏭</span>
+            )
+          ) : (
+            <span className="mx-2 text-2xl">🌳</span>
+          )}
+        </p>
+      </div>
       {data.value !== undefined ? (
         <p>
           Du verbrauchst <strong>{textMap[Math.ceil(data.value / 3)]}</strong>{' '}
@@ -62,7 +92,7 @@ const CO2Node = memo<any>(({ data }) => {
       ) : (
         <p>Verschiebe die Regler um deinen CO2 Ausstoß zu messen</p>
       )}
-    </>
+    </div>
   );
 });
 
@@ -124,15 +154,13 @@ const FlowCO2Calculator = () => {
         id: '1',
         type: 'selectorNode',
         data: { onChange, value: 0, type: 'meat' },
-        style: { border: '1px solid #777', padding: 10 },
-        position: { x: 100, y: 50 },
+        position: { x: 100, y: 25 },
         sourcePosition: Position.Right
       },
       {
         id: '2',
         type: 'selectorNode',
         data: { onChange, value: 2, type: 'paper' },
-        style: { border: '1px solid #777', padding: 10 },
         position: { x: 200, y: 150 },
         sourcePosition: Position.Right
       },
@@ -140,8 +168,7 @@ const FlowCO2Calculator = () => {
         id: '3',
         type: 'selectorNode',
         data: { onChange, value: 1, type: 'car' },
-        style: { border: '1px solid #777', padding: 10 },
-        position: { x: 300, y: 250 },
+        position: { x: 300, y: 275 },
         sourcePosition: Position.Right
       },
       {
@@ -152,14 +179,7 @@ const FlowCO2Calculator = () => {
         },
         targetPosition: Position.Left,
         sourcePosition: Position.Right,
-        position: { x: 800, y: 150 },
-        style: {
-          border: '1px solid #777',
-          background: '#222',
-          color: 'white',
-          fontSize: 'large',
-          padding: 10
-        }
+        position: { x: 700, y: 150 }
       },
       { id: 'e1-4', source: '1', target: '4', animated: true },
       { id: 'e2-4', source: '2', target: '4', animated: true },

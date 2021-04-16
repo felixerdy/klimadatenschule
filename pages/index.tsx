@@ -38,7 +38,7 @@ const Home: React.FC<Props> = (props: Props) => {
           <span className="block">Schule</span>
         </h1>
       </div>
-      <div className="h-80">
+      <div className="h-96">
         <FlowCO2Calculator></FlowCO2Calculator>
       </div>
 
