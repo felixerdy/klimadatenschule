@@ -31,6 +31,7 @@ const Table = (props: TableProps) => {
 
   const chartTypes = ['line', 'bar'];
   const [chartType, setChartType] = useState<'line' | 'bar'>('bar');
+  const [barStacked, setBarStacked] = useState(false);
 
   return (
     <>
@@ -130,11 +131,24 @@ const Table = (props: TableProps) => {
           )}
         </Listbox>
 
+        {chartType === 'bar' && (
+          <>
+            <input
+              type="checkbox"
+              className="form-checkbox h-5 w-5 text-indigo-600"
+              checked={barStacked}
+              onChange={e => setBarStacked(!barStacked)}
+            />
+            <span className="ml-2 text-gray-700">stacked</span>
+          </>
+        )}
+
         <Chart
           className="mt-20"
           options={{
             chart: {
-              id: 'basic-bar'
+              id: 'basic-bar',
+              stacked: barStacked
             },
             dataLabels: {
               enabled: false
