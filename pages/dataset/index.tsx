@@ -5,6 +5,7 @@ import { useSession, getSession } from 'next-auth/client';
 import prisma from '../../lib/prisma';
 import Router from 'next/router';
 import { DatasetProps } from '../../components/Post';
+import ItemRow from '../../components/ItemRow';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const datasets = await prisma.dataset.findMany({
@@ -31,16 +32,12 @@ const Drafts: React.FC<Props> = props => {
         <h1 className="text-gray-800 text-4xl font-extrabold">Datensätze</h1>
         <main>
           {props.datasets.map(dataset => (
-            <div
+            <ItemRow
               key={dataset.id}
-              className="rounded-xl bg-gray-50 p-8 m-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
               onClick={() => Router.push(`/dataset/${dataset.id}`)}
-            >
-              <h1 className="text-xl">{dataset.title}</h1>
-              <h3 className="text-indigo-700 font-semibold">
-                by {dataset.publisher.name}
-              </h3>
-            </div>
+              title={dataset.title}
+              publisher={dataset.publisher.name}
+            ></ItemRow>
           ))}
         </main>
       </div>

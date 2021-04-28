@@ -5,6 +5,7 @@ import prisma from '../lib/prisma';
 import Image from 'next/image';
 import Router from 'next/router';
 import FlowCO2Calculator from '../components/FlowCO2Calculator';
+import ItemRow from '../components/ItemRow';
 
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
@@ -48,16 +49,12 @@ const Home: React.FC<Props> = (props: Props) => {
 
       <main>
         {props.datasets.map(dataset => (
-          <div
+          <ItemRow
             key={dataset.id}
-            className="rounded-xl bg-gray-50 p-8 m-8 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
             onClick={() => Router.push(`/dataset/${dataset.id}`)}
-          >
-            <h1 className="text-xl">{dataset.title}</h1>
-            <h3 className="text-indigo-700 font-semibold">
-              by {dataset.publisher.name}
-            </h3>
-          </div>
+            title={dataset.title}
+            publisher={dataset.publisher.name}
+          ></ItemRow>
         ))}
       </main>
     </>

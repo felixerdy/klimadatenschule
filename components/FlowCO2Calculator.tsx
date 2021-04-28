@@ -130,8 +130,6 @@ const FlowCO2Calculator = () => {
           .filter(n => n.type === 'selectorNode')
           .reduce(reducer, 0);
 
-        console.log(co2sum / 3);
-
         const updatedArray = nextElements.map(n => {
           if (n.id == '4') {
             return {
