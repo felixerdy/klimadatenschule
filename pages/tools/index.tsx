@@ -17,6 +17,10 @@ const Tools: React.FC = () => {
             onClick={() => Router.push(`/tools/landcover`)}
             title={'Landcover'}
           ></ItemRow>
+          <ItemRow
+            onClick={() => Router.push(`/tools/nutrition-calculator`)}
+            title={'Ernährungsrechner'}
+          ></ItemRow>
         </main>
       </div>
     </Layout>
