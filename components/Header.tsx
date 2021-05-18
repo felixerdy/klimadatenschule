@@ -104,9 +104,20 @@ const Header: React.FC = () => {
             open ? 'flex' : 'hidden'
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
+          <a className="text-green-900 bg-green-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-green-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            Wald & Bäume
+          </a>
+          <a className="text-red-900 bg-red-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-red-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            Ernährung
+          </a>
+          <a className="text-blue-900 bg-blue-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-blue-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            Papier
+          </a>
+          <a className="text-gray-900 bg-gray-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            Verkehr
+          </a>
           <NavButtonLink href="/dataset" text="Datensätze" />
           <NavButtonLink href="/tools" text="Werkzeuge" />
-          <NavButtonLink href="#" text="Projekte" />
           {session ? (
             <div className="relative inline-block text-left z-10">
               <Dropdown></Dropdown>
