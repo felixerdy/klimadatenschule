@@ -22,9 +22,11 @@ const options: NextAuthOptions = {
       user && (token.user = user);
       return token;
     },
+    //@ts-ignore
     async session(session, token) {
       session.user = {
         ...session.user,
+        //@ts-ignore
         ...token.user
       };
       return session;
