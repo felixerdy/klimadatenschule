@@ -1,5 +1,5 @@
 import { NextApiHandler } from 'next';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import Providers from 'next-auth/providers';
 import Adapters from 'next-auth/adapters';
 import prisma from '../../../lib/prisma';
@@ -7,7 +7,7 @@ import prisma from '../../../lib/prisma';
 const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 export default authHandler;
 
-const options = {
+const options: NextAuthOptions = {
   providers: [
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
@@ -16,5 +16,21 @@ const options = {
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
-  session: { jwt: true }
+  session: { jwt: true },
+  callbacks: {
+    async jwt(token, user, account, profile, isNewUser) {
+      user && (token.user = user);
+      return token;
+    },
+    async session(session, token) {
+      session.user = {
+        ...session.user,
+        ...token.user
+      };
+      return session;
+    }
+  },
+  pages: {
+    newUser: '/auth/complete-signup'
+  }
 };

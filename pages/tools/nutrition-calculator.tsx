@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { useSession } from 'next-auth/client';
 import Image from 'next/image';
 import { Column, useTable } from 'react-table';
 
 import { useForm } from 'react-hook-form';
+import { Router, useRouter } from 'next/router';
 
 type Inputs = {
   timestamp: Date;
@@ -75,7 +76,17 @@ const toCO2 = (gram: number, category: NutritionCategory): number => {
 };
 
 const NutritionCalculator: React.FC = () => {
-  const [session] = useSession();
+  const [session, loading] = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    console.log(session);
+    if (!(session || loading)) {
+      router.push('/api/auth/signin');
+    }
+    if (session && !loading && !session.user.schoolId) {
+      router.push('/auth/complete-signup');
+    }
+  }, [session, loading]);
 
   const { register, watch, handleSubmit } = useForm<Inputs>();
 
@@ -152,14 +163,6 @@ const NutritionCalculator: React.FC = () => {
     data
   });
 
-  if (!session) {
-    return (
-      <Layout>
-        <div>You need to be authenticated to view this page.</div>
-      </Layout>
-    );
-  }
-
   return (
     <Layout>
       <div className="page">
@@ -202,7 +205,6 @@ const NutritionCalculator: React.FC = () => {
                     defaultValue={0}
                     min={0}
                     max={1000}
-                    autoFocus
                     {...register(n.name, { min: 0, max: 1000 })}
                   />
                 </React.Fragment>

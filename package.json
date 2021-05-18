@@ -16,6 +16,7 @@
   "dependencies": {
     "@fontsource/poppins": "^4.2.2",
     "@headlessui/react": "^0.3.2",
+    "@heroicons/react": "^1.0.1",
     "@prisma/client": "^2.20.1",
     "@tailwindcss/typography": "^0.4.0",
     "apexcharts": "^3.26.1",

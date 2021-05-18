@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13.1
+    healthcheck:
+      test: ['CMD', 'pg_isready', '-q', '-d', 'postgres', '-U', 'root']
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    environment:
+      - POSTGRES_USER=kds_user
+      - POSTGRES_PASSWORD=kds_passwd
+      - POSTGRES_DB=klimadatenschule
+    ports:
+      - 5432:5432

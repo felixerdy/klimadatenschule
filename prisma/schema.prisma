@@ -42,6 +42,8 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @updatedAt @map(name: "updated_at")
   role          Role      @default(USER)
+  school        School?   @relation(fields: [schoolId], references: [id])
+  schoolId      String?
   posts         Post[]
   datasets      Dataset[]
 
@@ -78,6 +80,12 @@ model Session {
   updatedAt    DateTime @default(now()) @map(name: "updated_at")
 
   @@map(name: "sessions")
+}
+
+model School {
+  id   String @id @default(uuid())
+  name String
+  User User[]
 }
 
 enum Role {

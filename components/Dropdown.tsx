@@ -1,8 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
-import { useSession, signOut } from 'next-auth/client';
+import prisma from './../lib/prisma';
+import { GetServerSideProps } from 'next';
+import { useSession, signOut, getSession } from 'next-auth/client';
 import Link from 'next/link';
+import React from 'react';
 
-const Dropdown = () => {
+const Dropdown: React.FC = () => {
   const [session, loading] = useSession();
 
   return (

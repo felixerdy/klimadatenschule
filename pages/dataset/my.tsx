@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
 import prisma from '../../lib/prisma';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { DatasetProps } from '../../components/Post';
 import ItemRow from '../../components/ItemRow';
 
@@ -35,15 +35,16 @@ type Props = {
 };
 
 const Drafts: React.FC<Props> = props => {
-  const [session] = useSession();
+  const [session, loading] = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (!(session || loading)) {
+      router.push('/api/auth/signin');
+    }
+  }, [session, loading]);
 
-  if (!session) {
-    return (
-      <Layout>
-        <h1>My Drafts</h1>
-        <div>You need to be authenticated to view this page.</div>
-      </Layout>
-    );
+  if (!(session || loading)) {
+    return <p>Redirecting...</p>;
   }
 
   return (
