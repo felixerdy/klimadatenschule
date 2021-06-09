@@ -8,6 +8,8 @@ import React from 'react';
 const Dropdown: React.FC = () => {
   const [session, loading] = useSession();
 
+  console.log(session);
+
   return (
     <Menu>
       {({ open }) => (

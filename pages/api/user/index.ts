@@ -23,14 +23,14 @@ export default async function handle(
 
   if (token) {
     try {
-      const school = await prisma.school.findUnique({
-        where: { id: req.body.school }
+      const organisation = await prisma.organisation.findUnique({
+        where: { id: req.body.organisation }
       });
 
       const result = await prisma.user.update({
         data: {
           name: req.body.name,
-          schoolId: school.id
+          organisationId: organisation.id
         },
         where: { email: token.email }
       });

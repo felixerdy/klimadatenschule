@@ -9,6 +9,12 @@ export default authHandler;
 
 const options: NextAuthOptions = {
   providers: [
+    Providers.FusionAuth({
+      name: 'FusionAuth',
+      domain: process.env.FUSIONAUTH_DOMAIN,
+      clientId: process.env.FUSIONAUTH_CLIENT_ID,
+      clientSecret: process.env.FUSIONAUTH_SECRET
+    }),
     Providers.GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET

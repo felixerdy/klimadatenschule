@@ -8,15 +8,15 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const schools = await prisma.school.findMany();
+  const organisations = await prisma.organisation.findMany();
 
   return {
-    props: { schools }
+    props: { organisations }
   };
 };
 
 type Props = {
-  schools: { id: string; name: string }[];
+  organisations: { id: string; name: string }[];
 };
 
 const CompleteSignup: React.FC<Props> = props => {
@@ -44,7 +44,7 @@ const CompleteSignup: React.FC<Props> = props => {
 
     const request = await axios.post('/api/user', {
       name: data.name,
-      school: data.school
+      organisation: data.organisation
     });
 
     if (request.status === 201) {
@@ -88,16 +88,18 @@ const CompleteSignup: React.FC<Props> = props => {
               </div>
             )}
 
-            <label className="text-gray-600 font-medium">Schule</label>
+            <label className="text-gray-600 font-medium">
+              Schule oder Organisation
+            </label>
 
             <select
               className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
-              name="school"
-              {...register('school', {
+              name="organisation"
+              {...register('organisation', {
                 required: true
               })}
             >
-              {props.schools.map(s => (
+              {props.organisations.map(s => (
                 <option key={s.id} value={s.id}>
                   {s.name}
                 </option>
