@@ -12,9 +12,29 @@ const SectionHeader = React.memo<SectionHeaderProps>(({ color, text }) => {
   const [textColor, setTextColor] = useState('text-blue-900');
 
   useEffect(() => {
-    setFromColor(`from-${color}-100`);
-    setToColor(`to-${color}-300`);
-    setTextColor(`text-${color}-900`);
+    // https://tailwindcss.com/docs/optimizing-for-production#writing-purgeable-html
+    switch (color) {
+      case 'green':
+        setFromColor(`from-green-100`);
+        setToColor(`to-green-300`);
+        setTextColor(`text-green-900`);
+        break;
+      case 'blue':
+        setFromColor(`from-blue-100`);
+        setToColor(`to-blue-300`);
+        setTextColor(`text-blue-900`);
+        break;
+      case 'gray':
+        setFromColor(`from-gray-100`);
+        setToColor(`to-gray-300`);
+        setTextColor(`text-gray-900`);
+        break;
+      case 'red':
+        setFromColor(`from-red-100`);
+        setToColor(`to-red-300`);
+        setTextColor(`text-red-900`);
+        break;
+    }
   }, [color]);
 
   return (
