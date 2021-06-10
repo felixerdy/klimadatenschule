@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import ReactMapGL from 'react-map-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 const Landcover: React.FC = () => {
   const [viewport, setViewport] = useState({

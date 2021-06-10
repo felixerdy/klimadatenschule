@@ -22,6 +22,11 @@ export default async function handle(
   const token = await jwt.getToken({ req, secret });
 
   if (token) {
+    if (req.body.organisation == 'none') {
+      res.status(200);
+      return;
+    }
+
     try {
       const organisation = await prisma.organisation.findUnique({
         where: { id: req.body.organisation }

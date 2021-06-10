@@ -99,11 +99,16 @@ const CompleteSignup: React.FC<Props> = props => {
                 required: true
               })}
             >
+              <option disabled selected>
+                Wähle deine Schule / Organisation
+              </option>
               {props.organisations.map(s => (
                 <option key={s.id} value={s.id}>
                   {s.name}
                 </option>
               ))}
+              <option disabled>------------</option>
+              <option value="none">Keine Schule / Organisation</option>
             </select>
 
             <button

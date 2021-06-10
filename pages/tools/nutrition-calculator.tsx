@@ -83,7 +83,8 @@ const NutritionCalculator: React.FC = () => {
     if (!(session || loading)) {
       router.push('/api/auth/signin');
     }
-    if (session && !loading && !session.user.schoolId) {
+    // @ts-ignore
+    if (session && !loading && !session.user.organisationId) {
       router.push('/auth/complete-signup');
     }
   }, [session, loading]);

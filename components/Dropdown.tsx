@@ -8,8 +8,6 @@ import React from 'react';
 const Dropdown: React.FC = () => {
   const [session, loading] = useSession();
 
-  console.log(session);
-
   return (
     <Menu>
       {({ open }) => (
@@ -18,6 +16,7 @@ const Dropdown: React.FC = () => {
             <Menu.Button className="bg-gray-800 flex text-sm rounded-full ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <img
                 className="h-8 w-8 rounded-full"
+                referrerPolicy="no-referrer"
                 src={session.user.image}
                 alt=""
               />
@@ -74,6 +73,19 @@ const Dropdown: React.FC = () => {
               </div>
 
               <div className="py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      className={`${
+                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                      } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                    >
+                      <Link href="/auth/complete-signup">
+                        Profil bearbeiten
+                      </Link>
+                    </a>
+                  )}
+                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <a

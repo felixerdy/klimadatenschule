@@ -10,6 +10,7 @@ import Transition from '../components/Transition';
 
 import { Provider } from 'next-auth/client';
 import { AppProps } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
@@ -38,6 +39,10 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <Provider session={pageProps.session}>
+      <Head>
+        <title>KlimaDatenSchule WebApp</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header />
       <Transition location={router.pathname}>
         <Layout>
