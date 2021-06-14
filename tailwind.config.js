@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', ...defaultTheme.fontFamily.sans]
+        sans: ['Nunito', ...defaultTheme.fontFamily.sans]
       },
       colors: {
         mobility: {

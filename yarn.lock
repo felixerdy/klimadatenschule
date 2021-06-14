@@ -80,10 +80,10 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
-"@fontsource/poppins@^4.4.5":
+"@fontsource/nunito@^4.4.5":
   version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/poppins/-/poppins-4.4.5.tgz#c75dcc453f7a9381de3f9b932366c2457887184c"
-  integrity sha512-pu675yvBGFhAHD8D7uj7C0NaHqDxD7mlgmLM8ziyYL4kYH79fil7rJ6U5X2oaKxoyRk3rxxb9k1fG0CCc7CquA==
+  resolved "https://registry.yarnpkg.com/@fontsource/nunito/-/nunito-4.4.5.tgz#576ecfa155e1e54d2667a438e1155696b1741823"
+  integrity sha512-a6kOg1GAO33UCdrsUd6LlgkviZXRXsUkxz9ySuDVAxDob2ygATbBNru/CamA7IgE58vTjfavq4v/tn12d7NahQ==
 
 "@fullhuman/postcss-purgecss@^3.1.3":
   version "3.1.3"
