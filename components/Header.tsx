@@ -118,9 +118,9 @@ const Header: React.FC = () => {
               Papier
             </a>
           </Link>
-          <Link href={'/verkehr'}>
-            <a className="text-gray-900 bg-gray-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
-              Verkehr
+          <Link href={'/mobilitaet'}>
+            <a className="text-mobility-darkest bg-mobility-light px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+              Mobilität
             </a>
           </Link>
           <NavButtonLink href="/dataset" text="Datensätze" />

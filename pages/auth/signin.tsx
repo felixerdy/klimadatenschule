@@ -23,16 +23,26 @@ const SignIn: React.FC<Props> = ({ providers }) => {
           <>
             {Object.values(providers).map((provider: Provider) => (
               <div key={provider.name}>
-                <button
-                  className="rext-pink-500 bg-transparent border border-solid border-black hover:bg-black hover:text-white active:bg-black font-semibold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-2 ease-linear transition-all duration-150"
-                  onClick={() => signIn(provider.id)}
-                >
-                  Login mit {provider.name}
-                </button>
                 {provider.id === 'fusionauth' && (
-                  <p className="mt-2 mb-4">
-                    <b>ODER</b>
-                  </p>
+                  <>
+                    <button
+                      className="bg-transparent border border-solid border-black hover:bg-black hover:text-white active:bg-black font-semibold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-2 ease-linear transition-all duration-150"
+                      onClick={() => signIn(provider.id)}
+                    >
+                      Login mit E-Mail & Passwort
+                    </button>
+                    <p className="mt-2 mb-4">
+                      <b>ODER</b>
+                    </p>
+                  </>
+                )}
+                {provider.id !== 'fusionauth' && (
+                  <button
+                    className="bg-transparent border border-solid border-black hover:bg-black hover:text-white active:bg-black font-semibold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-2 ease-linear transition-all duration-150"
+                    onClick={() => signIn(provider.id)}
+                  >
+                    Login mit {provider.name}
+                  </button>
                 )}
               </div>
             ))}

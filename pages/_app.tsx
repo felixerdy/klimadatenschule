@@ -15,6 +15,8 @@ import React from 'react';
 import Header from '../components/Header';
 import Layout from '../components/Layout';
 import Footer from '../components/Footer';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -44,6 +46,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Header />
+      <ToastContainer position="top-right"></ToastContainer>
       <Transition location={router.pathname}>
         <Layout>
           <Component {...pageProps} />

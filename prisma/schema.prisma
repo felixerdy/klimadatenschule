@@ -44,7 +44,14 @@ model User {
   datasets       Dataset[]
   posts          Post[]
 
+  MobilityRecord MobilityRecord[]
   @@map("users")
+}
+
+enum Role {
+  USER
+  TEACHER
+  ADMIN
 }
 
 model Account {
@@ -90,8 +97,16 @@ enum OrganisationType {
   ORGANISATION
 }
 
-enum Role {
-  USER
-  TEACHER
-  ADMIN
+model MobilityRecord {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  pkw       Float
+  bahn      Float
+  bus       Float
+  ubahn     Float
+  fahrrad   Float
+  fuss      Float
 }
