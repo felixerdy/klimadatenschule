@@ -29,10 +29,10 @@ const SectionHeader = React.memo<SectionHeaderProps>(({ color, text }) => {
         setToColor(`to-mobility`);
         setTextColor(`text-mobility-darkest`);
         break;
-      case 'red':
-        setFromColor(`from-red-100`);
-        setToColor(`to-red-300`);
-        setTextColor(`text-red-900`);
+      case 'nutrition':
+        setFromColor(`from-nutrition-lightest`);
+        setToColor(`to-nutrition-light`);
+        setTextColor(`text-nutrition-darkest`);
         break;
     }
   }, [color]);

@@ -109,7 +109,7 @@ const Header: React.FC = () => {
             </a>
           </Link>
           <Link href={'/ernaehrung'}>
-            <a className="text-red-900 bg-red-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-red-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            <a className="text-nutrition-darkest bg-nutrition-light px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline">
               Ernährung
             </a>
           </Link>
