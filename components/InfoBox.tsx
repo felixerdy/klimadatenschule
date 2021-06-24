@@ -1,5 +1,5 @@
 const InfoBox = props => (
-  <div className="p-4 m-8 rounded border-yellow-200 border-2 bg-yellow-100">
+  <div className="p-4 my-8 rounded-2xl shadow-lg bg-gradient-to-br from-yellow-100 to-yellow-200">
     {props.children}
   </div>
 );
