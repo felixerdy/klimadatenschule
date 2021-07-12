@@ -54,10 +54,28 @@ export default async function handle(
 
     switch (datasetId) {
       case 'nutrition':
-        const nutritionData = await prisma.mealRecord.findMany();
+        const nutritionData = await prisma.mealRecord.findMany({
+          select: {
+            name: true,
+            co2: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        });
         return buildResponse(res, nutritionData, format);
       case 'mobility':
-        const mobilityData = await prisma.mobilityRecord.findMany();
+        const mobilityData = await prisma.mobilityRecord.findMany({
+          select: {
+            pkw: true,
+            bahn: true,
+            bus: true,
+            ubahn: true,
+            fahrrad: true,
+            fuss: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        });
         return buildResponse(res, mobilityData, format);
       default:
         break;
