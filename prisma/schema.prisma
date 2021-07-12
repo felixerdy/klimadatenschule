@@ -46,6 +46,7 @@ model User {
   MobilityRecord  MobilityRecord[]
   NutritionRecord MealRecord[]
 
+  TreeRecord TreeRecord[]
   @@map("users")
 }
 
@@ -120,4 +121,16 @@ model MealRecord {
   userId    String
   name      String
   co2       Float
+}
+
+model TreeRecord {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  diameter  Float
+  height    Float
+  latitude  Float
+  longitude Float
 }
