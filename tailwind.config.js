@@ -17,6 +17,13 @@ module.exports = {
           light: colors.red[200],
           lightest: colors.red[100]
         },
+        tree: {
+          darkest: colors.green[900],
+          dark: colors.green[600],
+          DEFAULT: colors.green[400],
+          light: colors.green[200],
+          lightest: colors.green[100]
+        },
         mobility: {
           darkest: '#1f2d3d',
           dark: '#3c4858',

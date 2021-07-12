@@ -1,13 +1,244 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import SectionHeader from '../../components/SectionHeader';
+import { useGeolocation } from 'react-use';
+import ReactMapGL, { GeolocateControl, Marker } from 'react-map-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import { Coordinate } from 'react-map-gl/src/components/draggable-control';
+import Image from 'next/image';
+import { TrashIcon } from '@heroicons/react/outline';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+
+interface TreeMarker {
+  id: string;
+  position: Coordinate;
+  diameter: number;
+  height: number;
+}
+
+const geolocateControlStyle = {
+  right: 10,
+  top: 10
+};
 
 const WaldBaum: React.FC = () => {
+  const [viewport, setViewport] = useState({
+    width: '100%',
+    height: 400,
+    latitude: 52,
+    longitude: 9,
+    zoom: 5
+  });
+
+  const [markers, setMarkers] = useState<TreeMarker[]>([]);
+  const { register, watch, handleSubmit } = useForm<any>();
+
+  const geolocation = useGeolocation();
+
+  const addMarker = () => {
+    const position = geolocation.latitude ? geolocation : viewport;
+
+    setMarkers([
+      ...markers,
+      {
+        id: String(markers.length),
+        position: [position.longitude, position.latitude],
+        diameter: 0,
+        height: 0
+      }
+    ]);
+  };
+
+  const removeMarker = (id: string) => {
+    setMarkers(markers.filter(m => m.id !== id));
+  };
+
+  interface IUpdateMarkerArgs {
+    lngLat?: Coordinate;
+    diameter?: number;
+    height?: number;
+  }
+  const updateMarker = (
+    id: String,
+    { lngLat, diameter, height }: IUpdateMarkerArgs
+  ) => {
+    const newMarkers = markers.map(m => {
+      if (m.id === id) {
+        return {
+          ...m,
+          position: lngLat || m.position,
+          diameter,
+          height
+        };
+      }
+      return m;
+    });
+    setMarkers(newMarkers);
+  };
+
+  const onSubmit = async data => {
+    // setUploadLoading(true);
+    console.log(data);
+    try {
+      const formData = new FormData();
+
+      markers.forEach(m => {
+        formData.append(`tree_${m.id}_latitude`, String(m.position[1]));
+        formData.append(`tree_${m.id}_longitude`, String(m.position[0]));
+        formData.append(`tree_${m.id}_diameter`, data[`tree_${m.id}_diameter`]);
+        formData.append(`tree_${m.id}_height`, data[`tree_${m.id}_height`]);
+      });
+
+      // for (let key in data) {
+      //   if (data.hasOwnProperty(key)) {
+      //     formData.append(key, data[key]);
+      //   }
+      // }
+
+      console.log(formData);
+
+      const response = await fetch('/api/tree', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        toast.success('Datensatz erfolgreich hochgeladen');
+      } else {
+        toast.error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // setUploadLoading(false);
+    }
+  };
+
   return (
     <Layout>
       <div className="page text-center">
         <SectionHeader color="green" text="Wald & Bäume" />
-        <main className="mt-20"></main>
+        <main className="mt-20">
+          <div className="shadow overflow-hidden border-gray-200 rounded-lg">
+            <ReactMapGL
+              {...viewport}
+              onViewportChange={nextViewport => setViewport(nextViewport)}
+              mapStyle={{
+                version: 8,
+                metadata: {
+                  'mapbox:autocomposite': true,
+                  'mapbox:type': 'template'
+                },
+                sources: {
+                  'raster-tiles': {
+                    type: 'raster',
+                    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                    tileSize: 256
+                  }
+                },
+                layers: [
+                  {
+                    id: 'simple-tiles',
+                    type: 'raster',
+                    source: 'raster-tiles',
+                    minzoom: 0,
+                    maxzoom: 22
+                  }
+                ]
+              }}
+            >
+              <GeolocateControl
+                style={geolocateControlStyle}
+                positionOptions={{ enableHighAccuracy: true }}
+                auto
+              />
+              {markers.map(m => (
+                <Marker
+                  key={m.id}
+                  latitude={m.position[1]}
+                  longitude={m.position[0]}
+                  offsetLeft={-20}
+                  offsetTop={-40}
+                  draggable
+                  onDragEnd={evt => updateMarker(m.id, { lngLat: evt.lngLat })}
+                >
+                  <Image
+                    draggable={false}
+                    src="/images/tree-marker.svg"
+                    width={40}
+                    height={40}
+                  ></Image>
+                </Marker>
+              ))}
+            </ReactMapGL>
+          </div>
+          <div className="m-4">
+            <form
+              className="p-4 max-w-xl m-auto"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              {markers.map((m, i) => (
+                <div key={m.id} className="flex items-center content-center">
+                  {/* <p>Baum {i + 1}</p> */}
+                  <div className="flex-grow flex items-center content-center">
+                    <Image
+                      className="shadow"
+                      draggable={false}
+                      src="/images/tree-marker.svg"
+                      width={40}
+                      height={40}
+                    ></Image>
+                    <div className="flex flex-col m-auto">
+                      <label className="text-gray-600">Durchmesser in cm</label>
+                      <input
+                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
+                        type="number"
+                        step="any"
+                        name={`tree_${i}_diameter`}
+                        defaultValue={0}
+                        min={0}
+                        {...register(`tree_${m.id}_diameter`, { min: 0 })}
+                      />
+                    </div>
+                    <div className="flex flex-col m-auto">
+                      <label className="text-gray-600">Höhe in m</label>
+                      <input
+                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
+                        type="number"
+                        step="any"
+                        name={`tree_${i}_height`}
+                        defaultValue={0}
+                        min={0}
+                        {...register(`tree_${m.id}_height`, { min: 0 })}
+                      />
+                    </div>
+                  </div>
+                  <button
+                    className="w-8 h-8 text-tree-darkest bg-tree-lightest px-2 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-tree-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                    type="button"
+                    onClick={() => removeMarker(m.id)}
+                  >
+                    <TrashIcon className="w-4"></TrashIcon>
+                  </button>
+                </div>
+              ))}
+              <button
+                className="m-4 text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-tree focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={() => addMarker()}
+              >
+                + Baum hinzufügen
+              </button>
+              <button
+                className="m-4 w-full text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Speichern
+              </button>
+            </form>
+          </div>
+        </main>
       </div>
     </Layout>
   );
