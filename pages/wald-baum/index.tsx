@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { TrashIcon } from '@heroicons/react/outline';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 interface TreeMarker {
   id: string;
@@ -120,7 +121,12 @@ const WaldBaum: React.FC = () => {
       <div className="page text-center">
         <SectionHeader color="green" text="Wald & Bäume" />
         <main className="mt-20">
-          <div className="shadow overflow-hidden border-gray-200 rounded-lg">
+          <Link href={'/wald-baum/my'}>
+            <a className="text-tree-darkest bg-tree-light px-4 py-2 m-4 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline">
+              Meine Datensätze
+            </a>
+          </Link>
+          <div className="shadow overflow-hidden border-gray-200 rounded-lg mt-4">
             <ReactMapGL
               {...viewport}
               onViewportChange={nextViewport => setViewport(nextViewport)}
