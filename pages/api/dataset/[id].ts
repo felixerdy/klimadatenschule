@@ -20,6 +20,7 @@ const convertJsonToCsv = async json => {
 };
 
 const buildResponse = async (res: NextApiResponse, data, format: string) => {
+  // https://github.com/vercel/next.js/discussions/15453
   res.setHeader(
     'content-disposition',
     `attachment; filename=nutrition.${format}`
@@ -48,10 +49,6 @@ export default async function handle(
   const format = req.query.format as string;
 
   if (req.method === 'GET') {
-    // https://github.com/vercel/next.js/discussions/15453
-    res.setHeader('content-disposition', 'attachment; filename=nutrition.csv');
-    res.setHeader('Content-Type', 'text/csv');
-
     switch (datasetId) {
       case 'nutrition':
         const nutritionData = await prisma.mealRecord.findMany({
