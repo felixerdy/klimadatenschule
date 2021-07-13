@@ -30,6 +30,13 @@ module.exports = {
           DEFAULT: '#c0ccda',
           light: '#e0e6ed',
           lightest: '#f9fafc'
+        },
+        paper: {
+          darkest: colors.blue[900],
+          dark: colors.blue[600],
+          DEFAULT: colors.blue[400],
+          light: colors.blue[200],
+          lightest: colors.blue[100]
         }
       }
     }
