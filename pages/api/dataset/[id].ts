@@ -74,6 +74,31 @@ export default async function handle(
           }
         });
         return buildResponse(res, mobilityData, format);
+      case 'tree':
+        const treeData = await prisma.treeRecord.findMany({
+          select: {
+            diameter: true,
+            height: true,
+            latitude: true,
+            longitude: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        });
+        return buildResponse(res, treeData, format);
+      case 'paper':
+        const paperData = await prisma.paperRecord.findMany({
+          select: {
+            a4: true,
+            a5: true,
+            a6: true,
+            collegeblock: true,
+            zeichenmappe: true,
+            createdAt: true,
+            updatedAt: true
+          }
+        });
+        return buildResponse(res, paperData, format);
       default:
         break;
     }

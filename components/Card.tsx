@@ -51,21 +51,17 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
 
   return (
     <div
-      className={`w-full rounded-2xl shadow-lg cursor-pointer group bg-gradient-to-br from-${dataset}-lightest to-${dataset}-light`}
+      className={`w-full rounded-2xl overflow-hidden shadow-lg group bg-gradient-to-br from-${dataset}-lightest to-${dataset}-light`}
     >
       <div className="flex">
-        <div className="flex-none w-48 relative">
-          <img
-            src={`/images/${image}.png`}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+        <div className="flex-none w-48 relative flex items-center">
+          <img src={`/images/kds-icon-${image}.png`} alt="" className="p-4" />
         </div>
         <form className="flex-auto p-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap">
             <h1 className="flex-auto text-xl font-semibold">{title}</h1>
             <div className="text-xl font-semibold text-gray-500">
-              {entries} Einträge
+              {entries} {entries !== 1 ? 'Einträge' : 'Eintrag'}
             </div>
           </div>
           <div className="flex items-baseline mt-4 mb-6">
@@ -96,7 +92,7 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
           <div className="flex space-x-3 mb-4 text-sm font-medium mt-10">
             <div className="flex-auto flex space-x-3">
               <button
-                className="w-full text-blue-900 bg-blue-200 px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-blue-300 focus:bg-gray focus:outline-none focus:shadow-outline"
+                className={`w-full text-${dataset}-darkest bg-${dataset}-lightest px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-${dataset} focus:bg-gray focus:outline-none focus:shadow-outline`}
                 type="submit"
               >
                 Download

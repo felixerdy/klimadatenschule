@@ -11,6 +11,8 @@ import { DatasetProps } from '../../components/Post';
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const mealCount = await prisma.mealRecord.count();
   const mobilityCount = await prisma.mobilityRecord.count();
+  const treeCount = await prisma.treeRecord.count();
+  const paperCount = await prisma.paperRecord.count();
   const datasets = await prisma.dataset.findMany({
     include: {
       publisher: {
@@ -20,7 +22,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   });
 
   return {
-    props: { datasets: datasets, mealCount, mobilityCount }
+    props: {
+      datasets: datasets,
+      mealCount,
+      mobilityCount,
+      treeCount,
+      paperCount
+    }
   };
 };
 
@@ -28,6 +36,8 @@ type Props = {
   datasets: DatasetProps[];
   mealCount: number;
   mobilityCount: number;
+  treeCount: number;
+  paperCount: number;
 };
 
 const Drafts: React.FC<Props> = props => {
@@ -38,10 +48,24 @@ const Drafts: React.FC<Props> = props => {
         <main className="mt-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card
+              dataset="tree"
+              title="Wald & Bäume"
+              entries={props.treeCount}
+              image="tree"
+            />
+            <Card
               dataset="nutrition"
               title="Ernährung"
               entries={props.mealCount}
               image="nutrition"
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <Card
+              dataset="paper"
+              title="Papier"
+              entries={props.paperCount}
+              image="paper"
             />
             <Card
               dataset="mobility"
