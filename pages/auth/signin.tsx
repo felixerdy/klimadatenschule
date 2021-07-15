@@ -31,19 +31,19 @@ const SignIn: React.FC<Props> = ({ providers }) => {
                     >
                       Login mit E-Mail & Passwort
                     </button>
-                    <p className="mt-2 mb-4">
+                    {/* <p className="mt-2 mb-4">
                       <b>ODER</b>
-                    </p>
+                    </p> */}
                   </>
                 )}
-                {provider.id !== 'fusionauth' && (
+                {/* {provider.id !== 'fusionauth' && (
                   <button
                     className="bg-transparent border border-solid border-black hover:bg-black hover:text-white active:bg-black font-semibold px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-2 ease-linear transition-all duration-150"
                     onClick={() => signIn(provider.id)}
                   >
                     Login mit {provider.name}
                   </button>
-                )}
+                )} */}
               </div>
             ))}
           </>

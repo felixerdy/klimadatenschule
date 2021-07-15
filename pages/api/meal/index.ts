@@ -33,7 +33,8 @@ export default async function handle(
             const index = parseInt(f.toString().match(/\d+/g)[0]);
             return {
               name: fields[f],
-              co2: Number(fields[`meal_${index}_co2`])
+              co2: Number(fields[`meal_${index}_co2`]),
+              count: Number(fields[`meal_${index}_count`])
             };
           });
 

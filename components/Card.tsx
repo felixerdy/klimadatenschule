@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -17,6 +17,46 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
   const { register, handleSubmit } = useForm<Inputs>();
   const downloadRef = useRef(null);
 
+  const [fromColor, setFromColor] = useState('from-blue-100');
+  const [toColor, setToColor] = useState('to-blue-300');
+  const [textColor, setTextColor] = useState('text-blue-900');
+  const [bgColor, setBgColor] = useState('bg-blue-100');
+  const [bgColorHover, setBgColorHover] = useState('bg-blue');
+
+  useEffect(() => {
+    // https://tailwindcss.com/docs/optimizing-for-production#writing-purgeable-html
+    switch (dataset) {
+      case 'tree':
+        setFromColor(`from-tree-lightest`);
+        setToColor(`to-tree-light`);
+        setTextColor(`text-tree-darkest`);
+        setBgColor(`bg-tree-lightest`);
+        setBgColorHover(`bg-tree`);
+        break;
+      case 'paper':
+        setFromColor(`from-paper-lightest`);
+        setToColor(`to-paper-light`);
+        setTextColor(`text-paper-darkest`);
+        setBgColor(`bg-paper-lightest`);
+        setBgColorHover(`bg-paper`);
+        break;
+      case 'mobility':
+        setFromColor(`from-mobility-lightest`);
+        setToColor(`to-mobility-light`);
+        setTextColor(`text-mobility-darkest`);
+        setBgColor(`bg-mobility-lightest`);
+        setBgColorHover(`bg-mobility`);
+        break;
+      case 'nutrition':
+        setFromColor(`from-nutrition-lightest`);
+        setToColor(`to-nutrition-light-light`);
+        setTextColor(`text-nutrition-darkest`);
+        setBgColor(`bg-nutrition-lightest`);
+        setBgColorHover(`bg-nutrition`);
+        break;
+    }
+  }, [dataset]);
+
   const onSubmit = async (data: Inputs) => {
     try {
       const response = await fetch(
@@ -32,7 +72,10 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
       link.href = url;
       link.setAttribute(
         'download',
-        `${dataset}-${new Date().toLocaleDateString()}.${data.format}`
+        `${dataset}_${new Date()
+          .toISOString()
+          .slice(0, 10)
+          .replaceAll('-', '_')}.${data.format}`
       );
       link.click();
       link.href = '';
@@ -51,7 +94,7 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
 
   return (
     <div
-      className={`w-full rounded-2xl overflow-hidden shadow-lg group bg-gradient-to-br from-${dataset}-lightest to-${dataset}-light`}
+      className={`w-full rounded-2xl overflow-hidden shadow-lg group bg-gradient-to-br ${fromColor} ${toColor}`}
     >
       <div className="flex">
         <div className="flex-none w-48 relative flex items-center">
@@ -85,14 +128,14 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
                   value="json"
                   {...register('format')}
                 />
-                <span className="ml-2">Json</span>
+                <span className="ml-2">JSON</span>
               </label>
             </div>
           </div>
           <div className="flex space-x-3 mb-4 text-sm font-medium mt-10">
             <div className="flex-auto flex space-x-3">
               <button
-                className={`w-full text-${dataset}-darkest bg-${dataset}-lightest px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-${dataset} focus:bg-gray focus:outline-none focus:shadow-outline`}
+                className={`w-full ${textColor} ${bgColor} px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:${bgColorHover} focus:bg-gray focus:outline-none focus:shadow-outline`}
                 type="submit"
               >
                 Download

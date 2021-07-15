@@ -124,7 +124,7 @@ const Header: React.FC = () => {
             </a>
           </Link>
           <NavButtonLink href="/dataset" text="Datensätze" />
-          <NavButtonLink href="/tools" text="Werkzeuge" />
+          {/* <NavButtonLink href="/tools" text="Werkzeuge" /> */}
           {session ? (
             <div className="relative inline-block text-left z-10">
               <Dropdown></Dropdown>

@@ -107,7 +107,9 @@ const Ernaehrung: React.FC = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <label className="text-gray-600 font-bold">CO2</label>
+                      <label className="text-gray-600 font-bold">
+                        CO2 in kg
+                      </label>
                       <input
                         className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
                         type="number"
@@ -116,6 +118,20 @@ const Ernaehrung: React.FC = () => {
                         defaultValue={0}
                         min={0}
                         {...register(`meal_${i}_co2`, { min: 0 })}
+                      />
+                    </div>
+                    <div className="flex flex-col">
+                      <label className="text-gray-600 font-bold">
+                        Anzahl der Gerichte
+                      </label>
+                      <input
+                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
+                        type="number"
+                        step="any"
+                        name={`meal_${i}_count`}
+                        defaultValue={1}
+                        min={1}
+                        {...register(`meal_${i}_count`, { min: 1 })}
                       />
                     </div>
                     {meals > 1 && <hr className="my-4"></hr>}

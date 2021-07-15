@@ -20,6 +20,17 @@ const convertJsonToCsv = async json => {
 };
 
 const buildResponse = async (res: NextApiResponse, data, format: string) => {
+  const resData = data.map(e => {
+    const obj = {
+      ...e,
+      school: e.user.organisation.name
+    };
+
+    delete obj.user;
+
+    return obj;
+  });
+
   // https://github.com/vercel/next.js/discussions/15453
   res.setHeader(
     'content-disposition',
@@ -28,12 +39,12 @@ const buildResponse = async (res: NextApiResponse, data, format: string) => {
   switch (format) {
     case 'csv':
       res.setHeader('Content-Type', 'text/csv');
-      const csv: string = await convertJsonToCsv(data);
+      const csv: string = await convertJsonToCsv(resData);
       res.send(csv);
       break;
     case 'json':
       res.setHeader('Content-Type', 'application/json');
-      res.send(data);
+      res.send(resData);
       break;
     default:
       break;
@@ -48,6 +59,16 @@ export default async function handle(
   const datasetId = req.query.id as string;
   const format = req.query.format as string;
 
+  const user = {
+    select: {
+      organisation: {
+        select: {
+          name: true
+        }
+      }
+    }
+  };
+
   if (req.method === 'GET') {
     switch (datasetId) {
       case 'nutrition':
@@ -56,7 +77,8 @@ export default async function handle(
             name: true,
             co2: true,
             createdAt: true,
-            updatedAt: true
+            updatedAt: true,
+            user
           }
         });
         return buildResponse(res, nutritionData, format);
@@ -70,7 +92,8 @@ export default async function handle(
             fahrrad: true,
             fuss: true,
             createdAt: true,
-            updatedAt: true
+            updatedAt: true,
+            user
           }
         });
         return buildResponse(res, mobilityData, format);
@@ -82,7 +105,8 @@ export default async function handle(
             latitude: true,
             longitude: true,
             createdAt: true,
-            updatedAt: true
+            updatedAt: true,
+            user
           }
         });
         return buildResponse(res, treeData, format);
@@ -95,7 +119,8 @@ export default async function handle(
             collegeblock: true,
             zeichenmappe: true,
             createdAt: true,
-            updatedAt: true
+            updatedAt: true,
+            user
           }
         });
         return buildResponse(res, paperData, format);

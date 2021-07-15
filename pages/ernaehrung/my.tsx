@@ -32,6 +32,7 @@ type MealRecord = {
   userId: string;
   name: string;
   co2: number;
+  count: number;
 };
 
 type Props = {
@@ -88,7 +89,10 @@ const MyMealRecords: React.FC<Props> = props => {
                                   Name
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  CO2
+                                  CO2 in kg
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Anzahl der Gerichte
                                 </th>
                               </tr>
                             </thead>
@@ -99,6 +103,9 @@ const MyMealRecords: React.FC<Props> = props => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   {r.co2}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  {r.count}
                                 </td>
                               </tr>
                             </tbody>
