@@ -112,6 +112,7 @@ model MobilityRecord {
   ubahn     Float
   fahrrad   Float
   fuss      Float
+  timestamp DateTime @default(now())
 }
 
 model MealRecord {

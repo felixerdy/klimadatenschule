@@ -73,6 +73,7 @@ const Mobilitaet: React.FC = () => {
       formData.append('ubahn', data.ubahn);
       formData.append('fahrrad', data.fahrrad);
       formData.append('fuss', data.fuss);
+      formData.append('timestamp', data.timestamp);
 
       const response = await fetch('/api/mobility', {
         method: 'POST',
@@ -110,22 +111,23 @@ const Mobilitaet: React.FC = () => {
           </InfoBox>
 
           <h1 className="text-xl">
-            Wie viele Kilometer bist du in dieser Woche mit welchem
-            Verkehrsmittel zur Schule gefahren?
+            Wie viele <span className="font-bold">Kilometer</span> bist du mit
+            welchem Verkehrsmittel zur Schule gefahren? Achte darauf, dass du
+            den Hin- und Rückweg berechnest.
           </h1>
           <form
             className="p-4 max-w-xl m-auto"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* <label className="text-gray-600 font-medium">Zeitpunkt</label>
+            <label className="text-gray-600 font-medium">Tag</label>
             <input
               className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-              type="datetime-local"
+              type="date"
               name={'timestamp'}
-              // defaultValue={new Date().toJSON().slice(0, 19)}
+              defaultValue={new Date().toJSON().slice(0, 10)}
               autoFocus
               {...register('timestamp')}
-            /> */}
+            />
 
             {Mobilities.map(m => (
               <React.Fragment key={m.title}>

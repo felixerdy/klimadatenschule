@@ -30,6 +30,7 @@ export default async function handle(
             ubahn: Number(fields.ubahn),
             fuss: Number(fields.fuss),
             fahrrad: Number(fields.fahrrad),
+            timestamp: new Date(fields.timestamp),
             user: { connect: { email: token?.email } }
           }
         });
