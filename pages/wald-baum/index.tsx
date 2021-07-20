@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import SectionHeader from '../../components/SectionHeader';
 import { useGeolocation } from 'react-use';
-import ReactMapGL, { GeolocateControl, Marker } from 'react-map-gl';
+import ReactMapGL, { GeolocateControl, Marker, Popup } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Coordinate } from 'react-map-gl/src/components/draggable-control';
 import Image from 'next/image';
@@ -10,6 +10,9 @@ import { TrashIcon } from '@heroicons/react/outline';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import prisma from '../../lib/prisma';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/client';
 
 interface TreeMarker {
   id: string;
@@ -23,7 +26,30 @@ const geolocateControlStyle = {
   top: 10
 };
 
-const WaldBaum: React.FC = () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const records = await prisma.treeRecord.findMany({
+    select: {
+      diameter: true,
+      height: true,
+      latitude: true,
+      longitude: true,
+      id: true
+    }
+  });
+
+  const trees: TreeMarker[] = records.map(t => ({
+    id: t.id,
+    position: [t.longitude, t.latitude],
+    diameter: t.diameter,
+    height: t.height
+  }));
+
+  return {
+    props: { trees }
+  };
+};
+
+const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   const [viewport, setViewport] = useState({
     width: '100%',
     height: 400,
@@ -36,6 +62,7 @@ const WaldBaum: React.FC = () => {
   const { register, watch, handleSubmit } = useForm<any>();
 
   const geolocation = useGeolocation();
+  const [popupInfo, setPopupInfo] = useState<TreeMarker>(null);
 
   const addMarker = () => {
     const position = geolocation.latitude ? geolocation : viewport;
@@ -159,6 +186,25 @@ const WaldBaum: React.FC = () => {
                 positionOptions={{ enableHighAccuracy: true }}
                 auto
               />
+
+              {trees.map(m => (
+                <Marker
+                  key={m.id}
+                  latitude={m.position[1]}
+                  longitude={m.position[0]}
+                  offsetLeft={-20}
+                  offsetTop={-40}
+                >
+                  <Image
+                    className="filter grayscale"
+                    draggable={false}
+                    src="/images/tree-marker.svg"
+                    width={40}
+                    height={40}
+                    onClick={() => setPopupInfo(m)}
+                  ></Image>
+                </Marker>
+              ))}
               {markers.map(m => (
                 <Marker
                   key={m.id}
@@ -177,6 +223,22 @@ const WaldBaum: React.FC = () => {
                   ></Image>
                 </Marker>
               ))}
+              {popupInfo && (
+                <Popup
+                  tipSize={5}
+                  anchor="bottom"
+                  offsetTop={-40}
+                  longitude={popupInfo.position[0]}
+                  latitude={popupInfo.position[1]}
+                  closeOnClick={false}
+                  onClose={setPopupInfo}
+                >
+                  <div className="p-1">
+                    <p>Umfang: {popupInfo.diameter} cm</p>
+                    <p>Höhe: {popupInfo.height} m</p>
+                  </div>
+                </Popup>
+              )}
             </ReactMapGL>
           </div>
           <div className="m-4">
