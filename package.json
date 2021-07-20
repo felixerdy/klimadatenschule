@@ -24,6 +24,7 @@
     "@heroicons/react": "^1.0.1",
     "@prisma/client": "^2.25.0",
     "@tailwindcss/typography": "^0.4.1",
+    "@webeetle/windy": "^0.8.5",
     "apexcharts": "^3.27.1",
     "aws-sdk": "^2.884.0",
     "axios": "^0.21.1",
