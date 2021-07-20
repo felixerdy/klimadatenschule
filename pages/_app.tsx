@@ -17,6 +17,7 @@ import Layout from '../components/Layout';
 import Footer from '../components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { WindyProvider } from '@webeetle/windy';
 
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
@@ -41,18 +42,23 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <Provider session={pageProps.session}>
-      <Head>
-        <title>KlimaDatenSchule WebApp</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <Header />
-      <ToastContainer position="top-right"></ToastContainer>
-      <Transition location={router.pathname}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-        <Footer></Footer>
-      </Transition>
+      <WindyProvider>
+        <Head>
+          <title>KlimaDatenSchule WebApp</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
+        <Header />
+        <ToastContainer position="top-right"></ToastContainer>
+        <Transition location={router.pathname}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+          <Footer></Footer>
+        </Transition>
+      </WindyProvider>
     </Provider>
   );
 };
