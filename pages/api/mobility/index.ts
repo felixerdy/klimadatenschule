@@ -22,6 +22,7 @@ export default async function handle(
     try {
       const form = new formidable.IncomingForm();
       form.parse(req, async (err, fields, files) => {
+        const timestamp = new Date(fields.timestamp);
         const result = await prisma.mobilityRecord.create({
           data: {
             pkw: Number(fields.pkw),
@@ -30,7 +31,7 @@ export default async function handle(
             ubahn: Number(fields.ubahn),
             fuss: Number(fields.fuss),
             fahrrad: Number(fields.fahrrad),
-            timestamp: new Date(fields.timestamp),
+            timestamp,
             user: { connect: { email: token?.email } }
           }
         });
