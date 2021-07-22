@@ -26,11 +26,7 @@ const CompleteSignup: React.FC<Props> = props => {
     if (!(session || loading)) {
       router.push('/api/auth/signin');
     }
-  }, [session, loading]);
-
-  if (!(session || loading)) {
-    return <p>Redirecting...</p>;
-  }
+  }, [session, loading, router]);
 
   const {
     register,
@@ -38,6 +34,10 @@ const CompleteSignup: React.FC<Props> = props => {
     watch,
     formState: { errors }
   } = useForm();
+
+  if (!(session || loading)) {
+    return <p>Redirecting...</p>;
+  }
 
   const onSubmit = async data => {
     console.log(data);

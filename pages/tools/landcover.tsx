@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import ReactMapGL from 'react-map-gl';
+import Image from 'next/image';
+
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const Landcover: React.FC = () => {
@@ -67,10 +69,11 @@ const Landcover: React.FC = () => {
                 }}
               />
             </div>
-            <img
+            <Image
               className="flex-initial"
               src="https://sgx.geodatenzentrum.de/wms_clc5_2018?styles=&layer=clc5&service=WMS&format=image/png&sld_version=1.1.0&request=GetLegendGraphic&version=1.1.1&"
-            ></img>
+              alt="legend"
+            ></Image>
           </div>
         </main>
       </div>
