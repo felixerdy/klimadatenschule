@@ -5,7 +5,6 @@ import InfoBox from '../../components/InfoBox';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import Router from 'next/dist/next-server/server/router';
 import { Column, useTable } from 'react-table';
 
 type Inputs = {
@@ -69,7 +68,19 @@ const toCO2 = (gram: number, type: MobilityType): number => {
 };
 
 const Mobilitaet: React.FC = () => {
-  const { register, watch, handleSubmit } = useForm<Inputs>();
+  // Set defaultValues to render table on page load
+  // First render of watch will return undefined because it is called before register
+  // https://react-hook-form.com/api/useform/watch
+  const { register, watch, handleSubmit } = useForm<Inputs>({
+    defaultValues: {
+      pkw: 0,
+      bahn: 0,
+      bus: 0,
+      ubahn: 0,
+      fahrrad: 0,
+      fuss: 0
+    }
+  });
 
   const [uploadLoading, setUploadLoading] = useState(false);
 
