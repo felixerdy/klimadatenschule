@@ -43,7 +43,7 @@ const Dropdown: React.FC = () => {
                 </p>
               </div>
 
-              <div className="py-1">
+              {/* <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
                     <Link href="/dataset/my">
@@ -70,7 +70,7 @@ const Dropdown: React.FC = () => {
                     </Link>
                   )}
                 </Menu.Item>
-              </div>
+              </div> */}
 
               <div className="py-1">
                 <Menu.Item>
@@ -86,6 +86,20 @@ const Dropdown: React.FC = () => {
                     </a>
                   )}
                 </Menu.Item>
+                {/* @ts-ignore */}
+                {session.user.role === 'ADMIN' && (
+                  <Menu.Item>
+                    {({ active }) => (
+                      <a
+                        className={`${
+                          active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                        } flex justify-between w-full px-4 py-2 text-sm leading-5 text-left`}
+                      >
+                        <Link href="/schaltzentrale">Schaltzentrale</Link>
+                      </a>
+                    )}
+                  </Menu.Item>
+                )}
                 <Menu.Item>
                   {({ active }) => (
                     <a
