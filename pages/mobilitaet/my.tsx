@@ -6,6 +6,7 @@ import prisma from '../../lib/prisma';
 import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
+import { Mobilities } from '.';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -37,47 +38,6 @@ type MobilityRecord = {
   fahrrad: number;
   fuss: number;
 };
-
-type MobilityType = 'pkw' | 'bahn' | 'bus' | 'ubahn' | 'fahrrad' | 'fuss';
-
-type MobilityDescription = {
-  type: MobilityType;
-  title: string;
-  thgpkm: number;
-};
-
-const Mobilities: MobilityDescription[] = [
-  {
-    type: 'pkw',
-    title: '🚙 PKW',
-    thgpkm: 143
-  },
-  {
-    type: 'bahn',
-    title: '🚂 Eisenbahn',
-    thgpkm: 55
-  },
-  {
-    type: 'bus',
-    title: '🚌 Bus',
-    thgpkm: 88
-  },
-  {
-    type: 'ubahn',
-    title: '🚋 S-Bahn / U-Bahn',
-    thgpkm: 55
-  },
-  {
-    type: 'fahrrad',
-    title: '🚴 Fahrrad',
-    thgpkm: 0
-  },
-  {
-    type: 'fuss',
-    title: '🚶 zu Fuß',
-    thgpkm: 0
-  }
-];
 
 type Props = {
   records: MobilityRecord[];

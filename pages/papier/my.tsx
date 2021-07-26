@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 import { PaperRecord } from '@prisma/client';
+import { PaperProducts } from '.';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -25,39 +26,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     props: { records }
   };
 };
-type PaperDescription = {
-  type: 'a4' | 'a5' | 'a6' | 'collegeblock' | 'zeichenmappe';
-  title: string;
-  thgpkm: number;
-};
-
-const PaperProducts: PaperDescription[] = [
-  {
-    type: 'a4',
-    title: 'Heft A4',
-    thgpkm: 143
-  },
-  {
-    type: 'a5',
-    title: 'Heft A5',
-    thgpkm: 55
-  },
-  {
-    type: 'a6',
-    title: 'Vokabelheft / Hausaufgabenheft A6',
-    thgpkm: 88
-  },
-  {
-    type: 'collegeblock',
-    title: 'Collegeblock',
-    thgpkm: 55
-  },
-  {
-    type: 'zeichenmappe',
-    title: 'Zeichenmappe A3',
-    thgpkm: 0
-  }
-];
 
 type Props = {
   records: PaperRecord[];

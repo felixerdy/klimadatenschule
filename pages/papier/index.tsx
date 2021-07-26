@@ -31,31 +31,31 @@ const toCO2 = (gram: number, type: PaperType): number => {
   );
 };
 
-const PaperProducts: PaperDescription[] = [
+export const PaperProducts: PaperDescription[] = [
   {
     type: 'a4',
     title: 'Heft A4',
-    thgpkm: 143
+    thgpkm: 0.1
   },
   {
     type: 'a5',
     title: 'Heft A5',
-    thgpkm: 55
+    thgpkm: 0.05
   },
   {
     type: 'a6',
     title: 'Vokabelheft / Hausaufgabenheft A6',
-    thgpkm: 88
+    thgpkm: 0.0025
   },
   {
     type: 'collegeblock',
     title: 'Collegeblock',
-    thgpkm: 55
+    thgpkm: 0.4
   },
   {
     type: 'zeichenmappe',
     title: 'Zeichenmappe A3',
-    thgpkm: 0
+    thgpkm: 0.2
   }
 ];
 
@@ -196,7 +196,7 @@ const Papier: React.FC = () => {
           </InfoBox>
 
           <h1 className="text-xl">
-            Wie viele Papierprodukte hast du in diesem Schuljahr genutzt?
+            Wie viele Papierprodukte hast du in diesem Halbjahr genutzt?
           </h1>
           <div className="flex items-center justify-evenly flex-col-reverse sm:flex-row">
             <form

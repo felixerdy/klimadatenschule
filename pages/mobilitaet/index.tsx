@@ -25,26 +25,27 @@ type MobilityDescription = {
   thgpkm: number;
 };
 
-const Mobilities: MobilityDescription[] = [
+// https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
+export const Mobilities: MobilityDescription[] = [
   {
     type: 'pkw',
     title: '🚙 PKW',
-    thgpkm: 143
+    thgpkm: 154
   },
   {
     type: 'bahn',
     title: '🚂 Eisenbahn',
-    thgpkm: 55
+    thgpkm: 54
   },
   {
     type: 'bus',
     title: '🚌 Bus',
-    thgpkm: 88
+    thgpkm: 83
   },
   {
     type: 'ubahn',
     title: '🚋 S-Bahn / U-Bahn',
-    thgpkm: 55
+    thgpkm: 54
   },
   {
     type: 'fahrrad',
