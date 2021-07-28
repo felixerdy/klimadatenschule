@@ -61,8 +61,6 @@ const MyPaperRecords: React.FC<Props> = props => {
   }
 
   const deleteRecord = async (record: PaperRecord) => {
-    console.log(record);
-
     try {
       const response = await fetch(`/api/paper/${record.id}`, {
         method: 'DELETE'
@@ -202,11 +200,13 @@ const MyPaperRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
-          <PaperModal
-            opened={opened}
-            record={selectedRecord}
-            closeModal={closeModal}
-          ></PaperModal>
+          {selectedRecord && (
+            <PaperModal
+              opened={opened}
+              record={selectedRecord}
+              closeModal={closeModal}
+            ></PaperModal>
+          )}
         </main>
       </div>
     </Layout>

@@ -200,11 +200,13 @@ const MyMobilityRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
-          <MobilityModal
-            opened={opened}
-            record={selectedRecord}
-            closeModal={closeModal}
-          ></MobilityModal>
+          {selectedRecord && (
+            <MobilityModal
+              opened={opened}
+              record={selectedRecord}
+              closeModal={closeModal}
+            ></MobilityModal>
+          )}
         </main>
       </div>
     </Layout>

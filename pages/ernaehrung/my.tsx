@@ -47,8 +47,6 @@ const MyMealRecords: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
-  console.log(props);
-
   function closeModal() {
     setSelectedRecord(null);
     setOpened(false);
@@ -199,11 +197,13 @@ const MyMealRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
-          <MealModal
-            opened={opened}
-            record={selectedRecord}
-            closeModal={closeModal}
-          ></MealModal>
+          {selectedRecord && (
+            <MealModal
+              opened={opened}
+              record={selectedRecord}
+              closeModal={closeModal}
+            ></MealModal>
+          )}
         </main>
       </div>
     </Layout>
