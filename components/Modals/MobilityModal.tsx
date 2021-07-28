@@ -1,26 +1,54 @@
 import React from 'react';
 import { Modal } from '@webeetle/windy';
-import { OrganisationType } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { IMobilityForm, MobilityDescription } from '../../types/mobility';
 
 interface ModalProps {
   opened: boolean;
   closeModal: (...args: any[]) => any;
 }
 
-interface ISchoolForm {
-  type: OrganisationType;
-  name: String;
-}
+export const Mobilities: MobilityDescription[] = [
+  {
+    type: 'pkw',
+    title: '🚙 PKW',
+    thgpkm: 154
+  },
+  {
+    type: 'bahn',
+    title: '🚂 Eisenbahn',
+    thgpkm: 54
+  },
+  {
+    type: 'bus',
+    title: '🚌 Bus',
+    thgpkm: 83
+  },
+  {
+    type: 'ubahn',
+    title: '🚋 S-Bahn / U-Bahn',
+    thgpkm: 54
+  },
+  {
+    type: 'fahrrad',
+    title: '🚴 Fahrrad',
+    thgpkm: 0
+  },
+  {
+    type: 'fuss',
+    title: '🚶 zu Fuß',
+    thgpkm: 0
+  }
+];
 
 const MobilityModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
   const router = useRouter();
 
-  const { register, handleSubmit } = useForm<ISchoolForm>();
+  const { register, handleSubmit } = useForm<IMobilityForm>();
 
-  const onSubmit: SubmitHandler<ISchoolForm> = async data => {
+  const onSubmit: SubmitHandler<IMobilityForm> = async data => {
     const response = await fetch('/api/organisation', {
       method: 'POST',
       body: JSON.stringify(data)
@@ -42,28 +70,30 @@ const MobilityModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
     >
       <div>
         <form className="p-4 max-w-xl m-auto" onSubmit={handleSubmit(onSubmit)}>
-          <label className="text-gray-600 font-medium">
-            Schule oder Organisation
-          </label>
-
-          <select
-            className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
-            name="organisation"
-            {...register('type', {
-              required: true
-            })}
-          >
-            <option value={OrganisationType.SCHOOL}>Schule</option>
-            <option value={OrganisationType.ORGANISATION}>Organisation</option>
-          </select>
-          <label className="text-gray-600 font-medium">Name</label>
+          <label className="text-gray-600 font-medium">Tag</label>
           <input
             className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-            type="type"
-            name={'name'}
+            type="date"
+            name={'timestamp'}
+            defaultValue={new Date().toJSON().slice(0, 10)}
             autoFocus
-            {...register('name')}
+            {...register('timestamp')}
           />
+
+          {Mobilities.map(m => (
+            <React.Fragment key={m.title}>
+              <label className="text-gray-600 font-medium">{m.title}</label>
+              <input
+                className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
+                type="number"
+                name={m.title}
+                defaultValue={0}
+                min={0}
+                max={1000}
+                {...register(m.type, { min: 0, max: 50 })}
+              />
+            </React.Fragment>
+          ))}
           <button
             type="submit"
             className="text-green-800 bg-green-200 px-4 py-2 mt-2  text-sm font-semibold rounded-lg hover:bg-green-100 focus:bg-blue focus:outline-none focus:shadow-outline"

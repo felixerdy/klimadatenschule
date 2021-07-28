@@ -6,24 +6,11 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { Column, useTable } from 'react-table';
-
-type Inputs = {
-  timestamp: Date;
-  pkw: number;
-  bahn: number;
-  bus: number;
-  ubahn: number;
-  fahrrad: number;
-  fuss: number;
-};
-
-type MobilityType = 'pkw' | 'bahn' | 'bus' | 'ubahn' | 'fahrrad' | 'fuss';
-
-type MobilityDescription = {
-  type: MobilityType;
-  title: string;
-  thgpkm: number;
-};
+import {
+  IMobilityForm,
+  MobilityDescription,
+  MobilityType
+} from '../../types/mobility';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -72,7 +59,7 @@ const Mobilitaet: React.FC = () => {
   // Set defaultValues to render table on page load
   // First render of watch will return undefined because it is called before register
   // https://react-hook-form.com/api/useform/watch
-  const { register, watch, handleSubmit } = useForm<Inputs>({
+  const { register, watch, handleSubmit } = useForm<IMobilityForm>({
     defaultValues: {
       pkw: 0,
       bahn: 0,
