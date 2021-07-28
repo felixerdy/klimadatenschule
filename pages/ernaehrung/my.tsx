@@ -50,6 +50,7 @@ const MyMealRecords: React.FC<Props> = props => {
   console.log(props);
 
   function closeModal() {
+    setSelectedRecord(null);
     setOpened(false);
   }
 

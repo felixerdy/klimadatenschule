@@ -35,6 +35,9 @@ type Props = {
 
 const MyPaperRecords: React.FC<Props> = props => {
   const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<PaperRecord | null>(
+    null
+  );
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -47,13 +50,13 @@ const MyPaperRecords: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
-  console.log(props);
-
   function closeModal() {
+    setSelectedRecord(null);
     setOpened(false);
   }
 
-  function openModal() {
+  function openModal(record) {
+    setSelectedRecord(record);
     setOpened(true);
   }
 
@@ -146,7 +149,7 @@ const MyPaperRecords: React.FC<Props> = props => {
                                       <button
                                         className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                                         type="button"
-                                        onClick={openModal}
+                                        onClick={() => openModal(r)}
                                       >
                                         <svg
                                           className="w-4 h-4 mr-2"
@@ -178,9 +181,9 @@ const MyPaperRecords: React.FC<Props> = props => {
                                           fill="currentColor"
                                         >
                                           <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                           />
                                         </svg>
                                         <span>Löschen</span>
@@ -199,7 +202,11 @@ const MyPaperRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
-          <PaperModal opened={opened} closeModal={closeModal}></PaperModal>
+          <PaperModal
+            opened={opened}
+            record={selectedRecord}
+            closeModal={closeModal}
+          ></PaperModal>
         </main>
       </div>
     </Layout>

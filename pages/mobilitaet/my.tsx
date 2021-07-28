@@ -51,6 +51,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
   console.log(props);
 
   function closeModal() {
+    setSelectedRecord(null);
     setOpened(false);
   }
 
@@ -60,8 +61,6 @@ const MyMobilityRecords: React.FC<Props> = props => {
   }
 
   const deleteRecord = async (record: MobilityRecord) => {
-    console.log(record);
-
     try {
       const response = await fetch(`/api/mobility/${record.id}`, {
         method: 'DELETE'
