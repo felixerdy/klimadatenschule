@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
+import MealModal from '../../components/Modals/MealModal';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -41,6 +42,7 @@ type Props = {
 };
 
 const MyMealRecords: React.FC<Props> = props => {
+  const [opened, setOpened] = useState(false);
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -54,6 +56,14 @@ const MyMealRecords: React.FC<Props> = props => {
   }
 
   console.log(props);
+
+  function closeModal() {
+    setOpened(false);
+  }
+
+  function openModal() {
+    setOpened(true);
+  }
 
   const deleteRecord = async (record: MealRecord) => {
     console.log(record);
@@ -142,7 +152,7 @@ const MyMealRecords: React.FC<Props> = props => {
                                       <button
                                         className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                                         type="button"
-                                        onClick={() => alert(r)}
+                                        onClick={openModal}
                                       >
                                         <svg
                                           className="w-4 h-4 mr-2"
@@ -195,6 +205,7 @@ const MyMealRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
+          <MealModal opened={opened} closeModal={closeModal}></MealModal>
         </main>
       </div>
     </Layout>

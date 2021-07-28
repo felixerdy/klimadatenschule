@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
@@ -8,6 +8,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { Mobilities } from '.';
 import { toast } from 'react-toastify';
+import MobilityModal from '../../components/Modals/MobilityModal';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -45,6 +46,7 @@ type Props = {
 };
 
 const MyMobilityRecords: React.FC<Props> = props => {
+  const [opened, setOpened] = useState(false);
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -58,6 +60,14 @@ const MyMobilityRecords: React.FC<Props> = props => {
   }
 
   console.log(props);
+
+  function closeModal() {
+    setOpened(false);
+  }
+
+  function openModal() {
+    setOpened(true);
+  }
 
   const deleteRecord = async (record: MobilityRecord) => {
     console.log(record);
@@ -148,7 +158,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
                                       <button
                                         className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                                         type="button"
-                                        onClick={() => alert(r)}
+                                        onClick={openModal}
                                       >
                                         <svg
                                           className="w-4 h-4 mr-2"
@@ -201,6 +211,10 @@ const MyMobilityRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
+          <MobilityModal
+            opened={opened}
+            closeModal={closeModal}
+          ></MobilityModal>
         </main>
       </div>
     </Layout>
