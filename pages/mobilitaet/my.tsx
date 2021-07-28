@@ -5,8 +5,9 @@ import { useSession, getSession } from 'next-auth/client';
 import prisma from '../../lib/prisma';
 import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/solid';
+import { ChevronUpIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { Mobilities } from '.';
+import { toast } from 'react-toastify';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -57,6 +58,24 @@ const MyMobilityRecords: React.FC<Props> = props => {
   }
 
   console.log(props);
+
+  const deleteRecord = async (record: MobilityRecord) => {
+    console.log(record);
+
+    try {
+      const response = await fetch(`/api/mobility/${record.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        toast.success('Datensatz erfolgreich gelöscht!');
+      } else {
+        toast.error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Layout>
@@ -115,6 +134,44 @@ const MyMobilityRecords: React.FC<Props> = props => {
                                 </tr>
                               ))}
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td>
+                                  <div
+                                    className="flex flex-1 px-6 py-4"
+                                    title="Datensatz editieren"
+                                  >
+                                    <div className="w-full text-center">
+                                      <button
+                                        className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                                        type="button"
+                                        onClick={() => alert('EDIT')}
+                                      >
+                                        <PencilIcon className="h-5 w-5 text-gray-500" />
+                                        <span>Editieren</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div
+                                    className="flex flex-1 px-6 py-4"
+                                    title="Datensatz editieren"
+                                  >
+                                    <div className="w-full text-center">
+                                      <button
+                                        className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                                        type="button"
+                                        onClick={() => deleteRecord(r)}
+                                      >
+                                        <TrashIcon className="h-5 w-5 text-gray-500" />
+                                        <span>Löschen</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tfoot>
                           </table>
                         </div>
                       </Disclosure.Panel>
