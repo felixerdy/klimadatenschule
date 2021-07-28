@@ -65,6 +65,9 @@ const MyMealRecords: React.FC<Props> = props => {
 
       if (response.ok) {
         toast.success('Datensatz erfolgreich gelöscht!');
+        // Refresh server side props
+        // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+        router.replace(router.asPath);
       } else {
         toast.error(`Error: ${response.statusText}`);
       }

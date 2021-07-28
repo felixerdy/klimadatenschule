@@ -68,7 +68,10 @@ const MyMobilityRecords: React.FC<Props> = props => {
       });
 
       if (response.ok) {
+        // Refresh server side props
+        // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
         toast.success('Datensatz erfolgreich gelöscht!');
+        router.replace(router.asPath);
       } else {
         toast.error(`Error: ${response.statusText}`);
       }
