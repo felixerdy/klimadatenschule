@@ -35,6 +35,7 @@ type Props = {
 
 const MyMobilityRecords: React.FC<Props> = props => {
   const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -53,7 +54,8 @@ const MyMobilityRecords: React.FC<Props> = props => {
     setOpened(false);
   }
 
-  function openModal() {
+  function openModal(record: MobilityRecord) {
+    setSelectedRecord(record);
     setOpened(true);
   }
 
@@ -146,7 +148,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
                                       <button
                                         className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                                         type="button"
-                                        onClick={openModal}
+                                        onClick={() => openModal(r)}
                                       >
                                         <svg
                                           className="w-4 h-4 mr-2"
@@ -201,6 +203,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
           </div>
           <MobilityModal
             opened={opened}
+            record={selectedRecord}
             closeModal={closeModal}
           ></MobilityModal>
         </main>
