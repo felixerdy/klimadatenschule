@@ -8,6 +8,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { toast } from 'react-toastify';
 import MealModal from '../../components/Modals/MealModal';
+import { MealRecord } from '../../types/meal';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -27,22 +28,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   };
 };
 
-type MealRecord = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
-  name: string;
-  co2: number;
-  count: number;
-};
-
 type Props = {
   records: MealRecord[];
 };
 
 const MyMealRecords: React.FC<Props> = props => {
   const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<MealRecord | null>(null);
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -61,7 +53,8 @@ const MyMealRecords: React.FC<Props> = props => {
     setOpened(false);
   }
 
-  function openModal() {
+  function openModal(record: MealRecord) {
+    setSelectedRecord(record);
     setOpened(true);
   }
 
@@ -152,7 +145,7 @@ const MyMealRecords: React.FC<Props> = props => {
                                       <button
                                         className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                                         type="button"
-                                        onClick={openModal}
+                                        onClick={() => openModal(r)}
                                       >
                                         <svg
                                           className="w-4 h-4 mr-2"
@@ -184,9 +177,9 @@ const MyMealRecords: React.FC<Props> = props => {
                                           fill="currentColor"
                                         >
                                           <path
-                                            fill-rule="evenodd"
+                                            fillRule="evenodd"
                                             d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                            clip-rule="evenodd"
+                                            clipRule="evenodd"
                                           />
                                         </svg>
                                         <span>Löschen</span>
@@ -205,7 +198,11 @@ const MyMealRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
-          <MealModal opened={opened} closeModal={closeModal}></MealModal>
+          <MealModal
+            opened={opened}
+            record={selectedRecord}
+            closeModal={closeModal}
+          ></MealModal>
         </main>
       </div>
     </Layout>
