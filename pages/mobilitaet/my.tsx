@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
@@ -7,6 +7,11 @@ import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/solid';
 import { Mobilities } from '.';
+import { toast } from 'react-toastify';
+import MobilityModal from '../../components/Modals/MobilityModal';
+// import { MobilityRecord } from '../../types/mobility';
+import DatasetActions from '../../components/DatasetActions';
+import { MobilityRecord } from '@prisma/client';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -26,24 +31,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   };
 };
 
-type MobilityRecord = {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
-  pkw: number;
-  bahn: number;
-  bus: number;
-  ubahn: number;
-  fahrrad: number;
-  fuss: number;
-};
-
 type Props = {
   records: MobilityRecord[];
 };
 
 const MyMobilityRecords: React.FC<Props> = props => {
+  const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -57,6 +51,35 @@ const MyMobilityRecords: React.FC<Props> = props => {
   }
 
   console.log(props);
+
+  function closeModal() {
+    setSelectedRecord(null);
+    setOpened(false);
+  }
+
+  function openModal(record: MobilityRecord) {
+    setSelectedRecord(record);
+    setOpened(true);
+  }
+
+  const deleteRecord = async (record: MobilityRecord) => {
+    try {
+      const response = await fetch(`/api/mobility/${record.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        // Refresh server side props
+        // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+        toast.success('Datensatz erfolgreich gelöscht!');
+        router.replace(router.asPath);
+      } else {
+        toast.error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Layout>
@@ -115,6 +138,17 @@ const MyMobilityRecords: React.FC<Props> = props => {
                                 </tr>
                               ))}
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colSpan={3}>
+                                  <DatasetActions
+                                    record={r}
+                                    deleteRecord={deleteRecord}
+                                    openRecord={openModal}
+                                  ></DatasetActions>
+                                </td>
+                              </tr>
+                            </tfoot>
                           </table>
                         </div>
                       </Disclosure.Panel>
@@ -124,6 +158,13 @@ const MyMobilityRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
+          {selectedRecord && (
+            <MobilityModal
+              opened={opened}
+              record={selectedRecord}
+              closeModal={closeModal}
+            ></MobilityModal>
+          )}
         </main>
       </div>
     </Layout>

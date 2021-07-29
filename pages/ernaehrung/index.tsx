@@ -7,11 +7,6 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { TrashIcon, ExternalLinkIcon } from '@heroicons/react/outline';
 
-type ErnaehrungInstance = {
-  co2: number;
-  units: number;
-};
-
 const Ernaehrung: React.FC = () => {
   const { register, watch, handleSubmit } = useForm<any>();
   const [uploadLoading, setUploadLoading] = useState(false);

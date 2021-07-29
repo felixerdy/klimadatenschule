@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import Layout from '../../components/Layout';
 import { useSession, getSession } from 'next-auth/client';
 import prisma from '../../lib/prisma';
 import { useRouter } from 'next/router';
 import { Disclosure, Transition } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/solid';
+import { ChevronUpIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid';
 import { PaperRecord } from '@prisma/client';
 import { PaperProducts } from '.';
+import { toast } from 'react-toastify';
+import PaperModal from '../../components/Modals/PaperModal';
+import DatasetActions from '../../components/DatasetActions';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -32,6 +35,10 @@ type Props = {
 };
 
 const MyPaperRecords: React.FC<Props> = props => {
+  const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<PaperRecord | null>(
+    null
+  );
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -44,7 +51,34 @@ const MyPaperRecords: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
-  console.log(props);
+  function closeModal() {
+    setSelectedRecord(null);
+    setOpened(false);
+  }
+
+  function openModal(record) {
+    setSelectedRecord(record);
+    setOpened(true);
+  }
+
+  const deleteRecord = async (record: PaperRecord) => {
+    try {
+      const response = await fetch(`/api/paper/${record.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        toast.success('Datensatz erfolgreich gelöscht!');
+        // Refresh server side props
+        // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+        router.replace(router.asPath);
+      } else {
+        toast.error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Layout>
@@ -103,6 +137,17 @@ const MyPaperRecords: React.FC<Props> = props => {
                                 </tr>
                               ))}
                             </tbody>
+                            <tfoot>
+                              <tr>
+                                <td colSpan={3}>
+                                  <DatasetActions
+                                    record={r}
+                                    deleteRecord={deleteRecord}
+                                    openRecord={openModal}
+                                  ></DatasetActions>
+                                </td>
+                              </tr>
+                            </tfoot>
                           </table>
                         </div>
                       </Disclosure.Panel>
@@ -112,6 +157,13 @@ const MyPaperRecords: React.FC<Props> = props => {
               </Disclosure>
             ))}
           </div>
+          {selectedRecord && (
+            <PaperModal
+              opened={opened}
+              record={selectedRecord}
+              closeModal={closeModal}
+            ></PaperModal>
+          )}
         </main>
       </div>
     </Layout>

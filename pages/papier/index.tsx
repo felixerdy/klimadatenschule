@@ -7,23 +7,7 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import Router from 'next/dist/next-server/server/router';
 import { Column, useTable } from 'react-table';
-
-type Inputs = {
-  timestamp?: Date;
-  a4: number;
-  a5: number;
-  a6: number;
-  collegeblock: number;
-  zeichenmappe: number;
-};
-
-type PaperType = 'a4' | 'a5' | 'a6' | 'collegeblock' | 'zeichenmappe';
-
-type PaperDescription = {
-  type: 'a4' | 'a5' | 'a6' | 'collegeblock' | 'zeichenmappe';
-  title: string;
-  thgpkm: number;
-};
+import { IPaperForm, PaperDescription, PaperType } from '../../types/paper';
 
 const toCO2 = (gram: number, type: PaperType): number => {
   return Number(
@@ -68,7 +52,7 @@ const Papier: React.FC = () => {
   // Set defaultValues to render table on page load
   // First render of watch will return undefined because it is called before register
   // https://react-hook-form.com/api/useform/watch
-  const { register, watch, handleSubmit } = useForm<Inputs>({
+  const { register, watch, handleSubmit } = useForm<IPaperForm>({
     defaultValues: {
       a4: 0,
       a5: 0,
@@ -80,7 +64,7 @@ const Papier: React.FC = () => {
 
   const [uploadLoading, setUploadLoading] = useState(false);
 
-  const onSubmit = async (data: Inputs) => {
+  const onSubmit = async (data: IPaperForm) => {
     setUploadLoading(true);
     try {
       const formData = new FormData();
