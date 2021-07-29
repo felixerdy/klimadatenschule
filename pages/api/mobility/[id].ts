@@ -11,7 +11,6 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const id = req.query.id as string;
-  const { pkw, bahn, bus, ubahn, fahrrad, fuss } = JSON.parse(req.body);
   const token = await jwt.getToken({ req, secret });
 
   if (token) {
@@ -31,6 +30,7 @@ export default async function handle(
       }
     } else if (id && req.method === 'POST') {
       try {
+        const { pkw, bahn, bus, ubahn, fahrrad, fuss } = JSON.parse(req.body);
         const result = await prisma.mobilityRecord.update({
           where: {
             id
