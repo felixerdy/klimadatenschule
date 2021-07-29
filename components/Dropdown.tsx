@@ -5,6 +5,14 @@ import { useSession, signOut, getSession } from 'next-auth/client';
 import Link from 'next/link';
 import React from 'react';
 
+const rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
+const getInitials = function getInitials(name) {
+  let initials = [...name.matchAll(rgx)] || [];
+  return (
+    (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+  ).toUpperCase();
+};
+
 const Dropdown: React.FC = () => {
   const [session, loading] = useSession();
 
@@ -13,13 +21,10 @@ const Dropdown: React.FC = () => {
       {({ open }) => (
         <>
           <span className="rounded-md shadow-sm">
-            <Menu.Button className="bg-gray-800 flex text-sm rounded-full ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-              <img
-                className="h-8 w-8 rounded-full"
-                referrerPolicy="no-referrer"
-                src={session.user.image}
-                alt=""
-              />
+            <Menu.Button className="h-10 w-10 bg-purple-400 flex text-sm rounded-full ml-4 focus:outline-none">
+              <span className="w-full h-full flex items-center justify-center text-white font-bold">
+                {getInitials(session.user.name)}
+              </span>
             </Menu.Button>
           </span>
 
