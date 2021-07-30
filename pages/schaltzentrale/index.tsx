@@ -33,7 +33,7 @@ const Schaltzentrale: React.FC<Props> = ({ organisations, users }) => {
     if (session && !loading && session.user?.role !== Role.ADMIN) {
       router.push('/');
     }
-  }, [session, loading]);
+  }, [session, loading, router]);
 
   const [opened, setOpened] = useState(false);
 
