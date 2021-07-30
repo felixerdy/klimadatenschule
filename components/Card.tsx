@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 type Inputs = {
   format: string;
@@ -97,8 +98,13 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
       className={`w-full rounded-2xl overflow-hidden shadow-lg group bg-gradient-to-br ${fromColor} ${toColor}`}
     >
       <div className="flex">
-        <div className="flex-none w-48 relative flex items-center">
-          <img src={`/images/kds-icon-${image}.png`} alt="" className="p-4" />
+        <div className="flex-none w-48 p-4 relative flex items-center">
+          <Image
+            src={`/images/kds-icon-${image}.png`}
+            alt=""
+            width="180"
+            height="180"
+          />
         </div>
         <form className="flex-auto p-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap">

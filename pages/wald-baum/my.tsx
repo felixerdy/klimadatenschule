@@ -120,6 +120,7 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                   offsetTop={-40}
                 >
                   <Image
+                    alt="Tree Marker"
                     draggable={false}
                     src="/images/tree-marker.svg"
                     width={40}

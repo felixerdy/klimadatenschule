@@ -196,6 +196,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                   offsetTop={-40}
                 >
                   <Image
+                    alt="Tree Marker"
                     className="filter grayscale"
                     draggable={false}
                     src="/images/tree-marker.svg"
@@ -216,6 +217,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                   onDragEnd={evt => updateMarker(m.id, { lngLat: evt.lngLat })}
                 >
                   <Image
+                    alt="Tree Marker"
                     draggable={false}
                     src="/images/tree-marker.svg"
                     width={40}
@@ -251,6 +253,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                   {/* <p>Baum {i + 1}</p> */}
                   <div className="flex-grow flex items-center content-center">
                     <Image
+                      alt="Tree Marker"
                       className="shadow"
                       draggable={false}
                       src="/images/tree-marker.svg"

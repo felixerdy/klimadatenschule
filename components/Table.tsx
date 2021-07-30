@@ -21,13 +21,8 @@ const Table = (props: TableProps) => {
     [props.data]
   );
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow
-  } = useTable({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   const chartTypes = ['line', 'bar'];
   const [chartType, setChartType] = useState<'line' | 'bar'>('bar');
@@ -41,10 +36,11 @@ const Table = (props: TableProps) => {
           className="min-w-full divide-y divide-gray-200"
         >
           <thead className="bg-gray-50">
-            {headerGroups.map(headerGroup => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map(column => (
+            {headerGroups.map((headerGroup, i) => (
+              <tr key={i} {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column, j) => (
                   <th
+                    key={j}
                     {...column.getHeaderProps()}
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
@@ -58,13 +54,14 @@ const Table = (props: TableProps) => {
             {...getTableBodyProps()}
             className="bg-white divide-y divide-gray-200"
           >
-            {rows.map(row => {
+            {rows.map((row, i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map(cell => {
+                <tr key={i} {...row.getRowProps()}>
+                  {row.cells.map((cell, j) => {
                     return (
                       <td
+                        key={j}
                         {...cell.getCellProps()}
                         className="px-6 py-4 whitespace-nowrap"
                       >

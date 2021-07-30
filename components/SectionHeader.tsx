@@ -43,7 +43,7 @@ const SectionHeader = React.memo<SectionHeaderProps>(
 
     if (button) {
       return (
-        <Link href={href}>
+        <Link href={href} passHref>
           <div
             className={`p-10 m-8 md:p-20 w-full rounded-2xl shadow-lg cursor-pointer group bg-gradient-to-br ${fromColor} ${toColor}`}
           >
@@ -66,5 +66,7 @@ const SectionHeader = React.memo<SectionHeaderProps>(
     );
   }
 );
+
+SectionHeader.displayName = 'SectionHeader';
 
 export default SectionHeader;
