@@ -6,7 +6,7 @@
     "dev": "NODE_OPTIONS='--inspect=0.0.0.0' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "prettier --check .",
+    "lint": "next lint",
     "format": "prettier --write .",
     "prepare": "husky install"
   },
@@ -55,6 +55,7 @@
     "babel-plugin-superjson-next": "^0.3.0",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
+    "eslint-config-prettier": "^8.3.0",
     "lint-staged": "^11.0.1",
     "postcss": "^8.3.5",
     "prettier": "^2.3.2",
