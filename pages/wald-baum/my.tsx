@@ -13,6 +13,9 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/client';
 import prisma from '../../lib/prisma';
 import { TreeRecord } from '@prisma/client';
+import { useRouter } from 'next/router';
+import TreeModal from '../../components/Modals/TreeModal';
+import DatasetActions from '../../components/DatasetActions';
 
 interface TreeMarker {
   id: string;
@@ -45,6 +48,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
+  const router = useRouter();
+  const [opened, setOpened] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState<TreeRecord | null>(null);
   const [viewport, setViewport] = useState({
     width: '100%',
     height: 400,
@@ -54,6 +60,38 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
   });
 
   const [popupInfo, setPopupInfo] = useState<TreeRecord>(null);
+
+  function closeModal() {
+    setSelectedRecord(null);
+    setOpened(false);
+  }
+
+  function openModal(record) {
+    setSelectedRecord(record);
+    setOpened(true);
+  }
+
+  const deleteRecord = async (record: TreeRecord) => {
+    try {
+      const response = await fetch(`/api/tree/${record.id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        toast.success('Datensatz erfolgreich gelöscht!');
+        // Refresh server side props
+        // https://www.joshwcomeau.com/nextjs/refreshing-server-side-props/
+        router.replace(router.asPath);
+
+        // Close Popup of deleted tree
+        setPopupInfo(null);
+      } else {
+        toast.error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Layout>
@@ -108,6 +146,13 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                     <p>Umfang: {popupInfo.diameter} cm</p>
                     <p>Höhe: {popupInfo.height} m</p>
                   </div>
+                  <div className="flex pt-2">
+                    <DatasetActions
+                      record={popupInfo}
+                      deleteRecord={deleteRecord}
+                      openRecord={openModal}
+                    ></DatasetActions>
+                  </div>
                 </Popup>
               )}
 
@@ -132,6 +177,13 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
             </ReactMapGL>
           </div>
         </main>
+        {selectedRecord && (
+          <TreeModal
+            opened={opened}
+            record={selectedRecord}
+            closeModal={closeModal}
+          ></TreeModal>
+        )}
       </div>
     </Layout>
   );

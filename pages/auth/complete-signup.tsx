@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { getSession, useSession } from 'next-auth/client';
+import { getSession, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import prisma from './../../lib/prisma';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const organisations = await prisma.organisation.findMany();
@@ -22,11 +23,6 @@ type Props = {
 const CompleteSignup: React.FC<Props> = props => {
   const [session, loading] = useSession();
   const router = useRouter();
-  useEffect(() => {
-    if (!(session || loading)) {
-      router.push('/api/auth/signin');
-    }
-  }, [session, loading, router]);
 
   const {
     register,
@@ -34,6 +30,27 @@ const CompleteSignup: React.FC<Props> = props => {
     watch,
     formState: { errors }
   } = useForm();
+
+  useEffect(() => {
+    if (!(session || loading)) {
+      router.push('/api/auth/signin');
+    }
+  }, [session, loading, router]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="page">
+          <h1 className="text-3xl">Informationen</h1>
+          <main>Lade...</main>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!(session || loading)) {
+    return <p>Redirecting...</p>;
+  }
 
   if (!(session || loading)) {
     return <p>Redirecting...</p>;
@@ -48,20 +65,11 @@ const CompleteSignup: React.FC<Props> = props => {
     });
 
     if (request.status === 201) {
-      router.push('/');
+      await signOut();
+      toast.success('Profil erfolgreich gespeichert');
+      // router.push('/');
     }
   };
-
-  if (loading) {
-    return (
-      <Layout>
-        <div className="page">
-          <h1 className="text-3xl">Informationen</h1>
-          <main>Lade...</main>
-        </div>
-      </Layout>
-    );
-  }
 
   return (
     <Layout>
@@ -95,13 +103,13 @@ const CompleteSignup: React.FC<Props> = props => {
             <select
               className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
               name="organisation"
+              // @ts-ignore
+              defaultValue={session.user.organisationId}
               {...register('organisation', {
                 required: true
               })}
             >
-              <option disabled selected>
-                Wähle deine Schule / Organisation
-              </option>
+              <option disabled>Wähle deine Schule / Organisation</option>
               {props.organisations.map(s => (
                 <option key={s.id} value={s.id}>
                   {s.name}
