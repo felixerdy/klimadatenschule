@@ -115,7 +115,7 @@ const Papier: React.FC = () => {
           };
         })
     ],
-    [inputData, co2sum]
+    [inputData]
   );
 
   const columns = React.useMemo(
@@ -228,9 +228,13 @@ const Papier: React.FC = () => {
               >
                 <thead className="bg-gray-50">
                   {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr
+                      key={headerGroup.id}
+                      {...headerGroup.getHeaderGroupProps()}
+                    >
                       {headerGroup.headers.map(column => (
                         <th
+                          key={column.id}
                           {...column.getHeaderProps()}
                           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                         >
@@ -247,10 +251,11 @@ const Papier: React.FC = () => {
                   {rows.map(row => {
                     prepareRow(row);
                     return (
-                      <tr {...row.getRowProps()}>
-                        {row.cells.map(cell => {
+                      <tr key={row.id} {...row.getRowProps()}>
+                        {row.cells.map((cell, i) => {
                           return (
                             <td
+                              key={i}
                               {...cell.getCellProps()}
                               className="px-6 py-4 whitespace-nowrap"
                             >
@@ -264,9 +269,10 @@ const Papier: React.FC = () => {
                 </tbody>
                 <tfoot className="bg-white divide-y divide-gray-200">
                   {footerGroups.map(group => (
-                    <tr {...group.getFooterGroupProps()}>
+                    <tr key={group.id} {...group.getFooterGroupProps()}>
                       {group.headers.map(column => (
                         <td
+                          key={column.id}
                           className="px-6 py-4 whitespace-nowrap font-semibold"
                           {...column.getFooterProps()}
                         >

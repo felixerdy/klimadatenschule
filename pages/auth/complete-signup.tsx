@@ -24,11 +24,18 @@ const CompleteSignup: React.FC<Props> = props => {
   const [session, loading] = useSession();
   const router = useRouter();
 
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm();
+
   useEffect(() => {
     if (!(session || loading)) {
       router.push('/api/auth/signin');
     }
-  }, [session, loading]);
+  }, [session, loading, router]);
 
   if (loading) {
     return (
@@ -45,14 +52,9 @@ const CompleteSignup: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
-  console.log(session);
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors }
-  } = useForm();
+  if (!(session || loading)) {
+    return <p>Redirecting...</p>;
+  }
 
   const onSubmit = async data => {
     console.log(data);

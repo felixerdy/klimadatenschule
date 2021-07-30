@@ -44,7 +44,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
     if (!(session || loading)) {
       router.push('/api/auth/signin');
     }
-  }, [session, loading]);
+  }, [session, loading, router]);
 
   if (!(session || loading)) {
     return <p>Redirecting...</p>;
@@ -87,8 +87,8 @@ const MyMobilityRecords: React.FC<Props> = props => {
         <h1 className="text-3xl text-center">Mein Schulweg</h1>
         <main>
           <div className="w-full max-w-4xl p-2 mx-auto bg-white rounded-2xl">
-            {props.records.map(r => (
-              <Disclosure>
+            {props.records.map((r, i) => (
+              <Disclosure key={i}>
                 {({ open }) => (
                   <>
                     <Disclosure.Button className="flex justify-between w-full px-4 py-2 m-1 text-sm font-medium text-left text-mobility-darker bg-mobility-light rounded-lg hover:bg-mobility-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">

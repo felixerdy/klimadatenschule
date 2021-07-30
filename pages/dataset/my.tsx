@@ -41,7 +41,7 @@ const Drafts: React.FC<Props> = props => {
     if (!(session || loading)) {
       router.push('/api/auth/signin');
     }
-  }, [session, loading]);
+  }, [session, loading, router]);
 
   if (!(session || loading)) {
     return <p>Redirecting...</p>;

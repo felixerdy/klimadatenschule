@@ -69,10 +69,7 @@ const Header: React.FC = () => {
       >
         <div className="p-4 flex flex-row items-center justify-between">
           <Link href={'/'}>
-            <a
-              href="/"
-              className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
-            >
+            <a className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
               Klima Daten Schule
             </a>
           </Link>
