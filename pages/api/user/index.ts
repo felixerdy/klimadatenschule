@@ -1,6 +1,8 @@
 import prisma from '../../../lib/prisma';
 import jwt from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { Role } from '@prisma/client';
+import checkRole from '../../../middleware/role';
 
 export const config = {
   api: {
@@ -21,23 +23,20 @@ export default async function handle(
 
   const token = await jwt.getToken({ req, secret });
 
+  // Check user role using middleware
+  // TODO: catch error
+  await checkRole(req, Role.ADMIN);
+
   if (token) {
-    if (req.body.organisation == 'none') {
-      res.status(200);
-      return;
-    }
-
     try {
-      const organisation = await prisma.organisation.findUnique({
-        where: { id: req.body.organisation }
-      });
-
+      const { id, role } = JSON.parse(req.body);
       const result = await prisma.user.update({
-        data: {
-          name: req.body.name,
-          organisationId: organisation.id
+        where: {
+          id
         },
-        where: { email: token.email }
+        data: {
+          role: role
+        }
       });
 
       res.status(201).json(result);
