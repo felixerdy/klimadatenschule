@@ -50,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
+  const [uploadLoading, setUploadLoading] = useState(false);
   const [viewport, setViewport] = useState({
     width: '100%',
     height: 400,
@@ -106,7 +107,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   };
 
   const onSubmit = async data => {
-    // setUploadLoading(true);
+    setUploadLoading(true);
     console.log(data);
     try {
       const formData = new FormData();
@@ -132,12 +133,17 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
       });
 
       if (response.ok) {
-        toast.success('Datensatz erfolgreich hochgeladen');
+        toast.success('Datensatz erfolgreich hochgeladen', {
+          onClose: () => setUploadLoading(false)
+        });
       } else {
-        toast.error(`Error: ${response.statusText}`);
+        toast.error(`Error: ${response.statusText}`, {
+          onClose: () => setUploadLoading(false)
+        });
       }
     } catch (error) {
       console.error(error);
+      setUploadLoading(false);
     } finally {
       // setUploadLoading(false);
     }
@@ -302,8 +308,9 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 + Baum hinzufügen
               </button>
               <button
-                className="m-4 w-full text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline"
+                className="m-4 w-full text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
                 type="submit"
+                disabled={uploadLoading}
               >
                 Speichern
               </button>

@@ -81,14 +81,19 @@ const Papier: React.FC = () => {
       });
 
       if (response.ok) {
-        toast.success('Datensatz erfolgreich hochgeladen');
+        toast.success('Datensatz erfolgreich hochgeladen', {
+          onClose: () => setUploadLoading(false)
+        });
       } else {
-        toast.error(`Error: ${response.statusText}`);
+        toast.error(`Error: ${response.statusText}`, {
+          onClose: () => setUploadLoading(false)
+        });
       }
     } catch (error) {
       console.error(error);
-    } finally {
       setUploadLoading(false);
+    } finally {
+      // setUploadLoading(false);
     }
   };
 
@@ -213,7 +218,7 @@ const Papier: React.FC = () => {
               ))}
 
               <button
-                className="mt-4 w-full text-mobility-darkest bg-mobility-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline"
+                className="mt-4 w-full text-mobility-darkest bg-mobility-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
                 type="submit"
                 disabled={uploadLoading}
               >
