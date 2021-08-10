@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import prisma from './../../lib/prisma';
-import { GetServerSideProps } from 'next';
+// import prisma from './../../lib/prisma';
+// import { GetServerSideProps } from 'next';
 import { Organisation, Role, User } from '@prisma/client';
 import Link from 'next/link';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const organisations = await prisma.organisation.findMany();
-  const users = await prisma.user.findMany();
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   const organisations = await prisma.organisation.findMany();
+//   const users = await prisma.user.findMany();
 
-  return {
-    props: { organisations, users }
-  };
-};
+//   return {
+//     props: { organisations, users }
+//   };
+// };
 
 type Props = {
   organisations: Organisation[];
@@ -85,24 +85,6 @@ const Schaltzentrale: React.FC<Props> = ({ organisations, users }) => {
               </Link>
             </li>
           </ul>
-          {/* <h2 className="text-xl">🏫 Organisationen</h2>
-          {organisations.map(organisation => (
-            <p key={organisation.id}>{organisation.name}</p>
-          ))}
-          <button
-            onClick={openModal}
-            className="text-blue-800 bg-blue-100 px-4 py-2 mt-2  text-sm font-semibold rounded-lg hover:bg-blue focus:bg-blue focus:outline-none focus:shadow-outline"
-          >
-            Schule / Organisation hinzufügen
-          </button>
-          <SchoolModal opened={opened} closeModal={closeModal}></SchoolModal> */}
-          {/* {selectedUser && (
-            <UserModal
-              opened={opened}
-              user={selectedUser}
-              closeModal={closeModal}
-            ></UserModal>
-          )} */}
         </main>
       </div>
     </Layout>

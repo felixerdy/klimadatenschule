@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import { GetServerSideProps } from 'next';
 import prisma from './../../lib/prisma';
-import { Organisation, Role, User } from '@prisma/client';
+import { User } from '@prisma/client';
 import UserModal from '../../components/Modals/UserModal';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

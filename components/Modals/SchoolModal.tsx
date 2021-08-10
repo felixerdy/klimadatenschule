@@ -1,12 +1,13 @@
 import React from 'react';
 import { Modal } from '@webeetle/windy';
-import { OrganisationType } from '@prisma/client';
+import { Organisation, OrganisationType } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 
 interface ModalProps {
   opened: boolean;
+  organisation: Organisation;
   closeModal: (...args: any[]) => any;
 }
 
@@ -15,15 +16,20 @@ interface ISchoolForm {
   name: String;
 }
 
-const SchoolModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
+const SchoolModal: React.FC<ModalProps> = ({
+  opened,
+  organisation,
+  closeModal
+}) => {
   const router = useRouter();
 
   const { register, handleSubmit } = useForm<ISchoolForm>();
 
   const onSubmit: SubmitHandler<ISchoolForm> = async data => {
+    const merged = { ...organisation, ...data };
     const response = await fetch('/api/organisation', {
       method: 'POST',
-      body: JSON.stringify(data)
+      body: JSON.stringify(merged)
     });
 
     if (response.ok) {
@@ -49,6 +55,7 @@ const SchoolModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
           <select
             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
             name="organisation"
+            defaultValue={organisation.type}
             {...register('type', {
               required: true
             })}
@@ -61,6 +68,7 @@ const SchoolModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
             className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
             type="type"
             name={'name'}
+            defaultValue={organisation.name}
             autoFocus
             {...register('name')}
           />

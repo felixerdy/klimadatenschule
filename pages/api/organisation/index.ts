@@ -18,9 +18,7 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const token = await jwt.getToken({ req, secret });
-  const { name, type } = JSON.parse(req.body);
-
-  console.log(req.body);
+  const { id, name, type } = JSON.parse(req.body);
 
   if (token) {
     const user = await prisma.user.findUnique({
@@ -34,8 +32,10 @@ export default async function handle(
     }
 
     try {
-      console.log(name, type);
-      const result = await prisma.organisation.create({
+      const result = await prisma.organisation.update({
+        where: {
+          id
+        },
         data: {
           name: name,
           type: type
