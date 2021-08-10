@@ -2,7 +2,7 @@ import prisma from '../../../lib/prisma';
 import jwt from 'next-auth/jwt';
 import formidable from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Role, TreeRecord } from '@prisma/client';
+import { Role } from '@prisma/client';
 
 // export const config = {
 //   api: {
@@ -32,11 +32,16 @@ export default async function handle(
     }
 
     try {
-      const result = await prisma.organisation.update({
+      const fakeId = id ? id : '12345';
+      const result = await prisma.organisation.upsert({
         where: {
-          id
+          id: fakeId
         },
-        data: {
+        update: {
+          name: name,
+          type: type
+        },
+        create: {
           name: name,
           type: type
         }

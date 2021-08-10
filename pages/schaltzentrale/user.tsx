@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import prisma from './../../lib/prisma';
 import { User } from '@prisma/client';
 import UserModal from '../../components/Modals/UserModal';
+import Link from 'next/link';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const users = await prisma.user.findMany();
@@ -34,7 +35,12 @@ const UserTable: React.FC<Props> = ({ users }) => {
   return (
     <Layout>
       <div className="page">
-        <h1 className="text-3xl">🎛 Schaltzentrale / 👪 Nutzer*innen</h1>
+        <header className="flex items-center justify-between mb-4">
+          <h1 className="text-3xl">
+            <Link href={'/schaltzentrale'}>🎛 Schaltzentrale</Link> / 👪
+            Nutzer*innen
+          </h1>
+        </header>
         <main>
           <div className="w-full shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">

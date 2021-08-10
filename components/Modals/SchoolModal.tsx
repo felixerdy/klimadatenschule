@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 interface ModalProps {
   opened: boolean;
-  organisation: Organisation;
+  organisation?: Organisation;
   closeModal: (...args: any[]) => any;
 }
 
@@ -55,7 +55,7 @@ const SchoolModal: React.FC<ModalProps> = ({
           <select
             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
             name="organisation"
-            defaultValue={organisation.type}
+            defaultValue={organisation?.type}
             {...register('type', {
               required: true
             })}
@@ -68,7 +68,7 @@ const SchoolModal: React.FC<ModalProps> = ({
             className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
             type="type"
             name={'name'}
-            defaultValue={organisation.name}
+            defaultValue={organisation?.name}
             autoFocus
             {...register('name')}
           />
