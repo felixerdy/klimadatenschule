@@ -26,7 +26,7 @@ export default async function handle(
         email: token.email
       }
     });
-    if (user.role !== Role.ADMIN) {
+    if (user.role === Role.USER) {
       res.status(401).send('Unauthorized');
       return;
     }

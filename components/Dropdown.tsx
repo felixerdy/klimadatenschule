@@ -92,7 +92,7 @@ const Dropdown: React.FC = () => {
                   )}
                 </Menu.Item>
                 {/* @ts-ignore */}
-                {session.user.role === 'ADMIN' && (
+                {session.user.role !== 'USER' && (
                   <Menu.Item>
                     {({ active }) => (
                       <a

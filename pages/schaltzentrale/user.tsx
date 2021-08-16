@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
 import { GetServerSideProps } from 'next';
 import prisma from './../../lib/prisma';
-import { User } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 import UserModal from '../../components/Modals/UserModal';
 import Link from 'next/link';
+import { useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import LoadingScreen from '../../components/LoadingScreen';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const users = await prisma.user.findMany();
@@ -21,6 +24,29 @@ type Props = {
 const UserTable: React.FC<Props> = ({ users }) => {
   const [opened, setOpened] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const [session, loading] = useSession();
+  const router = useRouter();
+  useEffect(() => {
+    if (!(session || loading)) {
+      router.push('/api/auth/signin');
+    }
+
+    console.log(session);
+
+    // @ts-ignore
+    if (session && !loading && session.user?.role !== Role.ADMIN) {
+      router.push('/');
+    }
+  }, [session, loading, router]);
+
+  if (!(session || loading)) {
+    return <p>Redirecting...</p>;
+  }
+
+  if (loading) {
+    return <LoadingScreen />;
+  }
 
   function closeModal() {
     setSelectedUser(null);
