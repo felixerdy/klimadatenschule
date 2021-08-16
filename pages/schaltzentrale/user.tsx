@@ -5,13 +5,26 @@ import prisma from './../../lib/prisma';
 import { Role, User } from '@prisma/client';
 import UserModal from '../../components/Modals/UserModal';
 import Link from 'next/link';
-import { useSession } from 'next-auth/client';
+import { getSession, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import LoadingScreen from '../../components/LoadingScreen';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const users = await prisma.user.findMany();
+export const getServerSideProps: GetServerSideProps = async context => {
+  // Get the user's session based on the request
+  const session = await getSession(context);
 
+  // Redirect request if role is not ADMIN
+  // @ts-ignore
+  if (session?.user.role !== Role.ADMIN) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    };
+  }
+
+  const users = await prisma.user.findMany();
   return {
     props: { users }
   };
