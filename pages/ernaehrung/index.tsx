@@ -30,14 +30,22 @@ const Ernaehrung: React.FC = () => {
       });
 
       if (response.ok) {
-        toast.success('Datensatz erfolgreich hochgeladen');
+        toast.success('Datensatz erfolgreich hochgeladen', {
+          onClose: () => setUploadLoading(false)
+        });
       } else {
-        toast.error(`Error: ${response.statusText}`);
+        toast.error(`Error: ${response.statusText}`, {
+          onClose: () => setUploadLoading(false)
+        });
       }
     } catch (error) {
       console.error(error);
-    } finally {
       setUploadLoading(false);
+    } finally {
+      // Not sure if we still need this
+      // setTimeout(() => {
+      //   setUploadLoading(false);
+      // }, 5000);
     }
   };
 
@@ -157,7 +165,7 @@ const Ernaehrung: React.FC = () => {
             )}
 
             <button
-              className="mt-4 w-full text-nutrition-darkest bg-nutrition-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline"
+              className="mt-4 w-full text-nutrition-darkest bg-nutrition-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
               type="submit"
               disabled={uploadLoading}
             >

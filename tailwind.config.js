@@ -47,7 +47,10 @@ module.exports = {
   },
   variants: {
     extend: {
-      translate: ['group-hover']
+      translate: ['group-hover'],
+      opacity: ['disabled'],
+      backgroundColor: ['disabled'],
+      textColor: ['disabled']
     }
   },
   plugins: [require('@tailwindcss/typography')]
