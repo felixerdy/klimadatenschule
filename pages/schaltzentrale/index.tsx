@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import prisma from './../../lib/prisma';
-import { GetServerSideProps } from 'next';
+// import prisma from './../../lib/prisma';
+// import { GetServerSideProps } from 'next';
 import { Organisation, Role, User } from '@prisma/client';
-import SchoolModal from '../../components/Modals/SchoolModal';
+import Link from 'next/link';
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const organisations = await prisma.organisation.findMany();
-  const users = await prisma.user.findMany();
+// export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+//   const organisations = await prisma.organisation.findMany();
+//   const users = await prisma.user.findMany();
 
-  return {
-    props: { organisations, users }
-  };
-};
+//   return {
+//     props: { organisations, users }
+//   };
+// };
 
 type Props = {
   organisations: Organisation[];
@@ -30,20 +30,12 @@ const Schaltzentrale: React.FC<Props> = ({ organisations, users }) => {
     }
 
     // @ts-ignore
-    if (session && !loading && session.user?.role !== Role.ADMIN) {
+    if (session && !loading && session.user?.role === Role.USER) {
       router.push('/');
     }
+
+    console.log(session);
   }, [session, loading, router]);
-
-  const [opened, setOpened] = useState(false);
-
-  function closeModal() {
-    setOpened(false);
-  }
-
-  function openModal() {
-    setOpened(true);
-  }
 
   if (!(session || loading)) {
     return <p>Redirecting...</p>;
@@ -65,21 +57,37 @@ const Schaltzentrale: React.FC<Props> = ({ organisations, users }) => {
       <div className="page">
         <h1 className="text-3xl">🎛 Schaltzentrale</h1>
         <main>
-          <h2 className="text-xl">👪 Nutzer*innen</h2>
-          {users.map(user => (
-            <p key={user.id}>{user.name}</p>
-          ))}
-          <h2 className="text-xl">🏫 Organisationen</h2>
-          {organisations.map(organisation => (
-            <p key={organisation.id}>{organisation.name}</p>
-          ))}
-          <button
-            onClick={openModal}
-            className="text-blue-800 bg-blue-100 px-4 py-2 mt-2  text-sm font-semibold rounded-lg hover:bg-blue focus:bg-blue focus:outline-none focus:shadow-outline"
-          >
-            Schule / Organisation hinzufügen
-          </button>
-          <SchoolModal opened={opened} closeModal={closeModal}></SchoolModal>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+            {/* @ts-ignore */}
+            {session.user.role === Role.ADMIN && (
+              <li>
+                <Link href={'/schaltzentrale/user'} passHref>
+                  <div
+                    className={`p-10 m-8 md:p-20 w-full rounded-2xl shadow-lg cursor-pointer group`}
+                  >
+                    <h1
+                      className={`text-4xl font-semibold transform duration-100 group-hover:translate-x-4`}
+                    >
+                      👪 Nutzer*innen
+                    </h1>
+                  </div>
+                </Link>
+              </li>
+            )}
+            <li>
+              <Link href={'/schaltzentrale/orgs'} passHref>
+                <div
+                  className={`p-10 m-8 md:p-20 w-full rounded-2xl shadow-lg cursor-pointer group`}
+                >
+                  <h1
+                    className={`text-4xl font-semibold transform duration-100 group-hover:translate-x-4`}
+                  >
+                    🏫 Organisationen
+                  </h1>
+                </div>
+              </Link>
+            </li>
+          </ul>
         </main>
       </div>
     </Layout>

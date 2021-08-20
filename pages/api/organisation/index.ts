@@ -2,7 +2,7 @@ import prisma from '../../../lib/prisma';
 import jwt from 'next-auth/jwt';
 import formidable from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Role, TreeRecord } from '@prisma/client';
+import { Role } from '@prisma/client';
 
 // export const config = {
 //   api: {
@@ -18,9 +18,7 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const token = await jwt.getToken({ req, secret });
-  const { name, type } = JSON.parse(req.body);
-
-  console.log(req.body);
+  const { id, name, type } = JSON.parse(req.body);
 
   if (token) {
     const user = await prisma.user.findUnique({
@@ -28,17 +26,27 @@ export default async function handle(
         email: token.email
       }
     });
-    if (user.role !== Role.ADMIN) {
+    if (user.role === Role.USER) {
       res.status(401).send('Unauthorized');
       return;
     }
 
     try {
-      console.log(name, type);
-      const result = await prisma.organisation.create({
-        data: {
+      const fakeId = id ? id : '12345';
+      const result = await prisma.organisation.upsert({
+        where: {
+          id: fakeId
+        },
+        update: {
           name: name,
           type: type
+        },
+        create: {
+          name: name,
+          type: type,
+          createdBy: {
+            connect: { email: token?.email }
+          }
         }
       });
       res.status(201).json(result);
