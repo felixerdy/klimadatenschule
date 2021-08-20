@@ -44,9 +44,7 @@ export default async function handle(
         create: {
           name: name,
           type: type,
-          createdBy: {
-            connect: { email: token?.email }
-          }
+          userId: user.id
         }
       });
       res.status(201).json(result);
