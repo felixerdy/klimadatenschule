@@ -1,4 +1,4 @@
-import { Organisation } from '@prisma/client';
+import { Organisation, User } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import prisma from './../../lib/prisma';
@@ -7,9 +7,20 @@ import SchoolModal from '../../components/Modals/SchoolModal';
 import { toast } from 'react-toastify';
 import router from 'next/router';
 import Link from 'next/link';
+import { getSession, session, useSession } from 'next-auth/client';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const organisations = await prisma.organisation.findMany();
+  const session = await getSession({ req });
+  if (!session) {
+    res.statusCode = 403;
+    return { props: {} };
+  }
+
+  const organisations = await prisma.organisation.findMany({
+    include: {
+      createdBy: true
+    }
+  });
 
   return {
     props: { organisations }
@@ -17,12 +28,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 type Props = {
-  organisations: Organisation[];
+  organisations: (Organisation & {
+    createdBy: User;
+  })[];
 };
 
 const OrgTable: React.FC<Props> = ({ organisations }) => {
   const [opened, setOpened] = useState(false);
   const [selectedOrg, setSelectedOrg] = useState<Organisation | null>(null);
+  const [session, loading] = useSession();
 
   function closeModal() {
     setSelectedOrg(null);
@@ -41,7 +55,7 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
       });
 
       if (response.ok) {
-        toast.success('Datensatz erfolgreich hochgeladen');
+        toast.success(`${org.name} erfolgreich gelöscht`);
         router.replace(router.asPath);
       } else {
         toast.error(`Error: ${response.statusText}`);
@@ -51,6 +65,14 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
     } finally {
       // setUploadLoading(false);
     }
+  }
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="page">Loading...</div>
+      </Layout>
+    );
   }
 
   return (
@@ -102,39 +124,43 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
                     <td className="px-6 py-4 whitespace-nowrap">{org.name}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{org.type}</td>
                     <td>
-                      <button
-                        className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
-                        type="button"
-                        onClick={() => openModal(org)}
-                      >
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                        </svg>
-                        <span>Editieren</span>
-                      </button>
-                      <button
-                        className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
-                        type="button"
-                        onClick={() => deleteOrganisation(org)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span>Löschen</span>
-                      </button>
+                      {org.createdBy.email === session.user.email && (
+                        <>
+                          <button
+                            className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                            type="button"
+                            onClick={() => openModal(org)}
+                          >
+                            <svg
+                              className="w-4 h-4 mr-2"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                            <span>Editieren</span>
+                          </button>
+                          <button
+                            className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                            type="button"
+                            onClick={() => deleteOrganisation(org)}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                            <span>Löschen</span>
+                          </button>
+                        </>
+                      )}
                     </td>
                   </tr>
                 ))}

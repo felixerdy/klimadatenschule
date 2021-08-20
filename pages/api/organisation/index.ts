@@ -39,11 +39,17 @@ export default async function handle(
         },
         update: {
           name: name,
-          type: type
+          type: type,
+          createdBy: {
+            connect: { email: token.email }
+          }
         },
         create: {
           name: name,
-          type: type
+          type: type,
+          createdBy: {
+            connect: { email: token.email }
+          }
         }
       });
       res.status(201).json(result);
