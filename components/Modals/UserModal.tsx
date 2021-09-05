@@ -4,6 +4,7 @@ import { User, Role } from '@prisma/client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 interface ModalProps {
   opened: boolean;
@@ -19,12 +20,9 @@ const UserModal: React.FC<ModalProps> = ({ opened, user, closeModal }) => {
   const onSubmit: SubmitHandler<User> = async data => {
     const merged = { ...user, ...data };
     console.log(merged);
-    const response = await fetch('/api/user', {
-      method: 'POST',
-      body: JSON.stringify(merged)
-    });
+    const response = await axios.post('/api/user', merged);
 
-    if (response.ok) {
+    if (response.status >= 200 && response.status < 300) {
       toast.success('Datensatz erfolgreich hochgeladen');
       router.replace(router.asPath);
     } else {

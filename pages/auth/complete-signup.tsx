@@ -56,6 +56,10 @@ const CompleteSignup: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
+  if (session) {
+    console.log(session.user.organisationId);
+  }
+
   const onSubmit = async data => {
     console.log(data);
 
@@ -104,7 +108,7 @@ const CompleteSignup: React.FC<Props> = props => {
               className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
               name="organisation"
               // @ts-ignore
-              defaultValue={session.user.organisationId}
+              defaultValue={String(session.user.organisationId)}
               {...register('organisation', {
                 required: true
               })}
@@ -116,7 +120,7 @@ const CompleteSignup: React.FC<Props> = props => {
                 </option>
               ))}
               <option disabled>------------</option>
-              <option value="none">Keine Schule / Organisation</option>
+              <option value="null">Keine Schule / Organisation</option>
             </select>
 
             <button
