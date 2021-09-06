@@ -56,10 +56,6 @@ const CompleteSignup: React.FC<Props> = props => {
     return <p>Redirecting...</p>;
   }
 
-  if (session) {
-    console.log(session.user.organisationId);
-  }
-
   const onSubmit = async data => {
     console.log(data);
 
