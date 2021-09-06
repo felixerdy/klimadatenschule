@@ -23,7 +23,7 @@ const buildResponse = async (res: NextApiResponse, data, format: string) => {
   const resData = data.map(e => {
     const obj = {
       ...e,
-      school: e.user.organisation.name
+      school: e.user.organisation?.name || 'null'
     };
 
     delete obj.user;
