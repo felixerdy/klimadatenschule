@@ -6,11 +6,15 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { TrashIcon, ExternalLinkIcon } from '@heroicons/react/outline';
+import { useSession } from 'next-auth/client';
 
 const Ernaehrung: React.FC = () => {
   const { register, watch, handleSubmit } = useForm<any>();
   const [uploadLoading, setUploadLoading] = useState(false);
+
   const [meals, setMeals] = useState(1);
+
+  const [session, loading] = useSession();
 
   const onSubmit = async data => {
     setUploadLoading(true);
@@ -167,7 +171,7 @@ const Ernaehrung: React.FC = () => {
             <button
               className="mt-4 w-full text-nutrition-darkest bg-nutrition-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
               type="submit"
-              disabled={uploadLoading}
+              disabled={!session || uploadLoading}
             >
               Speichern
             </button>
