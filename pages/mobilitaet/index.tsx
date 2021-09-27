@@ -11,6 +11,7 @@ import {
   MobilityDescription,
   MobilityType
 } from '../../types/mobility';
+import { useSession } from 'next-auth/client';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -71,6 +72,8 @@ const Mobilitaet: React.FC = () => {
   });
 
   const [uploadLoading, setUploadLoading] = useState(false);
+
+  const [session, loading] = useSession();
 
   const onSubmit = async data => {
     setUploadLoading(true);
@@ -231,7 +234,7 @@ const Mobilitaet: React.FC = () => {
               <button
                 className="mt-4 w-full text-mobility-darkest bg-mobility-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
                 type="submit"
-                disabled={uploadLoading}
+                disabled={!session || uploadLoading}
               >
                 Speichern
               </button>

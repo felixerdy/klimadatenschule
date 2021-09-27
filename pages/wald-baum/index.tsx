@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import prisma from '../../lib/prisma';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/client';
+import { getSession, useSession } from 'next-auth/client';
 
 interface TreeMarker {
   id: string;
@@ -64,6 +64,8 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
 
   const geolocation = useGeolocation();
   const [popupInfo, setPopupInfo] = useState<TreeMarker>(null);
+
+  const [session, loading] = useSession();
 
   const addMarker = () => {
     const position = geolocation.latitude ? geolocation : viewport;
@@ -310,7 +312,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
               <button
                 className="m-4 w-full text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
                 type="submit"
-                disabled={uploadLoading}
+                disabled={!session || uploadLoading}
               >
                 Speichern
               </button>

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Router from 'next/dist/next-server/server/router';
 import { Column, useTable } from 'react-table';
 import { IPaperForm, PaperDescription, PaperType } from '../../types/paper';
+import { useSession } from 'next-auth/client';
 
 const toCO2 = (gram: number, type: PaperType): number => {
   return Number(
@@ -63,6 +64,8 @@ const Papier: React.FC = () => {
   });
 
   const [uploadLoading, setUploadLoading] = useState(false);
+
+  const [session, loading] = useSession();
 
   const onSubmit = async (data: IPaperForm) => {
     setUploadLoading(true);
@@ -220,7 +223,7 @@ const Papier: React.FC = () => {
               <button
                 className="mt-4 w-full text-mobility-darkest bg-mobility-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
                 type="submit"
-                disabled={uploadLoading}
+                disabled={!session || uploadLoading}
               >
                 Speichern
               </button>
