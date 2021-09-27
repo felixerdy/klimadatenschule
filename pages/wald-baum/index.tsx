@@ -53,7 +53,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [viewport, setViewport] = useState({
     width: '100%',
-    height: 400,
+    height: 600,
     latitude: 52,
     longitude: 9,
     zoom: 5
