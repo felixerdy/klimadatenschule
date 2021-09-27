@@ -22,7 +22,7 @@ const Header: React.FC = () => {
         <button
           className={
             props.className ||
-            'px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`'
+            'px-4 py-2 mt-2 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`'
           }
           onClick={props.onClick}
         >
@@ -41,7 +41,7 @@ const Header: React.FC = () => {
         <a
           className={`${
             isActive(props.href) ? 'text-gray-900 bg-gray-200' : ''
-          } px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`}
+          } px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray focus:outline-none focus:shadow-outline`}
         >
           {props.text}
         </a>
@@ -53,7 +53,7 @@ const Header: React.FC = () => {
     return (
       <Link href={props.href}>
         <a
-          className={`text-indigo-100 bg-indigo-700 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-indigo-900 focus:bg-gray focus:outline-none focus:shadow-outline`}
+          className={`text-indigo-100 bg-indigo-700 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-indigo-900 focus:bg-gray focus:outline-none focus:shadow-outline`}
         >
           {props.text}
         </a>
@@ -62,19 +62,29 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+    <div
+      className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800"
+      style={{
+        background: `linear-gradient(-90deg, rgba(0,0,255,.03) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,255,.03) 1px, transparent 1px),
+        linear-gradient(-90deg, rgba(0, 0, 255, .02) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,255,.02) 1px, transparent 1px),
+        #f2f2f2`,
+        backgroundSize: `20px 20px, 20px 20px`
+      }}
+    >
       <div
         x-data="{ open: false }"
         className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
       >
         <div className="p-4 flex flex-row items-center justify-between">
           <Link href={'/'}>
-            <a className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">
+            <a className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-full dark-mode:text-white focus:outline-none focus:shadow-outline">
               Klima Daten Schule
             </a>
           </Link>
           <button
-            className="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
+            className="bg-kds-green-neon p-2 md:hidden rounded-full focus:outline-none focus:shadow-outline"
             onClick={() => setOpen(!open)}
           >
             <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
@@ -101,35 +111,67 @@ const Header: React.FC = () => {
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
         >
           <Link href={'/wald-baum'}>
-            <a className="text-green-900 bg-green-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-green-300 focus:bg-gray focus:outline-none focus:shadow-outline">
-              Wald & Bäume
-            </a>
-          </Link>
-          <Link href={'/ernaehrung'}>
-            <a className="text-nutrition-darkest bg-nutrition-light px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline">
-              Ernährung
-            </a>
-          </Link>
-          <Link href={'/papier'}>
-            <a className="text-blue-900 bg-blue-200 px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-blue-300 focus:bg-gray focus:outline-none focus:shadow-outline">
-              Papier
+            <a className="bg-tree px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-green-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+              Bäume
             </a>
           </Link>
           <Link href={'/mobilitaet'}>
-            <a className="text-mobility-darkest bg-mobility-light px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-lg md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+            <a className="bg-mobility px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Mobilität
             </a>
           </Link>
-          <NavButtonLink href="/dataset" text="Datensätze" />
+          <Link href={'/papier'}>
+            <a className="bg-paper px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-blue-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+              Papier
+            </a>
+          </Link>
+          <Link href={'/ernaehrung'}>
+            <a className=" bg-nutrition px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+              Ernährung
+            </a>
+          </Link>
+          <Link href={'/dataset'}>
+            <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+              Datensätze
+            </a>
+          </Link>
+          {/* <NavButtonLink href="/dataset" text="Datensätze" /> */}
           {/* <NavButtonLink href="/tools" text="Werkzeuge" /> */}
           {session ? (
             <div className="relative inline-block text-left z-10">
               <Dropdown></Dropdown>
             </div>
           ) : (
-            <LoginButton href="/api/auth/signin" text="Login" />
+            <Link href={'/api/auth/signin'}>
+              <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
+                Login
+              </a>
+            </Link>
+            // <LoginButton href="/api/auth/signin" text="Login" />
           )}
         </nav>
+      </div>
+      <div className="relative h-24 w-full">
+        <div
+          className="bg-kds-green-header py-12 w-full absolute top-0"
+          style={{
+            clipPath:
+              'polygon(100% 100%, 100% 44%, 66% 51%, 37% 8%, 0 51%, 0 100%)'
+          }}
+        ></div>
+        <div
+          className="bg-kds-green-neon py-12 w-full absolute top-0"
+          style={{
+            clipPath:
+              'polygon(100% 100%, 100% 31%, 66% 64%, 36% 53%, 0 35%, 0 100%)'
+          }}
+        ></div>
+        <div
+          className="bg-kds-light py-12 w-full absolute top-0"
+          style={{
+            clipPath: 'polygon(100% 72%, 100% 100%, 0 100%, 20% 75%, 67% 87%)'
+          }}
+        ></div>
       </div>
     </div>
   );

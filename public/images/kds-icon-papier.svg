@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <clipPath id="clip-icon-papier">
+      <rect width="800" height="800"/>
+    </clipPath>
+  </defs>
+  <g id="icon-papier" clip-path="url(#clip-icon-papier)">
+    <g id="Gruppe_519" data-name="Gruppe 519" transform="translate(125 82)">
+      <g id="Gruppe_451" data-name="Gruppe 451" transform="translate(0 0)" opacity="0.999">
+        <path id="Pfad_223" data-name="Pfad 223" d="M3245.11,2629.792l-191.034,218.813-218.849-93.673-74.759,70.924,287.512,123.077,261.9-299.977Z" transform="translate(-2760.468 -2313.078)" fill="#3fffbf"/>
+        <path id="Pfad_224" data-name="Pfad 224" d="M3011.36,2983.017l261.9-299.986-276.644-81.849-220.843,212.931,14.507,74.875Z" transform="translate(-2723.847 -2601.183)" fill="#010101"/>
+        <path id="Pfad_225" data-name="Pfad 225" d="M3054.076,2837.137l-218.847-93.667-74.761,70.921,287.512,123.072,261.9-299.984-64.765-19.161Z" transform="translate(-2760.468 -2428.622)" fill="#3fffbf"/>
+      </g>
+      <path id="Pfad_523" data-name="Pfad 523" d="M-694.71,1852.364l14.7,74.913,46.423-45.119Z" transform="translate(746.478 -1639.367)" fill="#3fffbf"/>
+    </g>
+  </g>
+</svg>

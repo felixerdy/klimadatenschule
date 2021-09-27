@@ -17,31 +17,41 @@ module.exports = {
         nutrition: {
           darkest: colors.red[900],
           dark: colors.red[600],
-          DEFAULT: colors.red[400],
-          light: colors.red[200],
+          DEFAULT: '#00B6CE',
+          light: '#6AC7D9',
           lightest: colors.red[100]
         },
         tree: {
           darkest: colors.green[900],
           dark: colors.green[600],
-          DEFAULT: colors.green[400],
+          DEFAULT: '#54BDB9',
           light: colors.green[200],
           lightest: colors.green[100]
         },
         mobility: {
           darkest: '#1f2d3d',
           dark: '#3c4858',
-          DEFAULT: '#c0ccda',
-          light: '#e0e6ed',
+          DEFAULT: '#FFED00',
+          light: '#c0ccda',
           lightest: '#f9fafc'
         },
         paper: {
           darkest: colors.blue[900],
           dark: colors.blue[600],
-          DEFAULT: colors.blue[400],
+          DEFAULT: '#79B1E0',
           light: colors.blue[200],
           lightest: colors.blue[100]
-        }
+        },
+        kds: {
+          green: {
+            DEFAULT: '#00A182',
+            neon: '#3FFFBF',
+            header: '#7FFF7F'
+          },
+          light: '#60BDA8',
+          blue_light: '#BEFFFF'
+        },
+        footer: '#01A3B9'
       }
     }
   },

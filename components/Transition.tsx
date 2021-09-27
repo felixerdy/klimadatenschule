@@ -22,7 +22,7 @@ const getTransitionStyles = {
 };
 const Transition = ({ children, location }) => {
   return (
-    <TransitionGroup style={{ position: 'relative' }}>
+    <TransitionGroup style={{ position: 'relative' }} className="bg-kds-light">
       <ReactTransition
         key={location}
         timeout={{
