@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Menu } from '@headlessui/react';
 import Dropdown from './Dropdown';
 
-import Logo from '../public/images/KDS-Logo-hoch-neonfarben-rgb-final.png';
+import Logo from '../public/images/KDS-Logo-hoch-neonfarben-rgb.svg';
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
       >
         <div className="p-4 flex flex-row items-center justify-between">
           <Link href={'/'} passHref>
-            <div className="w-24 h-full">
+            <div className="w-24 h-full cursor-pointer">
               <Image src={Logo} alt="KDS Logo" layout="responsive" />
             </div>
           </Link>
