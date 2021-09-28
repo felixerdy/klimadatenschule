@@ -47,7 +47,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <title>KlimaDatenSchule WebApp</title>
           <meta
             name="viewport"
-            content="initial-scale=1.0, width=device-width"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
           />
           <link rel="shortcut icon" sizes="16x16" href="/favicon_16.ico" />
           <link rel="shortcut icon" sizes="32x32" href="/favicon_32.ico" />
