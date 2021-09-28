@@ -49,6 +49,9 @@ const App = ({ Component, pageProps }: AppProps) => {
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
+          <link rel="shortcut icon" sizes="16x16" href="/favicon_16.ico" />
+          <link rel="shortcut icon" sizes="32x32" href="/favicon_32.ico" />
+          <link rel="shortcut icon" sizes="96x96" href="/favicon_96.ico" />
         </Head>
         <Header />
         <ToastContainer position="top-right"></ToastContainer>
