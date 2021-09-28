@@ -8,6 +8,13 @@ import prisma from '../../lib/prisma';
 import Router from 'next/router';
 import { DatasetProps } from '../../components/Post';
 
+import Image from 'next/image';
+
+import BaumIcon from '../../public/images/kds-icon-baeume.svg';
+import ErnaehrungIcon from '../../public/images/kds-icon-ernaehrung.svg';
+import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
+import PapierIcon from '../../public/images/kds-icon-papier.svg';
+
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const mealCount = await prisma.mealRecord.count();
   const mobilityCount = await prisma.mobilityRecord.count();
@@ -44,36 +51,36 @@ const Drafts: React.FC<Props> = props => {
   return (
     <Layout>
       <div className="page">
-        <SectionHeader color="" text="Datensätze" />
-        <main className="mt-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card
-              dataset="tree"
-              title="Wald & Bäume"
-              entries={props.treeCount}
-              image="tree"
-            />
-            <Card
-              dataset="nutrition"
-              title="Ernährung"
-              entries={props.mealCount}
-              image="nutrition"
-            />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <Card
-              dataset="paper"
-              title="Papier"
-              entries={props.paperCount}
-              image="paper"
-            />
-            <Card
-              dataset="mobility"
-              title="Mobilität"
-              entries={props.mobilityCount}
-              image="mobility"
-            />
-          </div>
+        <div>
+          <h1 className="text-5xl text-center uppercase my-20">
+            Daten&shy;sätze
+          </h1>
+        </div>
+        <main className="mt-20 flex flex-col flex-wrap md:flex-row justify-center items-center">
+          <Card
+            dataset="tree"
+            title="Bäume"
+            entries={props.treeCount}
+            image={BaumIcon}
+          />
+          <Card
+            dataset="mobility"
+            title="Mobilität"
+            entries={props.mobilityCount}
+            image={MobilitaetIcon}
+          />
+          <Card
+            dataset="paper"
+            title="Papier"
+            entries={props.paperCount}
+            image={PapierIcon}
+          />
+          <Card
+            dataset="nutrition"
+            title="Ernährung"
+            entries={props.mealCount}
+            image={ErnaehrungIcon}
+          />
         </main>
       </div>
     </Layout>

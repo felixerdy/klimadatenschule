@@ -33,7 +33,7 @@ type Props = {
 const Home: React.FC<Props> = (props: Props) => {
   return (
     <>
-      <div className="">
+      <div>
         <h1 className="text-5xl text-center uppercase my-20">
           Wähle dein For&shy;schungs&shy;gebiet
         </h1>
