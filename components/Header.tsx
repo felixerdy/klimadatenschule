@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { Menu } from '@headlessui/react';
 import Dropdown from './Dropdown';
 
+import Logo from '../public/images/KDS-Logo-hoch-neonfarben-rgb-final.png';
+
 const Header: React.FC = () => {
   const router = useRouter();
 
@@ -63,7 +65,7 @@ const Header: React.FC = () => {
 
   return (
     <div
-      className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800"
+      className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 relative"
       style={{
         background: `linear-gradient(-90deg, rgba(0,0,255,.03) 1px, transparent 1px),
         linear-gradient(rgba(0,0,255,.03) 1px, transparent 1px),
@@ -73,18 +75,19 @@ const Header: React.FC = () => {
         backgroundSize: `20px 20px, 20px 20px`
       }}
     >
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-transparent to-white opacity-80"></div>
       <div
         x-data="{ open: false }"
         className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
       >
         <div className="p-4 flex flex-row items-center justify-between">
-          <Link href={'/'}>
-            <a className="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-full dark-mode:text-white focus:outline-none focus:shadow-outline">
-              Klima Daten Schule
-            </a>
+          <Link href={'/'} passHref>
+            <div className="w-24 h-full">
+              <Image src={Logo} alt="KDS Logo" layout="responsive" />
+            </div>
           </Link>
           <button
-            className="bg-kds-green-neon p-2 md:hidden rounded-full focus:outline-none focus:shadow-outline"
+            className="bg-kds-green-neon p-2 md:hidden rounded-full focus:outline-none focus:shadow-outline z-10"
             onClick={() => setOpen(!open)}
           >
             <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
@@ -108,7 +111,7 @@ const Header: React.FC = () => {
         <nav
           className={`${
             open ? 'flex' : 'hidden'
-          } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
+          } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row z-10`}
         >
           <Link href={'/wald-baum'}>
             <a className="bg-tree px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-green-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">

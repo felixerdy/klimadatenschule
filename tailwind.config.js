@@ -52,6 +52,9 @@ module.exports = {
           blue_light: '#BEFFFF'
         },
         footer: '#01A3B9'
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
       }
     }
   },
