@@ -5,8 +5,15 @@ import InfoBox from '../../components/InfoBox';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import { TrashIcon, ExternalLinkIcon } from '@heroicons/react/outline';
+import { TrashIcon, XIcon } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/client';
+
+import Image from 'next/image';
+
+import ErnaehrungIcon from '../../public/images/kds-icon-ernaehrung.svg';
+import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
+
+import { PlusIcon } from '@heroicons/react/solid';
 
 const Ernaehrung: React.FC = () => {
   const { register, watch, handleSubmit } = useForm<any>();
@@ -58,124 +65,154 @@ const Ernaehrung: React.FC = () => {
   return (
     <Layout>
       <div className="page">
-        <SectionHeader color="nutrition" text="Ernährung" />
-        <main className="mt-20">
-          <div className="text-center">
-            <Link href={'/ernaehrung/my'}>
-              <a className="text-nutrition-darkest bg-nutrition-light px-4 py-2 mt-2  text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline">
-                Meine Datensätze
-              </a>
-            </Link>
-            <h1 className="text-4xl my-4">Ernährungsrechner</h1>
-            <InfoBox>
-              <h1 className="text-xl">
-                Welche Mahlzeiten wurden in der Schulkantine ausgegeben?
+        <main className="my-20">
+          <FlexSplitLayout>
+            <h1 className="flex-1 text-4xl">Ernährung</h1>
+            <div className="flex-1">
+              <div className="max-w-xs">
+                <Image src={ErnaehrungIcon} alt="Ernährung Icon"></Image>
+              </div>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <h1 className="text-4xl my-16 w-1/2">
+                Schulessen im Klima-Check
               </h1>
               <p>
-                Besuche den{' '}
+                Mit der KlimaDaten-App könnt ihr das Angebot an Schulessen auf
+                seine CO2-Bilanz hin untersuchen. Dabei werden zunächt alle
+                Mensagerichte von einer Woche “nachgebaut” - auf Grundlage der
+                Rezepte oder durch die Messung dessen, was ganz konkret auf
+                euren Tellern liegt. Anschließend wird der CO2-Fußabdruck der
+                einzelnen Gerichte ermittelt. Die Anzahl der ausgegebenen
+                Gerichte wird eine Woche lang erhoben und mit dem CO2-Fußabdruck
+                der verschiedenen Gerichte verrechnet.
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <h1 className="flex-1 text-4xl">Ernährungsrechner</h1>
+            <div className="flex-1">
+              <p>
+                Welche Mahlzeiten wurden in der Schulkantine ausgegeben? Besuche
+                den CO₂-Rechner der Klimatarier und erstelle die Gerichte aus
+                eurer Schulkantine. Übertrage die CO₂ Werte in die Eingabefelder
+                auf dieser Seite.
+              </p>
+              <div>
                 <a
                   href="https://www.klimatarier.com/de/CO2_Rechner"
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="bg-kds-green-neon px-4 py-2 my-16 text-sm font-semibold rounded-full hover:bg-gray-300"
                 >
-                  CO₂-Rechner der Klimatarier
-                </a>{' '}
-                und erstelle die Gerichte aus eurer Schulkantine. Übertrage die
-                CO₂ Werte in die Eingabefelder auf dieser Seite.
-              </p>
-              <a
-                href="https://www.klimatarier.com/de/CO2_Rechner"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex text-nutrition-darkest bg-nutrition-light px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline"
-              >
-                CO₂-Rechner der Klimatarier{' '}
-                <ExternalLinkIcon className="w-4"></ExternalLinkIcon>
-              </a>
-            </InfoBox>
-          </div>
-
-          <form
-            className="p-4 max-w-md m-auto"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            {Array.from(Array(meals).keys()).map((m, i) => (
-              <React.Fragment key={i}>
-                <div className="flex flex-row items-center">
-                  <div className="flex flex-col w-full">
-                    <div className="flex flex-col">
-                      <label className="text-gray-600 font-bold">Name</label>
-                      <input
-                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                        type="text"
-                        name={`meal_${i}_name`}
-                        defaultValue={`Gericht ${i + 1}`}
-                        {...register(`meal_${i}_name`, { required: true })}
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-gray-600 font-bold">
-                        CO2 in kg
-                      </label>
-                      <input
-                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                        type="number"
-                        step="any"
-                        name={`meal_${i}_co2`}
-                        defaultValue={0}
-                        min={0}
-                        {...register(`meal_${i}_co2`, { min: 0 })}
-                      />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-gray-600 font-bold">
-                        Anzahl der Gerichte
-                      </label>
-                      <input
-                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                        type="number"
-                        step="any"
-                        name={`meal_${i}_count`}
-                        defaultValue={1}
-                        min={1}
-                        {...register(`meal_${i}_count`, { min: 1 })}
-                      />
-                    </div>
-                    {meals > 1 && <hr className="my-4"></hr>}
-                  </div>
-                  {meals > 1 && (
-                    <button
-                      className="m-4 w-12 h-12 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
-                      type="button"
-                      onClick={() => setMeals(meals - 1)}
-                    >
-                      <TrashIcon className="w-4"></TrashIcon>
-                    </button>
-                  )}
-                </div>
-              </React.Fragment>
-            ))}
-
-            {meals < 10 && (
-              <div className="w-full text-center">
-                <button
-                  className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
-                  type="button"
-                  onClick={() => setMeals(meals + 1)}
-                >
-                  Gericht hinzufügen
-                </button>
+                  CO₂-RECHNER DER KLIMATARIER
+                </a>
               </div>
-            )}
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <hr className="my-4" />
+              <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
+                {Array.from(Array(meals).keys()).map((m, i) => (
+                  <React.Fragment key={i}>
+                    <div className="flex flex-row w-full">
+                      <div className="flex w-full">
+                        {meals > 1 && (
+                          <div className="mr-2">
+                            <button
+                              className="bg-kds-green-neon rounded-full p-3 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                              type="button"
+                              onClick={() => setMeals(meals - 1)}
+                            >
+                              <XIcon className="w-4"></XIcon>
+                            </button>
+                          </div>
+                        )}
+                        <div className="flex flex-col w-full">
+                          <div className="flex flex-col">
+                            <input
+                              className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                              type="text"
+                              name={`meal_${i}_name`}
+                              defaultValue={`Gericht ${i + 1}`}
+                              {...register(`meal_${i}_name`, {
+                                required: true
+                              })}
+                            />
+                            <label className=" font-bold">Name</label>
+                          </div>
+                          <div className="flex flex-col">
+                            <input
+                              className="border-solid border-gray-300 border py-2 px-4 mt-4 w-full rounded text-gray-700"
+                              type="number"
+                              step="any"
+                              name={`meal_${i}_co2`}
+                              defaultValue={0}
+                              min={0}
+                              {...register(`meal_${i}_co2`, { min: 0 })}
+                            />
+                            <label className=" font-bold">CO2 in kg</label>
+                          </div>
+                          <div className="flex flex-col">
+                            <input
+                              className="border-solid border-gray-300 border py-2 px-4 mt-4 w-full rounded text-gray-700"
+                              type="number"
+                              step="any"
+                              name={`meal_${i}_count`}
+                              defaultValue={1}
+                              min={1}
+                              {...register(`meal_${i}_count`, { min: 1 })}
+                            />
+                            <label className="font-bold">
+                              Anzahl der Gerichte
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr className="my-4"></hr>
+                  </React.Fragment>
+                ))}
 
-            <button
-              className="mt-4 w-full text-nutrition-darkest bg-nutrition-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
-              type="submit"
-              disabled={!session || uploadLoading}
-            >
-              Speichern
-            </button>
-          </form>
+                {meals < 10 && (
+                  <div className="w-full">
+                    <div
+                      className="flex items-center group cursor-pointer"
+                      onClick={() => setMeals(meals + 1)}
+                    >
+                      <button
+                        className="bg-kds-green-neon rounded-full p-3 text-sm font-semibold group-hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                        type="button"
+                      >
+                        <PlusIcon className="w-5 h-5" />
+                      </button>
+                      <p className="ml-2 uppercase">Gericht hinzufügen</p>
+                    </div>
+                    <hr className="my-4"></hr>
+                  </div>
+                )}
+
+                <Link href={'/ernaehrung/my'}>
+                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                    Meine Datensätze
+                  </a>
+                </Link>
+
+                <button
+                  className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                  type="submit"
+                  disabled={!session || uploadLoading}
+                >
+                  Speichern
+                </button>
+              </form>
+            </div>
+          </FlexSplitLayout>
         </main>
       </div>
     </Layout>
