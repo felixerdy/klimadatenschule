@@ -1,9 +1,16 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import DatenschutzModal from './Modals/DatenschutzModal';
+import ImpressumModal from './Modals/ImpressumModal';
+
+import BildungsCentLogo from '../public/logos/bc.png';
+import MedialePfadeLogo from '../public/logos/mp_black.svg';
+import ReeduLogo from '../public/logos/reedu_black.svg';
 
 export default function Footer() {
   const [datenschutzModalOpen, setDatenschutzModalOpen] = useState(false);
+  const [impressumModalOpen, setImpressumModalOpen] = useState(false);
 
   return (
     <div className="bg-footer">
@@ -27,12 +34,24 @@ export default function Footer() {
             aufgrund eines Beschlusses des Deutschen Bundestages.
           </p>
         </div>
+        <div className="flex-1 mt-4 p-4 flex flex-col items-center text-center">
+          <div className="w-32 py-4">
+            <Image src={BildungsCentLogo} alt="BildungsCent Logo"></Image>
+          </div>
+          <div className="w-32">
+            <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
+          </div>
+          <div className="w-32">
+            <Image src={ReeduLogo} alt="re:edu Logo"></Image>
+          </div>
+        </div>
         <div className="flex-1  mt-4">
           <p className="font-semibold">Rechtliche Hinweise</p>
-          <p>
-            <Link href="#">
-              <a>Impressum</a>
-            </Link>
+          <p
+            className="cursor-pointer"
+            onClick={() => setImpressumModalOpen(true)}
+          >
+            Impressum
           </p>
           <p
             className="cursor-pointer"
@@ -47,6 +66,10 @@ export default function Footer() {
         opened={datenschutzModalOpen}
         closeModal={() => setDatenschutzModalOpen(false)}
       ></DatenschutzModal>
+      <ImpressumModal
+        opened={impressumModalOpen}
+        closeModal={() => setImpressumModalOpen(false)}
+      ></ImpressumModal>
     </div>
   );
 }

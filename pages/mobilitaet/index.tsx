@@ -287,7 +287,6 @@ const Mobilitaet: React.FC = () => {
                   type="date"
                   name={'timestamp'}
                   defaultValue={new Date().toJSON().slice(0, 10)}
-                  autoFocus
                   {...register('timestamp')}
                 />
                 <label className="font-medium">Tag</label>

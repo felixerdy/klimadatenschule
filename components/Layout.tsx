@@ -18,6 +18,10 @@ const Layout: React.FC<Props> = props => {
       setBgColor('bg-paper');
     } else if (router.pathname.includes('ernaehrung')) {
       setBgColor('bg-nutrition');
+    } else if (router.pathname.includes('schaltzentrale')) {
+      setBgColor('bg-white');
+    } else {
+      setBgColor('bg-kds-light');
     }
   }, [router.pathname]);
 
