@@ -13,6 +13,11 @@ import {
 } from '../../types/mobility';
 import { useSession } from 'next-auth/client';
 
+import Button from '../../components/ui/Button';
+import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
+import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
+import Image from 'next/image';
+
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
   {
@@ -183,44 +188,115 @@ const Mobilitaet: React.FC = () => {
   return (
     <Layout>
       <div className="page">
-        <SectionHeader color="mobility" text="Mobilität" />
-        <main className="mt-20 text-center">
-          <Link href={'/mobilitaet/my'}>
-            <a className="text-mobility-darkest bg-mobility-light px-4 py-2 mt-2  text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
-              Meine Datensätze
-            </a>
-          </Link>
-          <h1 className="text-4xl my-4">Schulwegrechner</h1>
-          <InfoBox>
-            <h1 className="font-bold">Info</h1>
-            <p>Das ist eine Infobox</p>
-          </InfoBox>
+        <FlexSplitLayout>
+          <h1 className="flex-1 text-4xl">Mobilität</h1>
+          <div className="flex-1">
+            <div className="max-w-xs">
+              <Image src={MobilitaetIcon} alt="Mobilität Icon"></Image>
+            </div>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
+            <h1 className="text-4xl my-16 w-1/2">Mobilität im Klima-Check</h1>
+            <p>
+              Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
+              auf deinem Schulweg zurück? Berechne Hin- und Rückweg für eine
+              ganze Woche.
+            </p>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1 max-w-full">
+            <hr className="my-4"></hr>
+            <table {...getTableProps()} className="max-w-full md:min-w-full">
+              <thead className="">
+                {headerGroups.map(headerGroup => (
+                  <tr
+                    key={headerGroup.id}
+                    {...headerGroup.getHeaderGroupProps()}
+                  >
+                    {headerGroup.headers.map((column, i) => (
+                      <th
+                        key={column.id}
+                        {...column.getHeaderProps()}
+                        className={`${
+                          i === 0 ? 'pr-3' : ''
+                        } text-left font-medium  uppercase tracking-wider`}
+                      >
+                        {column.render('Header')}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+                <tr>
+                  <td colSpan={2}>
+                    <hr className="my-4"></hr>
+                  </td>
+                </tr>
+              </thead>
+              <tbody {...getTableBodyProps()} className="">
+                {rows.map(row => {
+                  prepareRow(row);
+                  return (
+                    <tr key={row.id} {...row.getRowProps()}>
+                      {row.cells.map((cell, i) => {
+                        return (
+                          <td
+                            key={i}
+                            {...cell.getCellProps()}
+                            className="py-4 whitespace-nowrap"
+                          >
+                            {cell.render('Cell')}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+                <tr>
+                  <td colSpan={2}>
+                    <hr className="my-4"></hr>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot className="">
+                {footerGroups.map(group => (
+                  <tr key={group.id} {...group.getFooterGroupProps()}>
+                    {group.headers.map(column => (
+                      <td
+                        key={column.id}
+                        className="py-4 whitespace-nowrap font-semibold"
+                        {...column.getFooterProps()}
+                      >
+                        {column.render('Footer')}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tfoot>
+            </table>
+            <hr className="mt-4 mb-16"></hr>
 
-          <h1 className="text-xl">
-            Wie viele <span className="font-bold">Kilometer</span> bist du mit
-            welchem Verkehrsmittel zur Schule gefahren? Achte darauf, dass du
-            den Hin- und Rückweg berechnest.
-          </h1>
-          <div className="flex items-center justify-evenly flex-col-reverse sm:flex-row">
-            <form
-              className="p-4 max-w-xl m-auto"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <label className="text-gray-600 font-medium">Tag</label>
-              <input
-                className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                type="date"
-                name={'timestamp'}
-                defaultValue={new Date().toJSON().slice(0, 10)}
-                autoFocus
-                {...register('timestamp')}
-              />
+            <form className="" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
+                <input
+                  className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+                  type="date"
+                  name={'timestamp'}
+                  defaultValue={new Date().toJSON().slice(0, 10)}
+                  autoFocus
+                  {...register('timestamp')}
+                />
+                <label className="font-medium">Tag</label>
+              </div>
 
               {Mobilities.map(m => (
-                <React.Fragment key={m.title}>
-                  <label className="text-gray-600 font-medium">{m.title}</label>
+                <div className="mb-4" key={m.title}>
                   <input
-                    className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
+                    className="border-solid border-gray-300 border py-2 px-4  w-full rounded "
                     type="number"
                     name={m.title}
                     defaultValue={0}
@@ -228,82 +304,21 @@ const Mobilitaet: React.FC = () => {
                     max={1000}
                     {...register(m.type, { min: 0, max: 50 })}
                   />
-                </React.Fragment>
+                  <label className="mb-4 font-medium">{m.title}</label>
+                </div>
               ))}
 
-              <button
-                className="mt-4 w-full text-mobility-darkest bg-mobility-light px-4 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
-                type="submit"
-                disabled={!session || uploadLoading}
-              >
+              <Link href={'/mobilitaet/my'}>
+                <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                  Meine Datensätze
+                </a>
+              </Link>
+              <Button type="submit" disabled={!session || uploadLoading}>
                 Speichern
-              </button>
+              </Button>
             </form>
-            <div className="max-w-xl shadow overflow-scroll mt-20 sm:overflow-auto border-b border-gray-200 sm:rounded-lg">
-              <table
-                {...getTableProps()}
-                className="min-w-full divide-y divide-gray-200"
-              >
-                <thead className="bg-gray-50">
-                  {headerGroups.map(headerGroup => (
-                    <tr
-                      key={headerGroup.id}
-                      {...headerGroup.getHeaderGroupProps()}
-                    >
-                      {headerGroup.headers.map(column => (
-                        <th
-                          key={column.id}
-                          {...column.getHeaderProps()}
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          {column.render('Header')}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody
-                  {...getTableBodyProps()}
-                  className="bg-white divide-y divide-gray-200"
-                >
-                  {rows.map(row => {
-                    prepareRow(row);
-                    return (
-                      <tr key={row.id} {...row.getRowProps()}>
-                        {row.cells.map((cell, i) => {
-                          return (
-                            <td
-                              key={i}
-                              {...cell.getCellProps()}
-                              className="px-6 py-4 whitespace-nowrap"
-                            >
-                              {cell.render('Cell')}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot className="bg-white divide-y divide-gray-200">
-                  {footerGroups.map((group, i) => (
-                    <tr key={group.id} {...group.getFooterGroupProps()}>
-                      {group.headers.map(column => (
-                        <td
-                          key={column.id}
-                          className="px-6 py-4 whitespace-nowrap font-semibold"
-                          {...column.getFooterProps()}
-                        >
-                          {column.render('Footer')}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tfoot>
-              </table>
-            </div>
           </div>
-        </main>
+        </FlexSplitLayout>
       </div>
     </Layout>
   );
