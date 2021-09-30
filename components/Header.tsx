@@ -8,6 +8,8 @@ import Dropdown from './Dropdown';
 
 import Logo from '../public/images/KDS-Logo-hoch-neonfarben-rgb.svg';
 
+import { signIn } from 'next-auth/client';
+
 const Header: React.FC = () => {
   const router = useRouter();
 
@@ -145,11 +147,14 @@ const Header: React.FC = () => {
               <Dropdown></Dropdown>
             </div>
           ) : (
-            <Link href={'/api/auth/signin'}>
-              <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
-                Login
-              </a>
-            </Link>
+            // <Link href={'/api/auth/signin'}>
+            <button
+              onClick={() => signIn('fusionauth')}
+              className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline"
+            >
+              Login
+            </button>
+            // </Link>
             // <LoginButton href="/api/auth/signin" text="Login" />
           )}
         </nav>
