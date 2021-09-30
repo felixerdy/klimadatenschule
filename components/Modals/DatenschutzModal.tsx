@@ -20,7 +20,7 @@ const DatenschutzModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
       onClickIcon={closeModal}
       size="lg"
     >
-      <div class="builder-text-content">
+      <div className="builder-text-content">
         <h3>Datenschutz</h3>
         <p>
           Wir freuen uns über Ihren Besuch auf unserer Webseite.{' '}
