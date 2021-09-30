@@ -9,11 +9,12 @@ import Router from 'next/dist/next-server/server/router';
 import { Column, useTable } from 'react-table';
 import { IPaperForm, PaperDescription, PaperType } from '../../types/paper';
 import { useSession } from 'next-auth/client';
+import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
+import PapierIcon from '../../public/images/kds-icon-papier.svg';
+import Image from 'next/image';
 
 const toCO2 = (gram: number, type: PaperType): number => {
-  return Number(
-    (gram / 1000) * PaperProducts.find(e => e.type === type).thgpkm
-  );
+  return Number(gram * PaperProducts.find(e => e.type === type).thgpkm);
 };
 
 export const PaperProducts: PaperDescription[] = [
@@ -29,7 +30,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'a6',
-    title: 'Vokabelheft / Hausaufgabenheft A6',
+    title: 'Heft A6',
     thgpkm: 0.0025
   },
   {
@@ -134,7 +135,7 @@ const Papier: React.FC = () => {
         Footer: 'SUMME'
       },
       {
-        Header: 'Kilogramm CO2',
+        Header: 'Gramm CO2',
         accessor: 'col2',
         Footer: info => {
           // Only calculate total visits if rows change
@@ -174,8 +175,137 @@ const Papier: React.FC = () => {
   return (
     <Layout>
       <div className="page">
-        <SectionHeader color="paper" text="Papier" />
-        <main className="mt-20 text-center">
+        <main className="my-20">
+          <FlexSplitLayout>
+            <h1 className="flex-1 text-4xl">Papier</h1>
+            <div className="flex-1">
+              <div className="max-w-xs">
+                <Image src={PapierIcon} alt="Papier Icon"></Image>
+              </div>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <h1 className="text-4xl my-16 w-1/2">
+                Papierverbrauch im Klima-Check
+              </h1>
+              <p>
+                Wie viele Papierprodukte wurden von den befragten Schüler*innen
+                im letzten Halbjahr genutzt? Gebt die Antworten von jeder
+                befragten Person einzeln ein und speichert sie ab.
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1 max-w-full">
+              <hr className="my-4"></hr>
+              <table {...getTableProps()} className="max-w-full md:min-w-full">
+                <thead className="">
+                  {headerGroups.map(headerGroup => (
+                    <tr
+                      key={headerGroup.id}
+                      {...headerGroup.getHeaderGroupProps()}
+                    >
+                      {headerGroup.headers.map((column, i) => (
+                        <th
+                          key={column.id}
+                          {...column.getHeaderProps()}
+                          className={`${
+                            i === 0 ? 'pr-3' : ''
+                          } text-left font-medium  uppercase tracking-wider`}
+                        >
+                          {column.render('Header')}
+                        </th>
+                      ))}
+                    </tr>
+                  ))}
+                  <tr>
+                    <td colSpan={2}>
+                      <hr className="my-4"></hr>
+                    </td>
+                  </tr>
+                </thead>
+                <tbody {...getTableBodyProps()} className="">
+                  {rows.map(row => {
+                    prepareRow(row);
+                    return (
+                      <tr key={row.id} {...row.getRowProps()}>
+                        {row.cells.map((cell, i) => {
+                          return (
+                            <td
+                              key={i}
+                              {...cell.getCellProps()}
+                              className="py-4 whitespace-nowrap"
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
+                  <tr>
+                    <td colSpan={2}>
+                      <hr className="my-4"></hr>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot className="">
+                  {footerGroups.map(group => (
+                    <tr key={group.id} {...group.getFooterGroupProps()}>
+                      {group.headers.map(column => (
+                        <td
+                          key={column.id}
+                          className="py-4 whitespace-nowrap font-semibold"
+                          {...column.getFooterProps()}
+                        >
+                          {column.render('Footer')}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tfoot>
+              </table>
+              <hr className="mt-4 mb-16"></hr>
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {PaperProducts.map(m => (
+                  <div className="mb-4" key={m.title}>
+                    <input
+                      className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                      type="number"
+                      name={m.title}
+                      defaultValue={0}
+                      min={0}
+                      max={1000}
+                      {...register(m.type, { min: 0, max: 50 })}
+                    />
+                    <label className="font-medium">{m.title}</label>
+                  </div>
+                ))}
+
+                <Link href={'/papier/my'}>
+                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                    Meine Datensätze
+                  </a>
+                </Link>
+
+                <button
+                  className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                  type="submit"
+                  disabled={!session || uploadLoading}
+                >
+                  Speichern
+                </button>
+              </form>
+            </div>
+          </FlexSplitLayout>
+        </main>
+
+        {/* <SectionHeader color="paper" text="Papier" /> */}
+        {/* <main className="mt-20 text-center">
           <Link href={'/papier/my'}>
             <a className="text-paper-darkest bg-paper-light px-4 py-2 mt-2  text-sm font-semibold rounded-lg md:mt-0 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline">
               Meine Datensätze
@@ -195,15 +325,6 @@ const Papier: React.FC = () => {
               className="p-4 max-w-xl m-auto"
               onSubmit={handleSubmit(onSubmit)}
             >
-              {/* <label className="text-gray-600 font-medium">Zeitpunkt</label>
-              <input
-                className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                type="datetime-local"
-                name={'timestamp'}
-                // defaultValue={new Date().toJSON().slice(0, 19)}
-                autoFocus
-                {...register('timestamp')}
-              /> */}
 
               {PaperProducts.map(m => (
                 <React.Fragment key={m.title}>
@@ -293,7 +414,7 @@ const Papier: React.FC = () => {
               </table>
             </div>
           </div>
-        </main>
+        </main> */}
       </div>
     </Layout>
   );
