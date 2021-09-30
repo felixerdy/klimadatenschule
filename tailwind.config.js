@@ -25,14 +25,14 @@ module.exports = {
           darkest: colors.green[900],
           dark: colors.green[600],
           DEFAULT: '#54BDB9',
-          light: colors.green[200],
+          light: '#54BDB9',
           lightest: colors.green[100]
         },
         mobility: {
           darkest: '#1f2d3d',
           dark: '#3c4858',
           DEFAULT: '#FFED00',
-          light: '#c0ccda',
+          light: '#FFFBDB',
           lightest: '#f9fafc'
         },
         paper: {

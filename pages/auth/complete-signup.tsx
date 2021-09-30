@@ -7,6 +7,7 @@ import prisma from './../../lib/prisma';
 import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Button from '../../components/ui/Button';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const organisations = await prisma.organisation.findMany();
@@ -119,12 +120,7 @@ const CompleteSignup: React.FC<Props> = props => {
               <option value="null">Keine Schule / Organisation</option>
             </select>
 
-            <button
-              className="mt-4 w-full bg-yellow-400 hover:bg-yellow-600 text-yellow-100 border py-3 px-6 font-semibold text-md rounded"
-              type="submit"
-            >
-              Speichern
-            </button>
+            <Button type="submit">Speichern</Button>
           </form>
         </main>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/client';
@@ -12,6 +12,22 @@ import { signIn } from 'next-auth/client';
 
 const Header: React.FC = () => {
   const router = useRouter();
+
+  const [bgColor, setBgColor] = useState('bg-kds-light');
+
+  useEffect(() => {
+    if (router.pathname.includes('baum')) {
+      setBgColor('bg-tree-light');
+    } else if (router.pathname.includes('mobilitaet')) {
+      setBgColor('bg-mobility-light');
+    } else if (router.pathname.includes('papier')) {
+      setBgColor('bg-paper');
+    } else if (router.pathname.includes('ernaehrung')) {
+      setBgColor('bg-nutrition');
+    } else {
+      setBgColor('bg-kds-light');
+    }
+  }, [router.pathname]);
 
   const isActive: (pathname: string) => boolean = pathname =>
     router.pathname === pathname;
@@ -175,7 +191,7 @@ const Header: React.FC = () => {
           }}
         ></div>
         <div
-          className="bg-kds-light py-12 w-full absolute top-0"
+          className={`${bgColor} py-12 w-full absolute top-0`}
           style={{
             clipPath: 'polygon(100% 72%, 100% 100%, 0 100%, 20% 75%, 67% 87%)'
           }}
