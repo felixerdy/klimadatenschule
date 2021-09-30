@@ -21,8 +21,8 @@ const Dropdown: React.FC = () => {
       {({ open }) => (
         <>
           <span className="rounded-md shadow-sm">
-            <Menu.Button className="h-10 w-10 bg-purple-400 flex text-sm rounded-full ml-4 focus:outline-none">
-              <span className="w-full h-full flex items-center justify-center text-white font-bold">
+            <Menu.Button className="h-9 w-9 bg-purple-400 flex text-sm rounded-full ml-8 focus:outline-none">
+              <span className="w-full h-full flex items-center justify-center text-white text-sm font-semibold">
                 {getInitials(session.user.name)}
               </span>
             </Menu.Button>

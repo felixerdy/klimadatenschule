@@ -13,6 +13,10 @@ import Link from 'next/link';
 import prisma from '../../lib/prisma';
 import { GetServerSideProps } from 'next';
 import { getSession, useSession } from 'next-auth/client';
+import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
+import BaumIcon from '../../public/images/kds-icon-baeume.svg';
+import { PlusIcon, XIcon } from '@heroicons/react/solid';
+import Button from '../../components/ui/Button';
 
 interface TreeMarker {
   id: string;
@@ -153,172 +157,202 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
 
   return (
     <Layout>
-      <div className="page text-center">
-        <SectionHeader color="green" text="Wald & Bäume" />
-        <main className="mt-20">
-          <Link href={'/wald-baum/my'}>
-            <a className="text-tree-darkest bg-tree-light px-4 py-2 m-4 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline">
-              Meine Datensätze
-            </a>
-          </Link>
-          <div className="shadow overflow-hidden border-gray-200 rounded-lg mt-4">
-            <ReactMapGL
-              {...viewport}
-              onViewportChange={nextViewport => setViewport(nextViewport)}
-              mapStyle={{
-                version: 8,
-                metadata: {
-                  'mapbox:autocomposite': true,
-                  'mapbox:type': 'template'
-                },
-                sources: {
-                  'raster-tiles': {
-                    type: 'raster',
-                    tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
-                    tileSize: 256
-                  }
-                },
-                layers: [
-                  {
-                    id: 'simple-tiles',
-                    type: 'raster',
-                    source: 'raster-tiles',
-                    minzoom: 0,
-                    maxzoom: 22
-                  }
-                ]
-              }}
-            >
-              <GeolocateControl
-                style={geolocateControlStyle}
-                positionOptions={{ enableHighAccuracy: true }}
-                auto
-              />
-
-              {trees.map(m => (
-                <Marker
-                  key={m.id}
-                  latitude={m.position[1]}
-                  longitude={m.position[0]}
-                  offsetLeft={-20}
-                  offsetTop={-40}
-                >
-                  <Image
-                    alt="Tree Marker"
-                    className="filter grayscale"
-                    draggable={false}
-                    src="/images/tree-marker.svg"
-                    width={40}
-                    height={40}
-                    onClick={() => setPopupInfo(m)}
-                  ></Image>
-                </Marker>
-              ))}
-              {markers.map(m => (
-                <Marker
-                  key={m.id}
-                  latitude={m.position[1]}
-                  longitude={m.position[0]}
-                  offsetLeft={-20}
-                  offsetTop={-40}
-                  draggable
-                  onDragEnd={evt => updateMarker(m.id, { lngLat: evt.lngLat })}
-                >
-                  <Image
-                    alt="Tree Marker"
-                    draggable={false}
-                    src="/images/tree-marker.svg"
-                    width={40}
-                    height={40}
-                  ></Image>
-                </Marker>
-              ))}
-              {popupInfo && (
-                <Popup
-                  tipSize={5}
-                  anchor="bottom"
-                  offsetTop={-40}
-                  longitude={popupInfo.position[0]}
-                  latitude={popupInfo.position[1]}
-                  closeOnClick={false}
-                  onClose={setPopupInfo}
-                >
-                  <div className="p-1">
-                    <p>Umfang: {popupInfo.diameter} cm</p>
-                    <p>Höhe: {popupInfo.height} m</p>
-                  </div>
-                </Popup>
-              )}
-            </ReactMapGL>
+      <div className="page">
+        <FlexSplitLayout>
+          <h1 className="flex-1 text-4xl">Bäume</h1>
+          <div className="flex-1">
+            <div className="max-w-xs">
+              <Image src={BaumIcon} alt="Papier Icon"></Image>
+            </div>
           </div>
-          <div className="m-4">
-            <form
-              className="p-4 max-w-xl m-auto"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              {markers.map((m, i) => (
-                <div key={m.id} className="flex items-center content-center">
-                  {/* <p>Baum {i + 1}</p> */}
-                  <div className="flex-grow flex items-center content-center">
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
+            <h1 className="text-4xl my-16 w-1/2">Bäume im Klima-Check</h1>
+            <p>
+              Wie viele Bäume gibt es in eurer Umgebung und wie viel CO2
+              speichern sie? Kartiert alle Bäume indem ihr den Standort auf der
+              Karte markiert und Umfang sowie Höhe des Baumes in die
+              Eingabefelder eintragt.
+            </p>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
+            <div className="shadow overflow-hidden border-gray-200 rounded-lg mt-4">
+              <ReactMapGL
+                {...viewport}
+                onViewportChange={nextViewport => setViewport(nextViewport)}
+                mapStyle={{
+                  version: 8,
+                  metadata: {
+                    'mapbox:autocomposite': true,
+                    'mapbox:type': 'template'
+                  },
+                  sources: {
+                    'raster-tiles': {
+                      type: 'raster',
+                      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                      tileSize: 256
+                    }
+                  },
+                  layers: [
+                    {
+                      id: 'simple-tiles',
+                      type: 'raster',
+                      source: 'raster-tiles',
+                      minzoom: 0,
+                      maxzoom: 22
+                    }
+                  ]
+                }}
+              >
+                <GeolocateControl
+                  style={geolocateControlStyle}
+                  positionOptions={{ enableHighAccuracy: true }}
+                  auto
+                />
+
+                {trees.map(m => (
+                  <Marker
+                    key={m.id}
+                    latitude={m.position[1]}
+                    longitude={m.position[0]}
+                    offsetLeft={-20}
+                    offsetTop={-40}
+                  >
                     <Image
                       alt="Tree Marker"
-                      className="shadow"
+                      className="filter grayscale"
+                      draggable={false}
+                      src="/images/tree-marker.svg"
+                      width={40}
+                      height={40}
+                      onClick={() => setPopupInfo(m)}
+                    ></Image>
+                  </Marker>
+                ))}
+                {markers.map(m => (
+                  <Marker
+                    key={m.id}
+                    latitude={m.position[1]}
+                    longitude={m.position[0]}
+                    offsetLeft={-20}
+                    offsetTop={-40}
+                    draggable
+                    onDragEnd={evt =>
+                      updateMarker(m.id, { lngLat: evt.lngLat })
+                    }
+                  >
+                    <Image
+                      alt="Tree Marker"
                       draggable={false}
                       src="/images/tree-marker.svg"
                       width={40}
                       height={40}
                     ></Image>
-                    <div className="flex flex-col m-auto">
-                      <label className="text-gray-600">Umfang in cm</label>
-                      <input
-                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                        type="number"
-                        step="any"
-                        name={`tree_${i}_diameter`}
-                        defaultValue={0}
-                        min={0}
-                        {...register(`tree_${m.id}_diameter`, { min: 0 })}
-                      />
+                  </Marker>
+                ))}
+                {popupInfo && (
+                  <Popup
+                    tipSize={5}
+                    anchor="bottom"
+                    offsetTop={-40}
+                    longitude={popupInfo.position[0]}
+                    latitude={popupInfo.position[1]}
+                    closeOnClick={false}
+                    onClose={setPopupInfo}
+                  >
+                    <div className="p-1">
+                      <p>Umfang: {popupInfo.diameter} cm</p>
+                      <p>Höhe: {popupInfo.height} m</p>
                     </div>
-                    <div className="flex flex-col m-auto">
-                      <label className="text-gray-600">Höhe in m</label>
-                      <input
-                        className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
-                        type="number"
-                        step="any"
-                        name={`tree_${i}_height`}
-                        defaultValue={0}
-                        min={0}
-                        {...register(`tree_${m.id}_height`, { min: 0 })}
-                      />
+                  </Popup>
+                )}
+              </ReactMapGL>
+            </div>
+            <form className="" onSubmit={handleSubmit(onSubmit)}>
+              {markers.map((m, i) => (
+                <>
+                  <hr className="my-4 w-full"></hr>
+                  <div key={m.id} className="flex w-full">
+                    <div className="flex w-full">
+                      {trees.length > 1 && (
+                        <div className="mr-2">
+                          <button
+                            className="bg-kds-green-neon rounded-full p-3 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                            type="button"
+                            onClick={() => removeMarker(m.id)}
+                          >
+                            <XIcon className="w-4"></XIcon>
+                          </button>
+                        </div>
+                      )}
+                      <div className="flex flex-col w-full">
+                        <div className="mb-4 ">
+                          <input
+                            className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+                            type="number"
+                            step="any"
+                            name={`tree_${i}_diameter`}
+                            defaultValue={0}
+                            min={0}
+                            {...register(`tree_${m.id}_diameter`, { min: 0 })}
+                          />
+                          <label className="">Umfang in cm</label>
+                        </div>
+                        <div className="mb-4 ">
+                          <input
+                            className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                            type="number"
+                            step="any"
+                            name={`tree_${i}_height`}
+                            defaultValue={0}
+                            min={0}
+                            {...register(`tree_${m.id}_height`, { min: 0 })}
+                          />
+                          <label className="">Höhe in m</label>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <button
-                    className="w-8 h-8 text-tree-darkest bg-tree-lightest px-2 py-2 text-sm font-semibold rounded-lg md:mt-0 hover:bg-tree-light focus:bg-gray focus:outline-none focus:shadow-outline"
-                    type="button"
-                    onClick={() => removeMarker(m.id)}
-                  >
-                    <TrashIcon className="w-4"></TrashIcon>
-                  </button>
-                </div>
+                </>
               ))}
-              <button
+              <hr className="my-4"></hr>
+              <div
+                className="flex items-center group cursor-pointer"
+                onClick={() => addMarker()}
+              >
+                <button
+                  className="bg-kds-green-neon rounded-full p-3 text-sm font-semibold group-hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                  type="button"
+                >
+                  <PlusIcon className="w-5 h-5" />
+                </button>
+                <p className="ml-2 uppercase">Baum hinzufügen</p>
+              </div>
+              <hr className="my-4"></hr>
+              {/* <button
                 className="m-4 text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-tree focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={() => addMarker()}
               >
                 + Baum hinzufügen
-              </button>
-              <button
-                className="m-4 w-full text-tree-darkest bg-tree-light px-4 py-2 text-sm font-semibold rounded-lg hover:bg-tree-lightest focus:bg-gray focus:outline-none focus:shadow-outline disabled:bg-gray-200 disabled:text-gray-500"
-                type="submit"
-                disabled={!session || uploadLoading}
-              >
+              </button> */}
+              <Link href={'/wald-baum/my'}>
+                <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                  Meine Datensätze
+                </a>
+              </Link>
+
+              <Button type="submit" disabled={!session || uploadLoading}>
                 Speichern
-              </button>
+              </Button>
             </form>
           </div>
-        </main>
+        </FlexSplitLayout>
       </div>
     </Layout>
   );

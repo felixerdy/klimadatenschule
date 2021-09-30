@@ -9,6 +9,11 @@ import ItemRow from '../components/ItemRow';
 import SectionHeader from '../components/SectionHeader';
 import Link from 'next/link';
 
+import BaumIcon from './../public/images/kds-icon-baeume.svg';
+import ErnaehrungIcon from './../public/images/kds-icon-ernaehrung.svg';
+import MobilitaetIcon from './../public/images/kds-icon-mobilitaet.svg';
+import PapierIcon from './../public/images/kds-icon-papier.svg';
+
 // index.tsx
 export const getStaticProps: GetStaticProps = async () => {
   const datasets = await prisma.dataset.findMany({
@@ -28,46 +33,45 @@ type Props = {
 const Home: React.FC<Props> = (props: Props) => {
   return (
     <>
-      <div className="flex items-center justify-evenly flex-col-reverse sm:flex-row">
-        <Image
-          src="/images/undraw_team_work_k80m.svg"
-          alt="Picture of the author"
-          width={400}
-          height={400}
-        ></Image>
-        <h1 className="text-gray-800 text-8xl font-extrabold">
-          <span className="block">Klima</span>
-          <span className="block">Daten</span>
-          <span className="block">Schule</span>
+      <div>
+        <h1 className="text-5xl text-center uppercase my-20">
+          Wähle dein For&shy;schungs&shy;gebiet
         </h1>
       </div>
-      {/* <div className="h-96">
-        <FlowCO2Calculator></FlowCO2Calculator>
-      </div> */}
-
-      {/* <section className="mt-10">
-        <h1 className="text-gray-800 text-4xl font-extrabold">Datensätze</h1>
-        {props.datasets.map(dataset => (
-          <ItemRow
-            key={dataset.id}
-            onClick={() => Router.push(`/dataset/${dataset.id}`)}
-            title={dataset.title}
-            publisher={dataset.publisher.name}
-          ></ItemRow>
-        ))}
-      </section> */}
 
       <main>
-        <div className="flex flex-col sm:flex-row">
-          <SectionHeader
+        <div className="flex flex-col md:flex-row justify-center items-center">
+          <Link href="/wald-baum" passHref>
+            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+              <Image src={BaumIcon} alt="Baeume Icon"></Image>
+              <h2 className="text-2xl uppercase">Bäume</h2>
+            </div>
+          </Link>
+          <Link href="/mobilitaet" passHref>
+            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+              <Image src={MobilitaetIcon} alt="Mobilität Icon"></Image>
+              <h2 className="text-2xl uppercase">Mobilität</h2>
+            </div>
+          </Link>
+          <Link href="/papier" passHref>
+            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+              <Image src={PapierIcon} alt="Papier Icon"></Image>
+              <h2 className="text-2xl uppercase">Papier</h2>
+            </div>
+          </Link>
+          <Link href="/ernaehrung" passHref>
+            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+              <Image src={ErnaehrungIcon} alt="Ernährung Icon"></Image>
+              <h2 className="text-2xl uppercase">Ernährung</h2>
+            </div>
+          </Link>
+          {/* <SectionHeader
             color="mobility"
             text="Mobilität"
             button
             href="mobilitaet"
           />
           <SectionHeader color="blue" text="Papier" button href="papier" />
-        </div>
-        <div className="flex flex-col sm:flex-row">
           <SectionHeader
             color="green"
             text="Wald & Bäume"
@@ -79,7 +83,7 @@ const Home: React.FC<Props> = (props: Props) => {
             text="Ernährung"
             button
             href="ernaehrung"
-          />
+          /> */}
         </div>
       </main>
     </>
