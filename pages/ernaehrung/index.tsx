@@ -101,16 +101,16 @@ const Ernaehrung: React.FC = () => {
                 eurer Schulkantine. Übertrage die CO₂ Werte in die Eingabefelder
                 auf dieser Seite.
               </p>
-              <div>
+              <p className="my-4">
                 <a
                   href="https://www.klimatarier.com/de/CO2_Rechner"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-kds-green-neon px-4 py-2 my-16 text-sm font-semibold rounded-full hover:bg-gray-300"
+                  className="bg-kds-green-neon px-4 py-2 text-sm font-semibold rounded-full hover:bg-gray-300"
                 >
                   CO₂-RECHNER DER KLIMATARIER
                 </a>
-              </div>
+              </p>
             </div>
           </FlexSplitLayout>
           <FlexSplitLayout>
