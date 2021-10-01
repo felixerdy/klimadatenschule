@@ -142,14 +142,19 @@ model TreeRecord {
 }
 
 model PaperRecord {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @map("updated_at")
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
-  a4           Float
-  a5           Float
-  a6           Float
-  collegeblock Float
-  zeichenmappe Float
+  id                     String   @id @default(uuid())
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @default(now()) @map("updated_at")
+  user                   User     @relation(fields: [userId], references: [id])
+  userId                 String
+  a4                     Float
+  a5                     Float
+  a6                     Float
+  collegeblock           Float
+  zeichenmappe           Float
+  a4_recycling           Float    @default(0)
+  a5_recycling           Float    @default(0)
+  a6_recycling           Float    @default(0)
+  collegeblock_recycling Float    @default(0)
+  zeichenmappe_recycling Float    @default(0)
 }

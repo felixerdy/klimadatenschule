@@ -5,7 +5,6 @@ import InfoBox from '../../components/InfoBox';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import Router from 'next/dist/next-server/server/router';
 import { Column, useTable } from 'react-table';
 import { IPaperForm, PaperDescription, PaperType } from '../../types/paper';
 import { useSession } from 'next-auth/client';
@@ -14,34 +13,59 @@ import PapierIcon from '../../public/images/kds-icon-papier.svg';
 import Image from 'next/image';
 
 const toCO2 = (gram: number, type: PaperType): number => {
-  return Number(gram * PaperProducts.find(e => e.type === type).thgpkm);
+  return Number(gram * PaperProducts.find(e => e.type === type).thgpst);
 };
 
 export const PaperProducts: PaperDescription[] = [
   {
     type: 'a4',
-    title: 'Heft A4',
-    thgpkm: 0.1
+    title: 'Heft A4 (16 Blatt)',
+    thgpst: 80
+  },
+  {
+    type: 'a4_recycling',
+    title: 'Heft A4 (16 Blatt recycling)',
+    thgpst: 64
   },
   {
     type: 'a5',
-    title: 'Heft A5',
-    thgpkm: 0.05
+    title: 'Heft A5 (16 Blatt)',
+    thgpst: 40
+  },
+  {
+    type: 'a5_recycling',
+    title: 'Heft A5 (16 Blatt recycling)',
+    thgpst: 32
   },
   {
     type: 'a6',
-    title: 'Heft A6',
-    thgpkm: 0.0025
+    title: 'Heft A6 (32 Blatt)',
+    thgpst: 40
+  },
+  {
+    type: 'a6_recycling',
+    title: 'Heft A6 (32 Blatt recycling)',
+    thgpst: 32
   },
   {
     type: 'collegeblock',
-    title: 'Collegeblock',
-    thgpkm: 0.4
+    title: 'Collegeblock (80 Blatt)',
+    thgpst: 400
+  },
+  {
+    type: 'collegeblock_recycling',
+    title: 'Collegeblock (80 Blatt recycling)',
+    thgpst: 320
   },
   {
     type: 'zeichenmappe',
-    title: 'Zeichenmappe A3',
-    thgpkm: 0.2
+    title: 'Zeichenmappe A3 (20 Blatt)',
+    thgpst: 200
+  },
+  {
+    type: 'zeichenmappe_recycling',
+    title: 'Zeichenmappe A3 (20 Blatt recycling)',
+    thgpst: 160
   }
 ];
 
