@@ -11,10 +11,7 @@ import { useSession } from 'next-auth/client';
 import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
 import PapierIcon from '../../public/images/kds-icon-papier.svg';
 import Image from 'next/image';
-
-const toCO2 = (gram: number, type: PaperType): number => {
-  return Number(gram * PaperProducts.find(e => e.type === type).thgpst);
-};
+import { paperToCO2 } from '../../tools';
 
 export const PaperProducts: PaperDescription[] = [
   {
@@ -132,7 +129,7 @@ const Papier: React.FC = () => {
       .filter(e => e !== 'timestamp')
       .reduce(
         (acc, val) =>
-          Number(acc) + Number(toCO2(inputData[val], val as PaperType)),
+          Number(acc) + Number(paperToCO2(inputData[val], val as PaperType)),
         0
       );
   }, [inputData]);
@@ -144,7 +141,7 @@ const Papier: React.FC = () => {
         .map(e => {
           return {
             col1: PaperProducts.find(n => n.type === e).title,
-            col2: toCO2(inputData[e], e as PaperType).toFixed(2)
+            col2: paperToCO2(inputData[e], e as PaperType).toFixed(2)
           };
         })
     ],

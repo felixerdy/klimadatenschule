@@ -1,3 +1,6 @@
+import { PaperProducts } from '../pages/papier';
+import { PaperType } from '../types/paper';
+
 const DARRDICHTE_KG_M3 = 600;
 const UMRECHNUNGSFAKTOR = 3.67;
 
@@ -20,4 +23,8 @@ const treeToCO2 = (
   return co2InKg;
 };
 
-export { treeToCO2 };
+const paperToCO2 = (gram: number, type: PaperType): number => {
+  return Number(gram * PaperProducts.find(e => e.type === type).thgpst);
+};
+
+export { treeToCO2, paperToCO2 };
