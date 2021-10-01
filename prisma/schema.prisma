@@ -127,6 +127,7 @@ model MealRecord {
   name      String
   co2       Float
   count     Int      @default(1)
+  timestamp DateTime @default(now())
 }
 
 model TreeRecord {

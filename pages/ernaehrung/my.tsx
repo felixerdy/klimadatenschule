@@ -90,7 +90,7 @@ const MyMealRecords: React.FC<Props> = props => {
                 {({ open }) => (
                   <>
                     <Disclosure.Button className="flex justify-between w-full px-4 py-2 m-1 text-sm font-medium text-left text-nutrition-dark bg-nutrition-light rounded-lg hover:bg-nutrition-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
-                      <span>{r.createdAt.toDateString()}</span>
+                      <span>{r.timestamp.toLocaleDateString()}</span>
                       <ChevronUpIcon
                         className={`${
                           open ? 'transform rotate-180' : ''
@@ -114,6 +114,9 @@ const MyMealRecords: React.FC<Props> = props => {
                                   Name
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                  Datum
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                   CO2 in kg
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -125,6 +128,9 @@ const MyMealRecords: React.FC<Props> = props => {
                               <tr key={r.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   {r.name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                  {r.timestamp.toLocaleDateString()}
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                   {r.co2}
