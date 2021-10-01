@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import SectionHeader from '../../components/SectionHeader';
 import { useGeolocation } from 'react-use';
-import ReactMapGL, { GeolocateControl, Marker, Popup } from 'react-map-gl';
+import ReactMapGL, {
+  GeolocateControl,
+  Marker,
+  NavigationControl,
+  Popup
+} from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Coordinate } from 'react-map-gl/src/components/draggable-control';
 import Image from 'next/image';
@@ -20,14 +25,9 @@ import DatasetActions from '../../components/DatasetActions';
 interface TreeMarker {
   id: string;
   position: Coordinate;
-  diameter: number;
+  circumference: number;
   height: number;
 }
-
-const geolocateControlStyle = {
-  right: 10,
-  top: 10
-};
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
@@ -126,8 +126,17 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                 ]
               }}
             >
+              <NavigationControl
+                style={{
+                  right: 10,
+                  top: 50
+                }}
+              />
               <GeolocateControl
-                style={geolocateControlStyle}
+                style={{
+                  right: 10,
+                  top: 10
+                }}
                 positionOptions={{ enableHighAccuracy: true }}
                 auto
               />
@@ -143,7 +152,7 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                   onClose={setPopupInfo}
                 >
                   <div className="p-1">
-                    <p>Umfang: {popupInfo.diameter} cm</p>
+                    <p>Umfang: {popupInfo.circumference} cm</p>
                     <p>Höhe: {popupInfo.height} m</p>
                   </div>
                   <div className="flex pt-2">

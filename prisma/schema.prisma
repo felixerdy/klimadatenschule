@@ -127,29 +127,36 @@ model MealRecord {
   name      String
   co2       Float
   count     Int      @default(1)
+  timestamp DateTime @default(now())
 }
 
 model TreeRecord {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  diameter  Float
-  height    Float
-  latitude  Float
-  longitude Float
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @default(now()) @map("updated_at")
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  circumference Float
+  height        Float
+  latitude      Float
+  longitude     Float
+  co2           Float    @default(0)
 }
 
 model PaperRecord {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @map("updated_at")
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
-  a4           Float
-  a5           Float
-  a6           Float
-  collegeblock Float
-  zeichenmappe Float
+  id                     String   @id @default(uuid())
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @default(now()) @map("updated_at")
+  user                   User     @relation(fields: [userId], references: [id])
+  userId                 String
+  a4                     Float
+  a5                     Float
+  a6                     Float
+  collegeblock           Float
+  zeichenmappe           Float
+  a4_recycling           Float    @default(0)
+  a5_recycling           Float    @default(0)
+  a6_recycling           Float    @default(0)
+  collegeblock_recycling Float    @default(0)
+  zeichenmappe_recycling Float    @default(0)
 }

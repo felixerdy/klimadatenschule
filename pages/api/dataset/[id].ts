@@ -100,12 +100,13 @@ export default async function handle(
       case 'tree':
         const treeData = await prisma.treeRecord.findMany({
           select: {
-            diameter: true,
+            circumference: true,
             height: true,
             latitude: true,
             longitude: true,
             createdAt: true,
             updatedAt: true,
+            co2: true,
             user
           }
         });
@@ -120,6 +121,11 @@ export default async function handle(
             zeichenmappe: true,
             createdAt: true,
             updatedAt: true,
+            a4_recycling: true,
+            a5_recycling: true,
+            a6_recycling: true,
+            collegeblock_recycling: true,
+            zeichenmappe_recycling: true,
             user
           }
         });

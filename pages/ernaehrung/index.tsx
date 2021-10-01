@@ -118,6 +118,17 @@ const Ernaehrung: React.FC = () => {
             <div className="flex-1">
               <hr className="my-4" />
               <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-4">
+                  <input
+                    className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+                    type="date"
+                    name={'timestamp'}
+                    defaultValue={new Date().toJSON().slice(0, 10)}
+                    {...register('timestamp')}
+                  />
+                  <label className="font-medium">Tag</label>
+                </div>
+                <hr className="my-4" />
                 {Array.from(Array(meals).keys()).map((m, i) => (
                   <React.Fragment key={i}>
                     <div className="flex flex-row w-full">
