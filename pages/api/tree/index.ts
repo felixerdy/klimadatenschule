@@ -3,9 +3,10 @@ import jwt from 'next-auth/jwt';
 import formidable from 'formidable';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { TreeRecord } from '@prisma/client';
+import { treeToCO2 } from '../../../tools';
 
 type Tree = {
-  diameter: number;
+  circumference: number;
   height: number;
   latitude: number;
   longitude: number;
@@ -40,7 +41,7 @@ export default async function handle(
             if (!processedIndexes.includes(index)) {
               processedIndexes.push(index);
               return {
-                diameter: Number(fields[`tree_${index}_diameter`]),
+                circumference: Number(fields[`tree_${index}_circumference`]),
                 height: Number(fields[`tree_${index}_height`]),
                 latitude: Number(fields[`tree_${index}_latitude`]),
                 longitude: Number(fields[`tree_${index}_longitude`])
@@ -59,6 +60,7 @@ export default async function handle(
             prisma.treeRecord.create({
               data: {
                 ...tree,
+                co2: treeToCO2(tree.circumference, tree.height),
                 user: { connect: { email: token?.email } }
               }
             })

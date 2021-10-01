@@ -22,7 +22,7 @@ import { treeToCO2 } from '../../tools';
 interface TreeMarker {
   id: string;
   position: Coordinate;
-  diameter: number;
+  circumference: number;
   height: number;
 }
 
@@ -34,7 +34,7 @@ const geolocateControlStyle = {
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const records = await prisma.treeRecord.findMany({
     select: {
-      diameter: true,
+      circumference: true,
       height: true,
       latitude: true,
       longitude: true,
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const trees: TreeMarker[] = records.map(t => ({
     id: t.id,
     position: [t.longitude, t.latitude],
-    diameter: t.diameter,
+    circumference: t.circumference,
     height: t.height
   }));
 
@@ -80,7 +80,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
       {
         id: String(markers.length),
         position: [position.longitude, position.latitude],
-        diameter: 0,
+        circumference: 0,
         height: 0
       }
     ]);
@@ -92,19 +92,19 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
 
   interface IUpdateMarkerArgs {
     lngLat?: Coordinate;
-    diameter?: number;
+    circumference?: number;
     height?: number;
   }
   const updateMarker = (
     id: String,
-    { lngLat, diameter, height }: IUpdateMarkerArgs
+    { lngLat, circumference, height }: IUpdateMarkerArgs
   ) => {
     const newMarkers = markers.map(m => {
       if (m.id === id) {
         return {
           ...m,
           position: lngLat || m.position,
-          diameter,
+          circumference,
           height
         };
       }
@@ -122,7 +122,10 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
       markers.forEach(m => {
         formData.append(`tree_${m.id}_latitude`, String(m.position[1]));
         formData.append(`tree_${m.id}_longitude`, String(m.position[0]));
-        formData.append(`tree_${m.id}_diameter`, data[`tree_${m.id}_diameter`]);
+        formData.append(
+          `tree_${m.id}_circumference`,
+          data[`tree_${m.id}_circumference`]
+        );
         formData.append(`tree_${m.id}_height`, data[`tree_${m.id}_height`]);
       });
 
@@ -267,7 +270,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                     onClose={setPopupInfo}
                   >
                     <div className="p-1">
-                      <p>Umfang: {popupInfo.diameter} cm</p>
+                      <p>Umfang: {popupInfo.circumference} cm</p>
                       <p>Höhe: {popupInfo.height} m</p>
                     </div>
                   </Popup>
@@ -297,10 +300,12 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
                             type="number"
                             step="any"
-                            name={`tree_${i}_diameter`}
+                            name={`tree_${i}_circumference`}
                             defaultValue={0}
                             min={0}
-                            {...register(`tree_${m.id}_diameter`, { min: 0 })}
+                            {...register(`tree_${m.id}_circumference`, {
+                              min: 0
+                            })}
                           />
                           <label className="">Umfang in cm</label>
                         </div>
@@ -319,7 +324,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                         <div className="mb-4 ">
                           <label className="">
                             {treeToCO2(
-                              watch(`tree_${m.id}_diameter`) | 0,
+                              watch(`tree_${m.id}_circumference`) | 0,
                               watch(`tree_${m.id}_height`) | 0
                             ).toFixed(2)}{' '}
                             kg gespeichertes CO2

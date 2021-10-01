@@ -100,7 +100,7 @@ export default async function handle(
       case 'tree':
         const treeData = await prisma.treeRecord.findMany({
           select: {
-            diameter: true,
+            circumference: true,
             height: true,
             latitude: true,
             longitude: true,

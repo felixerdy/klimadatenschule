@@ -1,6 +1,7 @@
 import prisma from '../../../lib/prisma';
 import jwt from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { treeToCO2 } from '../../../tools';
 
 const secret = process.env.SECRET;
 
@@ -30,14 +31,15 @@ export default async function handle(
       }
     } else if (id && req.method === 'POST') {
       try {
-        const { diameter, height } = JSON.parse(req.body);
+        const { circumference, height } = JSON.parse(req.body);
         const result = await prisma.treeRecord.update({
           where: {
             id
           },
           data: {
-            diameter: Number(diameter),
-            height: Number(height)
+            circumference: Number(circumference),
+            height: Number(height),
+            co2: treeToCO2(circumference, height)
           }
         });
 

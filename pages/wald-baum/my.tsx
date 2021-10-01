@@ -20,7 +20,7 @@ import DatasetActions from '../../components/DatasetActions';
 interface TreeMarker {
   id: string;
   position: Coordinate;
-  diameter: number;
+  circumference: number;
   height: number;
 }
 
@@ -143,7 +143,7 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                   onClose={setPopupInfo}
                 >
                   <div className="p-1">
-                    <p>Umfang: {popupInfo.diameter} cm</p>
+                    <p>Umfang: {popupInfo.circumference} cm</p>
                     <p>Höhe: {popupInfo.height} m</p>
                   </div>
                   <div className="flex pt-2">

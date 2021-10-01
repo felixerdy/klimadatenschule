@@ -42,10 +42,10 @@ const TreeModal: React.FC<ModalProps> = ({ opened, record, closeModal }) => {
                   className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
                   type="number"
                   step="any"
-                  name={'diameter'}
-                  defaultValue={record.diameter}
+                  name={'circumference'}
+                  defaultValue={record.circumference}
                   min={0}
-                  {...register('diameter', { min: 0 })}
+                  {...register('circumference', { min: 0 })}
                 />
               </div>
               <div className="flex flex-col m-auto">
