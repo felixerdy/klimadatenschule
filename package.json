@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cypress": "cypress open"
   },
   "husky": {
     "hooks": {
@@ -54,6 +55,7 @@
     "@types/react-table": "^7.7.2",
     "autoprefixer": "^10.3.1",
     "babel-plugin-superjson-next": "^0.3.0",
+    "cypress": "^8.5.0",
     "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
