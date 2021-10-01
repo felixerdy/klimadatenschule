@@ -17,6 +17,7 @@ import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
 import BaumIcon from '../../public/images/kds-icon-baeume.svg';
 import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import Button from '../../components/ui/Button';
+import { treeToCO2 } from '../../tools';
 
 interface TreeMarker {
   id: string;
@@ -314,6 +315,15 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             {...register(`tree_${m.id}_height`, { min: 0 })}
                           />
                           <label className="">Höhe in m</label>
+                        </div>
+                        <div className="mb-4 ">
+                          <label className="">
+                            {treeToCO2(
+                              watch(`tree_${m.id}_diameter`) | 0,
+                              watch(`tree_${m.id}_height`) | 0
+                            ).toFixed(2)}{' '}
+                            kg gespeichertes CO2
+                          </label>
                         </div>
                       </div>
                     </div>
