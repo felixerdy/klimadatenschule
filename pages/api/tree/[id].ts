@@ -37,6 +37,7 @@ export default async function handle(
             id
           },
           data: {
+            updatedAt: new Date(),
             circumference: Number(circumference),
             height: Number(height),
             co2: treeToCO2(circumference, height)
