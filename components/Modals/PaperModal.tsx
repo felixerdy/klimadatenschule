@@ -5,40 +5,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { IPaperForm, PaperDescription } from '../../types/paper';
+import { PaperProducts } from '../../pages/papier';
 
 interface ModalProps {
   opened: boolean;
   record: PaperRecord;
   closeModal: (...args: any[]) => any;
 }
-
-export const PaperProducts: PaperDescription[] = [
-  {
-    type: 'a4',
-    title: 'Heft A4',
-    thgpkm: 0.1
-  },
-  {
-    type: 'a5',
-    title: 'Heft A5',
-    thgpkm: 0.05
-  },
-  {
-    type: 'a6',
-    title: 'Vokabelheft / Hausaufgabenheft A6',
-    thgpkm: 0.0025
-  },
-  {
-    type: 'collegeblock',
-    title: 'Collegeblock',
-    thgpkm: 0.4
-  },
-  {
-    type: 'zeichenmappe',
-    title: 'Zeichenmappe A3',
-    thgpkm: 0.2
-  }
-];
 
 const PaperModal: React.FC<ModalProps> = ({ opened, record, closeModal }) => {
   const router = useRouter();
