@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import SectionHeader from '../../components/SectionHeader';
 import { useGeolocation } from 'react-use';
-import ReactMapGL, { GeolocateControl, Marker, Popup } from 'react-map-gl';
+import ReactMapGL, {
+  GeolocateControl,
+  NavigationControl,
+  Marker,
+  Popup
+} from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Coordinate } from 'react-map-gl/src/components/draggable-control';
 import Image from 'next/image';
@@ -25,11 +30,6 @@ interface TreeMarker {
   circumference: number;
   height: number;
 }
-
-const geolocateControlStyle = {
-  right: 10,
-  top: 10
-};
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const records = await prisma.treeRecord.findMany({
@@ -213,8 +213,17 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                   ]
                 }}
               >
+                <NavigationControl
+                  style={{
+                    right: 10,
+                    top: 50
+                  }}
+                />
                 <GeolocateControl
-                  style={geolocateControlStyle}
+                  style={{
+                    right: 10,
+                    top: 10
+                  }}
                   positionOptions={{ enableHighAccuracy: true }}
                   auto
                 />
