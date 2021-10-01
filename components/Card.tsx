@@ -95,7 +95,7 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
         `kds_${datasetName}_${new Date()
           .toISOString()
           .slice(0, 10)
-          .replaceAll('-', '_')}.${data.format}`
+          .replaceAll('-', '_')}.${format}`
       );
       link.click();
       link.href = '';
