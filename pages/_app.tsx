@@ -19,6 +19,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { WindyProvider } from '@webeetle/windy';
 
+import { CookieBanner } from '@palmabit/react-cookie-law';
+
 const App = ({ Component, pageProps }: AppProps) => {
   const router = useRouter();
 
@@ -197,6 +199,34 @@ const App = ({ Component, pageProps }: AppProps) => {
           </Layout>
           <Footer></Footer>
         </Transition>
+        <CookieBanner
+          styles={{
+            dialog: {
+              top: 'null',
+              position: 'fixed',
+              bottom: '0px',
+              right: '0px',
+              zIndex: '100000',
+              backgroundColor: '#f8f7f7',
+              padding: '10px'
+            }
+          }}
+          message="Diese Website nutzt Cookies für den Login Bereich"
+          wholeDomain={true}
+          showPreferencesOption={false}
+          showStatisticsOption={false}
+          showMarketingOption={false}
+          privacyPolicyLinkText="Datenschutzerklärung"
+          necessaryOptionText="Notwendige Cookies"
+          acceptButtonText="Akzeptieren"
+          declineButtonText="Ablehnen"
+          managePreferencesButtonText="Einstellen"
+          savePreferencesButtonText="Einstellungen speichern"
+          onAccept={() => {}}
+          onAcceptPreferences={() => {}}
+          onAcceptStatistics={() => {}}
+          onAcceptMarketing={() => {}}
+        />
       </WindyProvider>
     </Provider>
   );
