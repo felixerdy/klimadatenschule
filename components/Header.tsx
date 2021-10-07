@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (router.pathname.includes('baum')) {
-      setBgColor('bg-tree-light');
+      setBgColor('bg-tree');
     } else if (router.pathname.includes('mobilitaet')) {
       setBgColor('bg-mobility-light');
     } else if (router.pathname.includes('papier')) {
@@ -121,27 +121,27 @@ const Header: React.FC = () => {
           } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row z-10`}
         >
           <Link href={'/wald-baum'}>
-            <a className="bg-tree px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-green-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+            <a className="bg-tree px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-tree-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Bäume
             </a>
           </Link>
           <Link href={'/mobilitaet'}>
-            <a className="bg-mobility px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+            <a className="bg-mobility px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-mobility-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Mobilität
             </a>
           </Link>
           <Link href={'/papier'}>
-            <a className="bg-paper px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-blue-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+            <a className="bg-paper px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-paper-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Papier
             </a>
           </Link>
           <Link href={'/ernaehrung'}>
-            <a className=" bg-nutrition px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-nutrition focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+            <a className=" bg-nutrition px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Ernährung
             </a>
           </Link>
           <Link href={'/dataset'}>
-            <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+            <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-kds-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
               Datensätze
             </a>
           </Link>
