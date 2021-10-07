@@ -17,6 +17,7 @@ import Button from '../../components/ui/Button';
 import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
 import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
 import Image from 'next/image';
+import LoginCheck from '../../components/LoginCheck';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -307,14 +308,16 @@ const Mobilitaet: React.FC = () => {
                 </div>
               ))}
 
-              <Link href={'/mobilitaet/my'}>
-                <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
-                  Meine Datensätze
-                </a>
-              </Link>
-              <Button type="submit" disabled={!session || uploadLoading}>
-                Speichern
-              </Button>
+              <LoginCheck>
+                <Link href={'/mobilitaet/my'}>
+                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                    Meine Datensätze
+                  </a>
+                </Link>
+                <Button type="submit" disabled={!session || uploadLoading}>
+                  Speichern
+                </Button>
+              </LoginCheck>
             </form>
           </div>
         </FlexSplitLayout>
