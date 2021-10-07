@@ -23,6 +23,7 @@ import BaumIcon from '../../public/images/kds-icon-baeume.svg';
 import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import Button from '../../components/ui/Button';
 import { treeToCO2 } from '../../tools';
+import LoginCheck from '../../components/LoginCheck';
 
 interface TreeMarker {
   id: string;
@@ -365,15 +366,18 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
               >
                 + Baum hinzufügen
               </button> */}
-              <Link href={'/wald-baum/my'}>
-                <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
-                  Meine Datensätze
-                </a>
-              </Link>
 
-              <Button type="submit" disabled={!session || uploadLoading}>
-                Speichern
-              </Button>
+              <LoginCheck>
+                <Link href={'/wald-baum/my'}>
+                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                    Meine Datensätze
+                  </a>
+                </Link>
+
+                <Button type="submit" disabled={!session || uploadLoading}>
+                  Speichern
+                </Button>
+              </LoginCheck>
             </form>
           </div>
         </FlexSplitLayout>
