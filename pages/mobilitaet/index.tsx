@@ -22,32 +22,32 @@ import Image from 'next/image';
 export const Mobilities: MobilityDescription[] = [
   {
     type: 'pkw',
-    title: '🚙 PKW',
+    title: 'Auto',
     thgpkm: 154
   },
   {
     type: 'bahn',
-    title: '🚂 Eisenbahn',
+    title: 'Zug',
     thgpkm: 54
   },
   {
     type: 'bus',
-    title: '🚌 Bus',
+    title: 'Bus',
     thgpkm: 83
   },
   {
     type: 'ubahn',
-    title: '🚋 S-Bahn / U-Bahn',
+    title: 'S-Bahn / U-Bahn',
     thgpkm: 54
   },
   {
     type: 'fahrrad',
-    title: '🚴 Fahrrad',
+    title: 'Fahrrad',
     thgpkm: 0
   },
   {
     type: 'fuss',
-    title: '🚶 zu Fuß',
+    title: 'zu Fuß',
     thgpkm: 0
   }
 ];
