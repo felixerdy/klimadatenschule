@@ -30,7 +30,20 @@ export default async function handle(
       }
     } else if (id && req.method === 'POST') {
       try {
-        const { a4, a5, a6, collegeblock, zeichenmappe } = JSON.parse(req.body);
+        const {
+          a4,
+          a5,
+          a6,
+          collegeblock,
+          zeichenmappe,
+          kopierpapier,
+          a4_recycling,
+          a5_recycling,
+          a6_recycling,
+          collegeblock_recycling,
+          zeichenmappe_recycling,
+          kopierpapier_recycling
+        } = JSON.parse(req.body);
         const result = await prisma.paperRecord.update({
           where: {
             id
@@ -40,7 +53,14 @@ export default async function handle(
             a5: Number(a5),
             a6: Number(a6),
             collegeblock: Number(collegeblock),
-            zeichenmappe: Number(zeichenmappe)
+            zeichenmappe: Number(zeichenmappe),
+            kopierpapier: Number(kopierpapier),
+            a4_recycling: Number(a4_recycling),
+            a5_recycling: Number(a5_recycling),
+            a6_recycling: Number(a6_recycling),
+            collegeblock_recycling: Number(collegeblock_recycling),
+            zeichenmappe_recycling: Number(zeichenmappe_recycling),
+            kopierpapier_recycling: Number(kopierpapier_recycling)
           }
         });
 
