@@ -102,6 +102,18 @@ const Ernaehrung: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
+              <p>
+                Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+                könnt beziehungsweise was es zu beachten gibt?{' '}
+                <a href="#" className="font-semibold underline">
+                  Hier geht’s zu einer Schritt für Schritt Anleitung.
+                </a>
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
               <hr className="my-4" />
               <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">

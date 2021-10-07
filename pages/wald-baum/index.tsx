@@ -186,6 +186,18 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
         <FlexSplitLayout>
           <div className="flex-1"></div>
           <div className="flex-1">
+            <p>
+              Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+              könnt beziehungsweise was es zu beachten gibt?{' '}
+              <a href="#" className="font-semibold underline">
+                Hier geht’s zu einer Schritt für Schritt Anleitung.
+              </a>
+            </p>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
             <div className="shadow overflow-hidden border-gray-200 rounded-lg mt-4">
               <ReactMapGL
                 {...viewport}

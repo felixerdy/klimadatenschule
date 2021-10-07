@@ -245,6 +245,18 @@ const Papier: React.FC = () => {
           </FlexSplitLayout>
           <FlexSplitLayout>
             <div className="flex-1"></div>
+            <div className="flex-1">
+              <p>
+                Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+                könnt beziehungsweise was es zu beachten gibt?{' '}
+                <a href="#" className="font-semibold underline">
+                  Hier geht’s zu einer Schritt für Schritt Anleitung.
+                </a>
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
               <hr className="my-4"></hr>
               <table {...getTableProps()} className="max-w-full md:min-w-full">
