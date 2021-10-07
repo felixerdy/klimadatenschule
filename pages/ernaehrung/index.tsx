@@ -169,7 +169,7 @@ const Ernaehrung: React.FC = () => {
                               min={0}
                               {...register(`meal_${i}_co2`, { min: 0 })}
                             />
-                            <label className=" font-bold">CO2 in kg</label>
+                            <label className=" font-bold">CO₂ in kg</label>
                           </div>
                           <div className="flex flex-col">
                             <input

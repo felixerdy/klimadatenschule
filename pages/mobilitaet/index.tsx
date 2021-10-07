@@ -149,7 +149,7 @@ const Mobilitaet: React.FC = () => {
         Footer: 'SUMME'
       },
       {
-        Header: 'Kilogramm CO2',
+        Header: 'Kilogramm CO₂',
         accessor: 'col2',
         Footer: info => {
           // Only calculate total visits if rows change

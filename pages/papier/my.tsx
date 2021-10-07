@@ -118,7 +118,7 @@ const MyPaperRecords: React.FC<Props> = props => {
                                   Anzahl pro Halbjahr
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  CO2 in kg
+                                  CO₂ in kg
                                 </th>
                               </tr>
                             </thead>
@@ -132,7 +132,7 @@ const MyPaperRecords: React.FC<Props> = props => {
                                     {r[m.type]}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
-                                    {r[m.type] * m.thgpst}g CO2
+                                    {r[m.type] * m.thgpst}g CO₂
                                   </td>
                                 </tr>
                               ))}
