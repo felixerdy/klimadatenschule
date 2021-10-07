@@ -29,11 +29,13 @@ export default async function handle(
             a6: Number(fields.a6),
             collegeblock: Number(fields.collegeblock),
             zeichenmappe: Number(fields.zeichenmappe),
+            kopierpapier: Number(fields.kopierpapier),
             a4_recycling: Number(fields.a4_recycling),
             a5_recycling: Number(fields.a5_recycling),
             a6_recycling: Number(fields.a6_recycling),
             collegeblock_recycling: Number(fields.collegeblock_recycling),
             zeichenmappe_recycling: Number(fields.zeichenmappe_recycling),
+            kopierpapier_recycling: Number(fields.kopierpapier_recycling),
             user: { connect: { email: token?.email } }
           }
         });

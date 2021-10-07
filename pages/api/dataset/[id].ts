@@ -119,6 +119,7 @@ export default async function handle(
             a6: true,
             collegeblock: true,
             zeichenmappe: true,
+            kopierpapier: true,
             createdAt: true,
             updatedAt: true,
             a4_recycling: true,
@@ -126,6 +127,7 @@ export default async function handle(
             a6_recycling: true,
             collegeblock_recycling: true,
             zeichenmappe_recycling: true,
+            kopierpapier_recycling: true,
             user
           }
         });

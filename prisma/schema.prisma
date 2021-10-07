@@ -154,9 +154,11 @@ model PaperRecord {
   a6                     Float
   collegeblock           Float
   zeichenmappe           Float
+  kopierpapier           Float    @default(0)
   a4_recycling           Float    @default(0)
   a5_recycling           Float    @default(0)
   a6_recycling           Float    @default(0)
   collegeblock_recycling Float    @default(0)
   zeichenmappe_recycling Float    @default(0)
+  kopierpapier_recycling Float    @default(0)
 }

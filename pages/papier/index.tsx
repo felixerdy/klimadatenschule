@@ -63,6 +63,16 @@ export const PaperProducts: PaperDescription[] = [
     type: 'zeichenmappe_recycling',
     title: 'Zeichenmappe A3 (20 Blatt recycling)',
     thgpst: 160
+  },
+  {
+    type: 'kopierpapier',
+    title: 'Kopierpapier A4',
+    thgpst: 5
+  },
+  {
+    type: 'kopierpapier_recycling',
+    title: 'Kopierpapier A4 (recycling)',
+    thgpst: 4
   }
 ];
 
@@ -78,10 +88,17 @@ const Papier: React.FC = () => {
   const { register, watch, handleSubmit } = useForm<IPaperForm>({
     defaultValues: {
       a4: 0,
+      a4_recycling: 0,
       a5: 0,
+      a5_recycling: 0,
       a6: 0,
+      a6_recycling: 0,
       collegeblock: 0,
-      zeichenmappe: 0
+      collegeblock_recycling: 0,
+      zeichenmappe: 0,
+      zeichenmappe_recycling: 0,
+      kopierpapier: 0,
+      kopierpapier_recycling: 0
     }
   });
 
@@ -156,7 +173,7 @@ const Papier: React.FC = () => {
         Footer: 'SUMME'
       },
       {
-        Header: 'Gramm CO2',
+        Header: 'Gramm CO₂',
         accessor: 'col2',
         Footer: info => {
           // Only calculate total visits if rows change
@@ -215,6 +232,13 @@ const Papier: React.FC = () => {
                 Wie viele Papierprodukte wurden von den befragten Schüler*innen
                 im letzten Halbjahr genutzt? Gebt die Antworten von jeder
                 befragten Person einzeln ein und speichert sie ab.
+              </p>
+              <br />
+              <p>
+                Wie viel Kopierpapier wurde in eurer Schule im letzten Halbjahr
+                verbraucht? Achtung! Eventuell habt ihr die Daten für ein ganzes
+                Schuljahr erhalten. Teilt sie dann durch 2 bevor ihr sie
+                eintragt.
               </p>
             </div>
           </FlexSplitLayout>

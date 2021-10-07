@@ -117,7 +117,7 @@ const MyMealRecords: React.FC<Props> = props => {
                                   Datum
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  CO2 in kg
+                                  CO₂ in kg
                                 </th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                   Anzahl der Gerichte

@@ -11,7 +11,7 @@ const Layout: React.FC<Props> = props => {
 
   useEffect(() => {
     if (router.pathname.includes('baum')) {
-      setBgColor('bg-tree-light');
+      setBgColor('bg-tree');
     } else if (router.pathname.includes('mobilitaet')) {
       setBgColor('bg-mobility-light');
     } else if (router.pathname.includes('papier')) {

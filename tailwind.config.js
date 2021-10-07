@@ -25,7 +25,7 @@ module.exports = {
           darkest: colors.green[900],
           dark: colors.green[600],
           DEFAULT: '#54BDB9',
-          light: '#54BDB9',
+          light: '#90d3d0',
           lightest: colors.green[100]
         },
         mobility: {

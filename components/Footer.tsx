@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import DatenschutzModal from './Modals/DatenschutzModal';
 import ImpressumModal from './Modals/ImpressumModal';
 
-import BildungsCentLogo from '../public/logos/bc.png';
-import MedialePfadeLogo from '../public/logos/mp_black.svg';
-import ReeduLogo from '../public/logos/reedu_black.svg';
+import BildungsCentLogo from '../public/logos/logo_bc.png';
+import MedialePfadeLogo from '../public/logos/logo_mp.png';
+import ReeduLogo from '../public/logos/logo_reedu.svg';
+import NKILogo from '../public/logos/logo_nki.png';
 
 export default function Footer() {
   const [datenschutzModalOpen, setDatenschutzModalOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function Footer() {
         <div className="flex-1 mt-4">
           <p className="font-semibold">Kontakt</p>
           <p>BildungsCent e.V.</p>
-          <p> Oranienstraße 183</p>
+          <p>Oranienstraße 183</p>
           <p>D-10999 Berlin</p>
           <br />
           <p>Tel +49 30 610 8144 80</p>
@@ -38,11 +39,16 @@ export default function Footer() {
           <div className="w-32 py-4">
             <Image src={BildungsCentLogo} alt="BildungsCent Logo"></Image>
           </div>
-          <div className="w-32">
-            <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
+          <div className="flex items-center">
+            <div className="w-32">
+              <Image src={ReeduLogo} alt="re:edu Logo"></Image>
+            </div>
+            <div className="w-32">
+              <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
+            </div>
           </div>
-          <div className="w-32">
-            <Image src={ReeduLogo} alt="re:edu Logo"></Image>
+          <div className="w-64 rounded overflow-hidden">
+            <Image src={NKILogo} alt="nki Logo"></Image>
           </div>
         </div>
         <div className="flex-1  mt-4">
