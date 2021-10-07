@@ -82,12 +82,12 @@ const Ernaehrung: React.FC = () => {
               </h1>
               <p>
                 Mit der KlimaDaten-App könnt ihr das Angebot an Schulessen auf
-                seine CO2-Bilanz hin untersuchen. Dabei werden zunächt alle
+                seine CO₂-Bilanz hin untersuchen. Dabei werden zunächt alle
                 Mensagerichte von einer Woche “nachgebaut” - auf Grundlage der
                 Rezepte oder durch die Messung dessen, was ganz konkret auf
-                euren Tellern liegt. Anschließend wird der CO2-Fußabdruck der
+                euren Tellern liegt. Anschließend wird der CO₂-Fußabdruck der
                 einzelnen Gerichte ermittelt. Die Anzahl der ausgegebenen
-                Gerichte wird eine Woche lang erhoben und mit dem CO2-Fußabdruck
+                Gerichte wird eine Woche lang erhoben und mit dem CO₂-Fußabdruck
                 der verschiedenen Gerichte verrechnet.
               </p>
             </div>
@@ -96,10 +96,11 @@ const Ernaehrung: React.FC = () => {
             <h1 className="flex-1 text-4xl">Ernährungsrechner</h1>
             <div className="flex-1">
               <p>
-                Welche Mahlzeiten wurden in der Schulkantine ausgegeben? Besuche
-                den CO₂-Rechner der Klimatarier und erstelle die Gerichte aus
-                eurer Schulkantine. Übertrage die CO₂ Werte in die Eingabefelder
-                auf dieser Seite.
+                Wie viele Mahlzeiten verkauft eure Mensa in einer Woche?
+                Ermittelt den CO₂-Fußabdruck der einzelnen Gerichte mit dem
+                Klimatarier-Rechner. Übertrage die CO₂-Werte in die
+                untenstehenden Eingabefelder. Erstellt für jedes Gericht einen
+                eigenen Eintrag.
               </p>
               <p className="my-4">
                 <a

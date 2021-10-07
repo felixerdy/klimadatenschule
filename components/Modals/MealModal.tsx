@@ -47,7 +47,7 @@ const MealModal: React.FC<ModalProps> = ({ opened, record, closeModal }) => {
                 />
               </div>
               <div className="flex flex-col">
-                <label className="text-gray-600 font-bold">CO2 in kg</label>
+                <label className="text-gray-600 font-bold">CO₂ in kg</label>
                 <input
                   className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
                   type="number"

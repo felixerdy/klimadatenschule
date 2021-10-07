@@ -133,7 +133,7 @@ const MyMobilityRecords: React.FC<Props> = props => {
                                     {r[m.type]}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
-                                    {r[m.type] * m.thgpkm}g CO2
+                                    {r[m.type] * m.thgpkm}g CO₂
                                   </td>
                                 </tr>
                               ))}

@@ -89,10 +89,10 @@ const CO2Node = memo<any>(({ data }) => {
       {data.value !== undefined ? (
         <p>
           Du verbrauchst <strong>{textMap[Math.ceil(data.value / 3)]}</strong>{' '}
-          CO2
+          CO₂
         </p>
       ) : (
-        <p>Verschiebe die Regler um deinen CO2 Ausstoß zu messen</p>
+        <p>Verschiebe die Regler um deinen CO₂ Ausstoß zu messen</p>
       )}
     </div>
   );
