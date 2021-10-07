@@ -178,8 +178,20 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
             <p>
               Wie viele Bäume gibt es in eurer Umgebung und wie viel CO₂
               speichern sie? Kartiert alle Bäume indem ihr den Standort auf der
-              Karte markiert und Umfang (auf 1,3m Höhe) sowie Höhe des Baumes in
-              die Eingabefelder eintragt.
+              Karte markiert und Umfang sowie Höhe des Baumes in die
+              Eingabefelder eintragt.
+            </p>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
+            <p>
+              Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+              könnt beziehungsweise was es zu beachten gibt?{' '}
+              <a href="#" className="font-semibold underline">
+                Hier geht’s zu einer Schritt für Schritt Anleitung.
+              </a>
             </p>
           </div>
         </FlexSplitLayout>
@@ -280,7 +292,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                     onClose={setPopupInfo}
                   >
                     <div className="p-1">
-                      <p>Umfang: {popupInfo.circumference} cm</p>
+                      <p>Umfang: {popupInfo.circumference} m</p>
                       <p>Höhe: {popupInfo.height} m</p>
                     </div>
                   </Popup>
@@ -317,7 +329,9 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                               min: 0
                             })}
                           />
-                          <label className="">Umfang in cm</label>
+                          <label className="">
+                            Umfang in m (auf 1,30m Höhe)
+                          </label>
                         </div>
                         <div className="mb-4 ">
                           <input

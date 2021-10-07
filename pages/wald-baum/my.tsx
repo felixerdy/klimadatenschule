@@ -152,7 +152,7 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
                   onClose={setPopupInfo}
                 >
                   <div className="p-1">
-                    <p>Umfang: {popupInfo.circumference} cm</p>
+                    <p>Umfang: {popupInfo.circumference} m</p>
                     <p>Höhe: {popupInfo.height} m</p>
                   </div>
                   <div className="flex pt-2">
