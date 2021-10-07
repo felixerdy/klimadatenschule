@@ -82,25 +82,14 @@ const Header: React.FC = () => {
   };
 
   return (
-    <div
-      className="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 relative"
-      style={{
-        background: `linear-gradient(-90deg, rgba(0,0,255,.03) 1px, transparent 1px),
-        linear-gradient(rgba(0,0,255,.03) 1px, transparent 1px),
-        linear-gradient(-90deg, rgba(0, 0, 255, .02) 1px, transparent 1px),
-        linear-gradient(rgba(0,0,255,.02) 1px, transparent 1px),
-        #f2f2f2`,
-        backgroundSize: `20px 20px, 20px 20px`
-      }}
-    >
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-transparent to-white opacity-80"></div>
+    <>
       <div
         x-data="{ open: false }"
         className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
       >
         <div className="p-4 flex flex-row items-center justify-between">
           <Link href={'/'} passHref>
-            <div className="w-24 h-full cursor-pointer">
+            <div className="w-36 h-full cursor-pointer">
               <Image src={Logo} alt="KDS Logo" layout="responsive" />
             </div>
           </Link>
@@ -197,7 +186,7 @@ const Header: React.FC = () => {
           }}
         ></div>
       </div>
-    </div>
+    </>
   );
 };
 
