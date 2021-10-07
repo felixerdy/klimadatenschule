@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="flex-1 mt-4">
           <p className="font-semibold">Kontakt</p>
           <p>BildungsCent e.V.</p>
-          <p> Oranienstraße 183</p>
+          <p>Oranienstraße 183</p>
           <p>D-10999 Berlin</p>
           <br />
           <p>Tel +49 30 610 8144 80</p>
