@@ -203,8 +203,8 @@ const Mobilitaet: React.FC = () => {
             <h1 className="text-4xl my-16 w-1/2">Mobilität im Klima-Check</h1>
             <p>
               Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
-              auf deinem Schulweg zurück? Berechne Hin- und Rückweg für eine
-              ganze Woche.
+              auf deinem Schulweg pro Tag zurück? Gib die Daten für eine ganze
+              Woche ein.
             </p>
           </div>
         </FlexSplitLayout>
