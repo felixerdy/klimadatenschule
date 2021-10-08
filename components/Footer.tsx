@@ -33,7 +33,7 @@ export default function Footer() {
             klimadatenschule@bildungscent.de
           </a>
         </div>
-        <div className="flex-1  mt-4">
+        <div className="flex-1 mt-4 md:px-4">
           <p>
             KlimaDatenSchule ist ein Programm von BildungsCent e.V. und wird
             gemeinsam mit mediale pfade.org – Verein für Medienbildung e.V. und
@@ -42,23 +42,8 @@ export default function Footer() {
             aufgrund eines Beschlusses des Deutschen Bundestages.
           </p>
         </div>
-        <div className="flex-1 mt-4 p-4 flex flex-col items-center text-center">
-          <a href="https://bildungscent.de/" className="w-32 py-4">
-            <Image src={BildungsCentLogo} alt="BildungsCent Logo"></Image>
-          </a>
-          <div className="flex items-center">
-            <a href="https://reedu.de/" className="w-32">
-              <Image src={ReeduLogo} alt="re:edu Logo"></Image>
-            </a>
-            <a href="https://medialepfade.org/" className="w-32">
-              <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
-            </a>
-          </div>
-          <div className="w-64 rounded overflow-hidden">
-            <Image src={NKILogo} alt="nki Logo"></Image>
-          </div>
-        </div>
-        <div className="flex-1  mt-4">
+
+        <div className="flex-1 mt-4 md:text-center">
           <p
             className="cursor-pointer"
             onClick={() => setImpressumModalOpen(true)}
@@ -71,6 +56,29 @@ export default function Footer() {
           >
             Datenschutzhinweise
           </p>
+          <a
+            href="https://klimadatenschule.de/wp-content/uploads/2021/08/KlimaDatenSchule_Teilnahmebedingungen.pdf"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Teilnahmebedingungen
+          </a>
+          <div className="flex-1 mt-4 p-4 flex flex-col items-center text-center">
+            <a href="https://bildungscent.de/" className="w-32 py-4">
+              <Image src={BildungsCentLogo} alt="BildungsCent Logo"></Image>
+            </a>
+            <div className="flex items-center">
+              <a href="https://reedu.de/" className="w-32">
+                <Image src={ReeduLogo} alt="re:edu Logo"></Image>
+              </a>
+              <a href="https://medialepfade.org/" className="w-32">
+                <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
+              </a>
+            </div>
+            <div className="w-64 rounded overflow-hidden">
+              <Image src={NKILogo} alt="nki Logo"></Image>
+            </div>
+          </div>
         </div>
       </div>
       <DatenschutzModal
