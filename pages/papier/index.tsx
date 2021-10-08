@@ -18,62 +18,62 @@ export const PaperProducts: PaperDescription[] = [
   {
     type: 'a4',
     title: 'Heft A4 (16 Blatt)',
-    thgpst: 80
+    thgpst: 84
   },
   {
     type: 'a4_recycling',
     title: 'Heft A4 (16 Blatt recycling)',
-    thgpst: 64
+    thgpst: 70
   },
   {
     type: 'a5',
     title: 'Heft A5 (16 Blatt)',
-    thgpst: 40
+    thgpst: 42
   },
   {
     type: 'a5_recycling',
     title: 'Heft A5 (16 Blatt recycling)',
-    thgpst: 32
+    thgpst: 35
   },
   {
     type: 'a6',
     title: 'Heft A6 (32 Blatt)',
-    thgpst: 40
+    thgpst: 42
   },
   {
     type: 'a6_recycling',
     title: 'Heft A6 (32 Blatt recycling)',
-    thgpst: 32
+    thgpst: 35
   },
   {
     type: 'collegeblock',
     title: 'Collegeblock (80 Blatt)',
-    thgpst: 400
+    thgpst: 420
   },
   {
     type: 'collegeblock_recycling',
     title: 'Collegeblock (80 Blatt recycling)',
-    thgpst: 320
+    thgpst: 350
   },
   {
     type: 'zeichenmappe',
     title: 'Zeichenmappe A3 (20 Blatt)',
-    thgpst: 200
+    thgpst: 210
   },
   {
     type: 'zeichenmappe_recycling',
     title: 'Zeichenmappe A3 (20 Blatt recycling)',
-    thgpst: 160
+    thgpst: 175
   },
   {
     type: 'kopierpapier',
-    title: 'Kopierpapier A4',
-    thgpst: 5
+    title: 'Kopierpapier A4 (500 Blatt)',
+    thgpst: 2600
   },
   {
     type: 'kopierpapier_recycling',
-    title: 'Kopierpapier A4 (recycling)',
-    thgpst: 4
+    title: 'Kopierpapier A4 (500 Blatt recycling)',
+    thgpst: 2200
   }
 ];
 
@@ -240,6 +240,18 @@ const Papier: React.FC = () => {
                 verbraucht? Achtung! Eventuell habt ihr die Daten für ein ganzes
                 Schuljahr erhalten. Teilt sie dann durch 2 bevor ihr sie
                 eintragt.
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <p>
+                Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+                könnt beziehungsweise was es zu beachten gibt?{' '}
+                <a href="#" className="font-semibold underline">
+                  Hier geht’s zu einer Schritt für Schritt Anleitung.
+                </a>
               </p>
             </div>
           </FlexSplitLayout>

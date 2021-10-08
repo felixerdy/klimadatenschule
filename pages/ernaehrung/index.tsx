@@ -78,30 +78,10 @@ const Ernaehrung: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
-              <h1 className="text-4xl my-16 w-1/2">
-                Schulessen im Klima-Check
-              </h1>
-              <p>
-                Mit der KlimaDaten-App könnt ihr das Angebot an Schulessen auf
-                seine CO₂-Bilanz hin untersuchen. Dabei werden zunächt alle
-                Mensagerichte von einer Woche “nachgebaut” - auf Grundlage der
-                Rezepte oder durch die Messung dessen, was ganz konkret auf
-                euren Tellern liegt. Anschließend wird der CO₂-Fußabdruck der
-                einzelnen Gerichte ermittelt. Die Anzahl der ausgegebenen
-                Gerichte wird eine Woche lang erhoben und mit dem CO₂-Fußabdruck
-                der verschiedenen Gerichte verrechnet.
-              </p>
-            </div>
-          </FlexSplitLayout>
-          <FlexSplitLayout>
-            <h1 className="flex-1 text-4xl">Ernährungsrechner</h1>
-            <div className="flex-1">
               <p>
                 Wie viele Mahlzeiten verkauft eure Mensa in einer Woche?
                 Ermittelt den CO₂-Fußabdruck der einzelnen Gerichte mit dem
-                Klimatarier-Rechner. Übertrage die CO₂-Werte in die
-                untenstehenden Eingabefelder. Erstellt für jedes Gericht einen
-                eigenen Eintrag.
+                Klimatarier-Rechner.
               </p>
               <p className="my-4">
                 <a
@@ -111,6 +91,22 @@ const Ernaehrung: React.FC = () => {
                   className="bg-kds-green-neon px-4 py-2 text-sm font-semibold rounded-full hover:bg-gray-300"
                 >
                   CO₂-RECHNER DER KLIMATARIER
+                </a>
+              </p>
+              <p>
+                Übertrage die CO₂-Werte in die untenstehenden Eingabefelder.
+                Erstellt für jedes Gericht einen eigenen Eintrag.
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
+              <p>
+                Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+                könnt beziehungsweise was es zu beachten gibt?{' '}
+                <a href="#" className="font-semibold underline">
+                  Hier geht’s zu einer Schritt für Schritt Anleitung.
                 </a>
               </p>
             </div>
@@ -169,7 +165,7 @@ const Ernaehrung: React.FC = () => {
                               min={0}
                               {...register(`meal_${i}_co2`, { min: 0 })}
                             />
-                            <label className=" font-bold">CO2 in kg</label>
+                            <label className=" font-bold">CO₂ in kg</label>
                           </div>
                           <div className="flex flex-col">
                             <input

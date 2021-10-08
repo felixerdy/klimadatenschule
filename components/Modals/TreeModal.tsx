@@ -37,7 +37,7 @@ const TreeModal: React.FC<ModalProps> = ({ opened, record, closeModal }) => {
           {record && (
             <>
               <div className="flex flex-col m-auto">
-                <label className="text-gray-600">Umfang in cm</label>
+                <label className="text-gray-600">Umfang in m</label>
                 <input
                   className="border-solid border-gray-300 border py-2 px-4 mb-4 w-full rounded text-gray-700"
                   type="number"

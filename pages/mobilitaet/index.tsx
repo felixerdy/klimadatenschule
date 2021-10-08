@@ -149,7 +149,7 @@ const Mobilitaet: React.FC = () => {
         Footer: 'SUMME'
       },
       {
-        Header: 'Kilogramm CO2',
+        Header: 'Kilogramm CO₂',
         accessor: 'col2',
         Footer: info => {
           // Only calculate total visits if rows change
@@ -203,8 +203,20 @@ const Mobilitaet: React.FC = () => {
             <h1 className="text-4xl my-16 w-1/2">Mobilität im Klima-Check</h1>
             <p>
               Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
-              auf deinem Schulweg zurück? Berechne Hin- und Rückweg für eine
-              ganze Woche.
+              auf deinem Schulweg pro Tag zurück? Gib die Daten für eine ganze
+              Woche ein.
+            </p>
+          </div>
+        </FlexSplitLayout>
+        <FlexSplitLayout>
+          <div className="flex-1"></div>
+          <div className="flex-1">
+            <p>
+              Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
+              könnt beziehungsweise was es zu beachten gibt?{' '}
+              <a href="#" className="font-semibold underline">
+                Hier geht’s zu einer Schritt für Schritt Anleitung.
+              </a>
             </p>
           </div>
         </FlexSplitLayout>
