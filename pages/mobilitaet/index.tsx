@@ -23,32 +23,32 @@ import LoginCheck from '../../components/LoginCheck';
 export const Mobilities: MobilityDescription[] = [
   {
     type: 'pkw',
-    title: 'Auto',
+    title: 'Auto in km',
     thgpkm: 154
   },
   {
     type: 'bahn',
-    title: 'Zug',
+    title: 'Zug in km',
     thgpkm: 54
   },
   {
     type: 'bus',
-    title: 'Bus',
+    title: 'Bus in km',
     thgpkm: 83
   },
   {
     type: 'ubahn',
-    title: 'S-Bahn / U-Bahn',
+    title: 'S-Bahn / U-Bahn in km',
     thgpkm: 54
   },
   {
     type: 'fahrrad',
-    title: 'Fahrrad',
+    title: 'Fahrrad in km',
     thgpkm: 0
   },
   {
     type: 'fuss',
-    title: 'zu Fuß',
+    title: 'zu Fuß in km',
     thgpkm: 0
   }
 ];
@@ -200,7 +200,7 @@ const Mobilitaet: React.FC = () => {
         <FlexSplitLayout>
           <div className="flex-1"></div>
           <div className="flex-1">
-            <h1 className="text-4xl my-16 w-1/2">Mobilität im Klima-Check</h1>
+            <h1 className="text-4xl my-8 md:w-1/2">Mobilität im Klima-Check</h1>
             <p>
               Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
               auf deinem Schulweg pro Tag zurück? Gib die Daten für eine ganze

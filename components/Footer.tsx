@@ -22,9 +22,16 @@ export default function Footer() {
           <p>Oranienstraße 183</p>
           <p>D-10999 Berlin</p>
           <br />
-          <p>Tel +49 30 610 8144 80</p>
+          <p>
+            Tel <a href="tel:+49 30 610 8144 80">+49 30 610 8144 80</a>
+          </p>
           <p>Fax +49 30 610 8144 50</p>
-          <p>E-Mail klimadatenschule@bildungscent.de</p>
+          <a
+            className="underline"
+            href="mailto:klimadatenschule@bildungscent.de"
+          >
+            klimadatenschule@bildungscent.de
+          </a>
         </div>
         <div className="flex-1  mt-4">
           <p>
@@ -36,23 +43,22 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex-1 mt-4 p-4 flex flex-col items-center text-center">
-          <div className="w-32 py-4">
+          <a href="https://bildungscent.de/" className="w-32 py-4">
             <Image src={BildungsCentLogo} alt="BildungsCent Logo"></Image>
-          </div>
+          </a>
           <div className="flex items-center">
-            <div className="w-32">
+            <a href="https://reedu.de/" className="w-32">
               <Image src={ReeduLogo} alt="re:edu Logo"></Image>
-            </div>
-            <div className="w-32">
+            </a>
+            <a href="https://medialepfade.org/" className="w-32">
               <Image src={MedialePfadeLogo} alt="Mediale Pfade Logo"></Image>
-            </div>
+            </a>
           </div>
           <div className="w-64 rounded overflow-hidden">
             <Image src={NKILogo} alt="nki Logo"></Image>
           </div>
         </div>
         <div className="flex-1  mt-4">
-          <p className="font-semibold">Rechtliche Hinweise</p>
           <p
             className="cursor-pointer"
             onClick={() => setImpressumModalOpen(true)}
@@ -65,7 +71,6 @@ export default function Footer() {
           >
             Datenschutzhinweise
           </p>
-          <p>Teilnahembestimmungen</p>
         </div>
       </div>
       <DatenschutzModal

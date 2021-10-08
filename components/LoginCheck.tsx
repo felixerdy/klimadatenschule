@@ -10,8 +10,8 @@ const LoginCheck: React.FC<Props> = ({ children }) => {
 
   if (!session) {
     return (
-      <div className="w-full flex justify-center items-center bg-white rounded p-4 border-red-200 border-solid border-8">
-        <p>Bitte logge dich ein um Daten speichern zu können</p>
+      <div className="w-full flex justify-center items-center bg-white rounded p-4 mt-8">
+        <p>Bitte logge dich ein, um Daten speichern zu können</p>
         <button
           onClick={() => signIn('fusionauth')}
           type="button"

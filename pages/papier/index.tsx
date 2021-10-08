@@ -226,7 +226,7 @@ const Papier: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
-              <h1 className="text-4xl my-16 w-1/2">
+              <h1 className="text-4xl my-8 md:w-1/2">
                 Papierverbrauch im Klima-Check
               </h1>
               <p>
@@ -259,7 +259,10 @@ const Papier: React.FC = () => {
             <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
               <hr className="my-4"></hr>
-              <table {...getTableProps()} className="max-w-full md:min-w-full">
+              <table
+                {...getTableProps()}
+                className="w-full md:max-w-full md:min-w-full table-fixed break-words"
+              >
                 <thead className="">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -271,7 +274,7 @@ const Papier: React.FC = () => {
                           key={column.id}
                           {...column.getHeaderProps()}
                           className={`${
-                            i === 0 ? 'pr-3' : ''
+                            i === 0 && 'pr-3'
                           } text-left font-medium  uppercase tracking-wider`}
                         >
                           {column.render('Header')}
@@ -295,7 +298,11 @@ const Papier: React.FC = () => {
                             <td
                               key={i}
                               {...cell.getCellProps()}
-                              className="py-4 whitespace-nowrap"
+                              className={`${
+                                cell.value === 'Kopierpapier A4 (500 Blatt)'
+                                  ? 'pt-10 pb-4'
+                                  : 'py-4'
+                              }`}
                             >
                               {cell.render('Cell')}
                             </td>
@@ -332,7 +339,9 @@ const Papier: React.FC = () => {
                 {PaperProducts.map(m => (
                   <div className="mb-4" key={m.title}>
                     <input
-                      className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                      className={`border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ${
+                        m.type === 'kopierpapier' && 'mt-8'
+                      }`}
                       type="number"
                       name={m.title}
                       defaultValue={0}

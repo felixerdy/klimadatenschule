@@ -94,7 +94,7 @@ const Ernaehrung: React.FC = () => {
                 </a>
               </p>
               <p>
-                Übertrage die CO₂-Werte in die untenstehenden Eingabefelder.
+                Übertragt die CO₂-Werte in die untenstehenden Eingabefelder.
                 Erstellt für jedes Gericht einen eigenen Eintrag.
               </p>
             </div>
