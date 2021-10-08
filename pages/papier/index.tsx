@@ -295,7 +295,11 @@ const Papier: React.FC = () => {
                             <td
                               key={i}
                               {...cell.getCellProps()}
-                              className="py-4 whitespace-nowrap"
+                              className={`${
+                                cell.value === 'Kopierpapier A4 (500 Blatt)'
+                                  ? 'pt-10 pb-4'
+                                  : 'py-4'
+                              } whitespace-nowrap`}
                             >
                               {cell.render('Cell')}
                             </td>
@@ -332,7 +336,9 @@ const Papier: React.FC = () => {
                 {PaperProducts.map(m => (
                   <div className="mb-4" key={m.title}>
                     <input
-                      className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
+                      className={`border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ${
+                        m.type === 'kopierpapier' && 'mt-8'
+                      }`}
                       type="number"
                       name={m.title}
                       defaultValue={0}
