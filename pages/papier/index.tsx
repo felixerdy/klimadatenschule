@@ -259,7 +259,10 @@ const Papier: React.FC = () => {
             <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
               <hr className="my-4"></hr>
-              <table {...getTableProps()} className="max-w-full md:min-w-full">
+              <table
+                {...getTableProps()}
+                className="w-full md:max-w-full md:min-w-full table-fixed break-words"
+              >
                 <thead className="">
                   {headerGroups.map(headerGroup => (
                     <tr
@@ -271,7 +274,7 @@ const Papier: React.FC = () => {
                           key={column.id}
                           {...column.getHeaderProps()}
                           className={`${
-                            i === 0 ? 'pr-3' : ''
+                            i === 0 && 'pr-3'
                           } text-left font-medium  uppercase tracking-wider`}
                         >
                           {column.render('Header')}
@@ -299,7 +302,7 @@ const Papier: React.FC = () => {
                                 cell.value === 'Kopierpapier A4 (500 Blatt)'
                                   ? 'pt-10 pb-4'
                                   : 'py-4'
-                              } whitespace-nowrap`}
+                              }`}
                             >
                               {cell.render('Cell')}
                             </td>
