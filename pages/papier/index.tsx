@@ -226,7 +226,7 @@ const Papier: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
-              <h1 className="text-4xl my-16 w-1/2">
+              <h1 className="text-4xl my-8 md:w-1/2">
                 Papierverbrauch im Klima-Check
               </h1>
               <p>
