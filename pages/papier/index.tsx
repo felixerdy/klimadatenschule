@@ -259,6 +259,44 @@ const Papier: React.FC = () => {
             <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
               <hr className="my-4"></hr>
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {PaperProducts.map(m => (
+                  <div className="mb-4" key={m.title}>
+                    <input
+                      className={`border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ${
+                        m.type === 'kopierpapier' && 'mt-8'
+                      }`}
+                      type="number"
+                      name={m.title}
+                      defaultValue={0}
+                      min={0}
+                      max={1000}
+                      {...register(m.type, { min: 0, max: 50 })}
+                    />
+                    <label className="font-medium">{m.title}</label>
+                  </div>
+                ))}
+
+                <LoginCheck>
+                  <Link href={'/papier/my'}>
+                    <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                      Meine Datensätze
+                    </a>
+                  </Link>
+
+                  <button
+                    className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
+                    type="submit"
+                    disabled={!session || uploadLoading}
+                  >
+                    Speichern
+                  </button>
+                </LoginCheck>
+              </form>
+
+              <hr className="mt-4 mb-16"></hr>
+
               <table
                 {...getTableProps()}
                 className="w-full md:max-w-full md:min-w-full table-fixed break-words"
@@ -333,42 +371,6 @@ const Papier: React.FC = () => {
                   ))}
                 </tfoot>
               </table>
-              <hr className="mt-4 mb-16"></hr>
-
-              <form onSubmit={handleSubmit(onSubmit)}>
-                {PaperProducts.map(m => (
-                  <div className="mb-4" key={m.title}>
-                    <input
-                      className={`border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ${
-                        m.type === 'kopierpapier' && 'mt-8'
-                      }`}
-                      type="number"
-                      name={m.title}
-                      defaultValue={0}
-                      min={0}
-                      max={1000}
-                      {...register(m.type, { min: 0, max: 50 })}
-                    />
-                    <label className="font-medium">{m.title}</label>
-                  </div>
-                ))}
-
-                <LoginCheck>
-                  <Link href={'/papier/my'}>
-                    <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
-                      Meine Datensätze
-                    </a>
-                  </Link>
-
-                  <button
-                    className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline"
-                    type="submit"
-                    disabled={!session || uploadLoading}
-                  >
-                    Speichern
-                  </button>
-                </LoginCheck>
-              </form>
             </div>
           </FlexSplitLayout>
         </main>
