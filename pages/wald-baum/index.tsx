@@ -68,6 +68,8 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   const [markers, setMarkers] = useState<TreeMarker[]>([]);
   const { register, watch, handleSubmit } = useForm<any>();
 
+  console.log(Number(watch(`tree_0_height`)));
+
   const geolocation = useGeolocation();
   const [popupInfo, setPopupInfo] = useState<TreeMarker>(null);
 
@@ -348,8 +350,8 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                         <div className="mb-4 ">
                           <label className="">
                             {treeToCO2(
-                              watch(`tree_${m.id}_circumference`) | 0,
-                              watch(`tree_${m.id}_height`) | 0
+                              Number(watch(`tree_${m.id}_circumference`)) ?? 0,
+                              Number(watch(`tree_${m.id}_height`)) ?? 0
                             ).toFixed(2)}{' '}
                             kg gespeichertes CO₂
                           </label>

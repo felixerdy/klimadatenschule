@@ -224,6 +224,48 @@ const Mobilitaet: React.FC = () => {
           <div className="flex-1"></div>
           <div className="flex-1 max-w-full">
             <hr className="my-4"></hr>
+
+            <form className="" onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
+                <input
+                  className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+                  type="date"
+                  name={'timestamp'}
+                  defaultValue={new Date().toJSON().slice(0, 10)}
+                  {...register('timestamp')}
+                />
+                <label className="font-medium">Tag</label>
+              </div>
+
+              {Mobilities.map(m => (
+                <div className="mb-4" key={m.title}>
+                  <input
+                    className="border-solid border-gray-300 border py-2 px-4  w-full rounded "
+                    type="number"
+                    name={m.title}
+                    defaultValue={0}
+                    min={0}
+                    max={1000}
+                    {...register(m.type, { min: 0, max: 50 })}
+                  />
+                  <label className="mb-4 font-medium">{m.title}</label>
+                </div>
+              ))}
+
+              <LoginCheck>
+                <Link href={'/mobilitaet/my'}>
+                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
+                    Meine Datensätze
+                  </a>
+                </Link>
+                <Button type="submit" disabled={!session || uploadLoading}>
+                  Speichern
+                </Button>
+              </LoginCheck>
+            </form>
+
+            <hr className="mt-4 mb-16"></hr>
+
             <table {...getTableProps()} className="max-w-full md:min-w-full">
               <thead className="">
                 {headerGroups.map(headerGroup => (
@@ -291,46 +333,6 @@ const Mobilitaet: React.FC = () => {
                 ))}
               </tfoot>
             </table>
-            <hr className="mt-4 mb-16"></hr>
-
-            <form className="" onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-4">
-                <input
-                  className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
-                  type="date"
-                  name={'timestamp'}
-                  defaultValue={new Date().toJSON().slice(0, 10)}
-                  {...register('timestamp')}
-                />
-                <label className="font-medium">Tag</label>
-              </div>
-
-              {Mobilities.map(m => (
-                <div className="mb-4" key={m.title}>
-                  <input
-                    className="border-solid border-gray-300 border py-2 px-4  w-full rounded "
-                    type="number"
-                    name={m.title}
-                    defaultValue={0}
-                    min={0}
-                    max={1000}
-                    {...register(m.type, { min: 0, max: 50 })}
-                  />
-                  <label className="mb-4 font-medium">{m.title}</label>
-                </div>
-              ))}
-
-              <LoginCheck>
-                <Link href={'/mobilitaet/my'}>
-                  <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
-                    Meine Datensätze
-                  </a>
-                </Link>
-                <Button type="submit" disabled={!session || uploadLoading}>
-                  Speichern
-                </Button>
-              </LoginCheck>
-            </form>
           </div>
         </FlexSplitLayout>
       </div>
