@@ -9,8 +9,6 @@ const treeToCO2 = (
   height: number,
   darrdichte: number = DARRDICHTE_KG_M3
 ): number => {
-  console.log(circumference, height);
-
   const radiusInM = circumference / (2 * Math.PI);
 
   const volumeInM3 = (Math.PI * Math.pow(radiusInM, 2) * height) / 2;
