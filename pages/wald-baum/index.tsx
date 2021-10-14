@@ -179,6 +179,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
             <h1 className="text-4xl my-8 md:w-1/2">Bäume im Klima-Check</h1>
             <p>
               Wie viele Bäume gibt es in eurer Umgebung und wie viel CO₂
+              <a href="#co2-notice">*</a>
               speichern sie? Kartiert alle Bäume indem ihr den Standort auf der
               Karte markiert und Umfang sowie Höhe des Baumes in die
               Eingabefelder eintragt.
@@ -353,7 +354,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                               Number(watch(`tree_${m.id}_circumference`)) ?? 0,
                               Number(watch(`tree_${m.id}_height`)) ?? 0
                             ).toFixed(2)}{' '}
-                            kg gespeichertes CO₂
+                            kg gespeichertes CO₂<a href="#co2-notice">*</a>
                           </label>
                         </div>
                       </div>
@@ -395,6 +396,12 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 </Button>
               </LoginCheck>
             </form>
+            <br />
+            <p id="co2-notice">
+              * Der in den Bäumen gespeicherte Kohlenstoff kann mit einem Faktor
+              von 3,67 zu CO₂ umgerechnet werden (1 kg C entspricht 3,67 kg
+              CO₂).
+            </p>
           </div>
         </FlexSplitLayout>
       </div>
