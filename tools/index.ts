@@ -19,6 +19,10 @@ const treeToCO2 = (
 
   const co2InKg = kohlenstoffanteil * UMRECHNUNGSFAKTOR;
 
+  if (isNaN(co2InKg)) {
+    return 0;
+  }
+
   return co2InKg;
 };
 
