@@ -249,7 +249,12 @@ const Papier: React.FC = () => {
               <p>
                 Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
                 könnt beziehungsweise was es zu beachten gibt?{' '}
-                <a href="#" className="font-semibold underline">
+                <a
+                  href="https://klimadatenschule.de/papier.php"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold underline"
+                >
                   Hier geht’s zu einer Schritt für Schritt Anleitung.
                 </a>
               </p>

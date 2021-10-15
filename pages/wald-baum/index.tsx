@@ -68,8 +68,6 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   const [markers, setMarkers] = useState<TreeMarker[]>([]);
   const { register, watch, handleSubmit } = useForm<any>();
 
-  console.log(Number(watch(`tree_0_height`)));
-
   const geolocation = useGeolocation();
   const [popupInfo, setPopupInfo] = useState<TreeMarker>(null);
 
@@ -192,7 +190,12 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
             <p>
               Ihr möchtet nochmal nachlesen, wie genau ihr die Daten sammeln
               könnt beziehungsweise was es zu beachten gibt?{' '}
-              <a href="#" className="font-semibold underline">
+              <a
+                href="https://klimadatenschule.de/baeume.php"
+                target="_blank"
+                rel="noreferrer"
+                className="font-semibold underline"
+              >
                 Hier geht’s zu einer Schritt für Schritt Anleitung.
               </a>
             </p>
