@@ -40,29 +40,31 @@ const Home: React.FC<Props> = (props: Props) => {
       </div>
 
       <main>
-        <div className="flex flex-col md:flex-row justify-center items-center">
+        <div className="flex flex-row flex-wrap justify-center items-center">
           <Link href="/wald-baum" passHref>
-            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+            <div className="text-center p-4 sm:p-8 m-2 sm:m-8 max-w-xxxs sm:max-w-xxs transform hover:scale-110 duration-150 cursor-pointer bg-white rounded-lg shadow">
+              <h2 className="text-lg sm:text-2xl uppercase">Bäume</h2>
               <Image src={BaumIcon} alt="Baeume Icon"></Image>
-              <h2 className="text-2xl uppercase">Bäume</h2>
             </div>
           </Link>
           <Link href="/mobilitaet" passHref>
-            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+            <div className="text-center p-4 sm:p-8 m-2 sm:m-8 max-w-xxxs sm:max-w-xxs transform hover:scale-110 duration-150 cursor-pointer bg-white rounded-lg shadow">
+              <h2 className="text-lg sm:text-2xl uppercase">Mobilität</h2>
               <Image src={MobilitaetIcon} alt="Mobilität Icon"></Image>
-              <h2 className="text-2xl uppercase">Mobilität</h2>
             </div>
           </Link>
+        </div>
+        <div className="flex flex-row flex-wrap justify-center items-center">
           <Link href="/papier" passHref>
-            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+            <div className="text-center p-4 sm:p-8 m-2 sm:m-8 max-w-xxxs sm:max-w-xxs transform hover:scale-110 duration-150 cursor-pointer bg-white rounded-lg shadow">
+              <h2 className="text-lg sm:text-2xl uppercase">Papier</h2>
               <Image src={PapierIcon} alt="Papier Icon"></Image>
-              <h2 className="text-2xl uppercase">Papier</h2>
             </div>
           </Link>
           <Link href="/ernaehrung" passHref>
-            <div className="text-center p-8 max-w-xs transform hover:scale-110 duration-150 cursor-pointer">
+            <div className="text-center p-4 sm:p-8 m-2 sm:m-8 max-w-xxxs sm:max-w-xxs transform hover:scale-110 duration-150 cursor-pointer bg-white rounded-lg shadow">
+              <h2 className="text-lg sm:text-2xl uppercase">Ernährung</h2>
               <Image src={ErnaehrungIcon} alt="Ernährung Icon"></Image>
-              <h2 className="text-2xl uppercase">Ernährung</h2>
             </div>
           </Link>
           {/* <SectionHeader

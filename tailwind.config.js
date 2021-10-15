@@ -10,6 +10,10 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      maxWidth: {
+        xxs: '14rem',
+        xxxs: '9rem'
+      },
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans]
       },
