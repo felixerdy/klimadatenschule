@@ -85,7 +85,8 @@ const Ernaehrung: React.FC = () => {
               </p>
               <p className="my-4">
                 <a
-                  href="https://www.klimatarier.com/de/CO2_Rechner"
+                  // href="https://www.klimatarier.com/de/CO2_Rechner"
+                  href="https://web.archive.org/web/20210816152126/https://www.klimatarier.com/de/CO2_Rechner"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-kds-green-neon px-4 py-2 text-sm font-semibold rounded-full hover:bg-gray-300"
