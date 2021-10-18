@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="flex-1 mt-4">
           <a
             href="https://klimadatenschule.de"
-            className="bg-yellow-200 rounded-full p-3 my-4 text-sm font-semibold hover:bg-yellow-100 flex w-max max-w-full items-center content-center"
+            className="bg-mobility rounded-full p-3 my-4 text-sm font-semibold hover:bg-mobility-light flex w-max max-w-full items-center content-center"
           >
             <ArrowLeftIcon className="w-4 h-4 mr-2" /> Zurück zur
             KlimaDatenSchule-Website
