@@ -17,7 +17,10 @@ export default function Footer() {
     <div className="bg-footer">
       <div className="container py-14 px-6 mx-auto flex flex-col md:flex-row">
         <div className="flex-1 mt-4">
-          <p className="font-semibold">Kontakt</p>
+          <a href="https://klimadatenschule.de" className="underline">
+            Zurück zur KlimaDatenSchule-Website
+          </a>
+          <p className="font-semibold mt-4">Kontakt</p>
           <p>BildungsCent e.V.</p>
           <p>Oranienstraße 183</p>
           <p>D-10999 Berlin</p>
