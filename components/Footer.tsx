@@ -9,6 +9,8 @@ import MedialePfadeLogo from '../public/logos/logo_mp.png';
 import ReeduLogo from '../public/logos/logo_reedu.svg';
 import NKILogo from '../public/logos/logo_nki.png';
 
+import { ArrowLeftIcon } from '@heroicons/react/outline';
+
 export default function Footer() {
   const [datenschutzModalOpen, setDatenschutzModalOpen] = useState(false);
   const [impressumModalOpen, setImpressumModalOpen] = useState(false);
@@ -17,8 +19,12 @@ export default function Footer() {
     <div className="bg-footer">
       <div className="container py-14 px-6 mx-auto flex flex-col md:flex-row">
         <div className="flex-1 mt-4">
-          <a href="https://klimadatenschule.de" className="underline">
-            Zurück zur KlimaDatenSchule-Website
+          <a
+            href="https://klimadatenschule.de"
+            className="bg-mobility rounded-full p-3 my-4 text-sm font-semibold hover:bg-mobility-light flex w-max max-w-full items-center content-center"
+          >
+            <ArrowLeftIcon className="w-4 h-4 mr-2" /> Zurück zur
+            KlimaDatenSchule-Website
           </a>
           <p className="font-semibold mt-4">Kontakt</p>
           <p>BildungsCent e.V.</p>
