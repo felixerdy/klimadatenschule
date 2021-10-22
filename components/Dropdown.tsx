@@ -4,6 +4,8 @@ import { GetServerSideProps } from 'next';
 import { useSession, signOut, getSession } from 'next-auth/client';
 import Link from 'next/link';
 import React from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 const getInitials = function getInitials(name) {
@@ -15,6 +17,22 @@ const getInitials = function getInitials(name) {
 
 const Dropdown: React.FC = () => {
   const [session, loading] = useSession();
+  const [school, setSchool] = useState<{ name: String; id: String }>();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const request = await axios.get('/api/user/org');
+        if (request.status === 201) {
+          const school = request.data;
+          setSchool(school);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    fetchData();
+  }, []);
 
   return (
     <Menu>
@@ -39,7 +57,7 @@ const Dropdown: React.FC = () => {
           >
             <Menu.Items
               static
-              className="absolute right-0 w-56 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
+              className="absolute right-0 w-72 mt-2 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg outline-none"
             >
               <div className="px-4 py-3">
                 <p className="text-sm font-bold leading-5">Hallo</p>
@@ -47,6 +65,16 @@ const Dropdown: React.FC = () => {
                   {session.user.name}
                 </p>
               </div>
+              {school && (
+                <div className="px-4 py-3">
+                  <p className="text-sm font-semibold leading-5">
+                    {school.name}
+                  </p>
+                  <p className="text-xs font-medium leading-5 text-gray-900 truncate">
+                    {school.id}
+                  </p>
+                </div>
+              )}
 
               {/* <div className="py-1">
                 <Menu.Item>
