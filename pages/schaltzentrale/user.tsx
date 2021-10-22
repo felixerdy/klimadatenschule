@@ -38,6 +38,8 @@ const UserTable: React.FC<Props> = ({ users }) => {
   const [opened, setOpened] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
+  const [filter, setFilter] = useState('');
+
   const [session, loading] = useSession();
   const router = useRouter();
   useEffect(() => {
@@ -71,6 +73,11 @@ const UserTable: React.FC<Props> = ({ users }) => {
     setOpened(true);
   }
 
+  function filterUsers(e: React.ChangeEvent<HTMLInputElement>) {
+    const search = e.target.value;
+    setFilter(search);
+  }
+
   return (
     <Layout>
       <div className="page">
@@ -81,6 +88,16 @@ const UserTable: React.FC<Props> = ({ users }) => {
           </h1>
         </header>
         <main>
+          <div className="mb-8 mt-4">
+            <label className="font-semibold">
+              Nach Name oder E-Mail filtern
+            </label>
+            <input
+              className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+              type="text"
+              onChange={e => filterUsers(e)}
+            />
+          </div>
           <div className="w-full shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -100,31 +117,41 @@ const UserTable: React.FC<Props> = ({ users }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {users.map(user => (
-                  <tr key={user.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {user.email}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
-                    <td>
-                      <button
-                        className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
-                        type="button"
-                        onClick={() => openModal(user)}
-                      >
-                        <svg
-                          className="w-4 h-4 mr-2"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
+                {users
+                  .filter(
+                    u =>
+                      u.email.toLowerCase().includes(filter.toLowerCase()) ||
+                      u.name.toLowerCase().includes(filter.toLowerCase())
+                  )
+                  .map(user => (
+                    <tr key={user.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {user.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {user.email}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {user.role}
+                      </td>
+                      <td>
+                        <button
+                          className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                          type="button"
+                          onClick={() => openModal(user)}
                         >
-                          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                        </svg>
-                        <span>Editieren</span>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                          <svg
+                            className="w-4 h-4 mr-2"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                          </svg>
+                          <span>Editieren</span>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>

@@ -38,6 +38,8 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
   const [selectedOrg, setSelectedOrg] = useState<Organisation | null>(null);
   const [session, loading] = useSession();
 
+  const [filter, setFilter] = useState('');
+
   function closeModal() {
     setSelectedOrg(null);
     setOpened(false);
@@ -46,6 +48,11 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
   function openModal(org: Organisation) {
     setSelectedOrg(org);
     setOpened(true);
+  }
+
+  function filterOrgs(e: React.ChangeEvent<HTMLInputElement>) {
+    const search = e.target.value;
+    setFilter(search);
   }
 
   async function deleteOrganisation(org: Organisation) {
@@ -103,6 +110,14 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
           </button>
         </header>
         <main>
+          <div className="mb-8 mt-4">
+            <label className="font-semibold">Nach Name filtern</label>
+            <input
+              className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
+              type="text"
+              onChange={e => filterOrgs(e)}
+            />
+          </div>
           <div className="w-full shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
@@ -119,51 +134,59 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {organisations.map(org => (
-                  <tr key={org.id}>
-                    <td className="px-6 py-4 whitespace-nowrap">{org.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{org.type}</td>
-                    <td>
-                      {org.createdBy.email === session.user.email && (
-                        <>
-                          <button
-                            className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
-                            type="button"
-                            onClick={() => openModal(org)}
-                          >
-                            <svg
-                              className="w-4 h-4 mr-2"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
+                {organisations
+                  .filter(o =>
+                    o.name.toLowerCase().includes(filter.toLowerCase())
+                  )
+                  .map(org => (
+                    <tr key={org.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {org.name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {org.type}
+                      </td>
+                      <td>
+                        {org.createdBy.email === session.user.email && (
+                          <>
+                            <button
+                              className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                              type="button"
+                              onClick={() => openModal(org)}
                             >
-                              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                            </svg>
-                            <span>Editieren</span>
-                          </button>
-                          <button
-                            className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
-                            type="button"
-                            onClick={() => deleteOrganisation(org)}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              viewBox="0 0 20 20"
-                              fill="currentColor"
+                              <svg
+                                className="w-4 h-4 mr-2"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                              >
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                              </svg>
+                              <span>Editieren</span>
+                            </button>
+                            <button
+                              className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                              type="button"
+                              onClick={() => deleteOrganisation(org)}
                             >
-                              <path
-                                fillRule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            <span>Löschen</span>
-                          </button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              <span>Löschen</span>
+                            </button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
