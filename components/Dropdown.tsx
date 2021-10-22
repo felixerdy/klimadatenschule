@@ -23,7 +23,6 @@ const Dropdown: React.FC = () => {
     async function fetchData() {
       try {
         const request = await axios.get('/api/user/org');
-        console.log(request.status);
         if (request.status === 201) {
           const school = request.data;
           setSchool(school);
