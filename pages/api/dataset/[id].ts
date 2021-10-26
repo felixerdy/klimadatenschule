@@ -3,6 +3,10 @@ import jwt from 'next-auth/jwt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import csv from 'csvtojson';
 import axios from 'axios';
+import { utils, writeFile } from 'xlsx';
+import { mobilityToCO2, paperToCO2 } from '../../../tools';
+import { PaperType } from '../../../types/paper';
+import { MobilityType } from '../../../types/mobility';
 
 const convertJsonToCsv = async json => {
   const replacer = (key, value) => (value === null ? '' : value);
@@ -19,17 +23,38 @@ const convertJsonToCsv = async json => {
   return csv;
 };
 
-const buildResponse = async (res: NextApiResponse, data, format: string) => {
-  const resData = data.map(e => {
-    const obj = {
-      ...e,
-      school: e.user.organisation?.name || 'null'
-    };
+const buildResponse = async (
+  res: NextApiResponse,
+  data,
+  format: string,
+  co2Values?: number[]
+) => {
+  let resData;
 
-    delete obj.user;
+  if (co2Values && co2Values.length > 0) {
+    resData = data.map((e, i) => {
+      const obj = {
+        ...e,
+        co2: co2Values[i],
+        school: e.user.organisation?.name || 'null'
+      };
 
-    return obj;
-  });
+      delete obj.user;
+
+      return obj;
+    });
+  } else {
+    resData = data.map(e => {
+      const obj = {
+        ...e,
+        school: e.user.organisation?.name || 'null'
+      };
+
+      delete obj.user;
+
+      return obj;
+    });
+  }
 
   // https://github.com/vercel/next.js/discussions/15453
   res.setHeader(
@@ -46,6 +71,17 @@ const buildResponse = async (res: NextApiResponse, data, format: string) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(resData);
       break;
+    case 'xlsx':
+      res.setHeader('Content-Type', 'application/json');
+      res.send(resData);
+    // console.log();
+    // const header = Object.keys(resData[0]);
+    // const wb = utils.book_new();
+    // const ws = utils.json_to_sheet(resData, { header });
+    // utils.book_append_sheet(wb, ws);
+    // writeFile(wb, 'out.xlsb');
+    // res.setHeader('Content-Type', 'application/json');
+    // res.send(resData);
     default:
       break;
   }
@@ -96,7 +132,17 @@ export default async function handle(
             user
           }
         });
-        return buildResponse(res, mobilityData, format);
+
+        const co2ValuesMobility = mobilityData.map(p =>
+          Object.keys(p)
+            .filter(k => k !== 'createdAt' && k !== 'updatedAt' && k !== 'user')
+            .reduce<number>(
+              (prev, cur) => prev + mobilityToCO2(p[cur], cur as MobilityType),
+              0
+            )
+        );
+
+        return buildResponse(res, mobilityData, format, co2ValuesMobility);
       case 'tree':
         const treeData = await prisma.treeRecord.findMany({
           select: {
@@ -131,7 +177,17 @@ export default async function handle(
             user
           }
         });
-        return buildResponse(res, paperData, format);
+
+        const co2ValuesPaper = paperData.map(p =>
+          Object.keys(p)
+            .filter(k => k !== 'createdAt' && k !== 'updatedAt' && k !== 'user')
+            .reduce<number>(
+              (prev, cur) => prev + paperToCO2(p[cur], cur as PaperType),
+              0
+            )
+        );
+
+        return buildResponse(res, paperData, format, co2ValuesPaper);
       default:
         break;
     }
