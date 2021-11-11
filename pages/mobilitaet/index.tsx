@@ -251,7 +251,7 @@ const Mobilitaet: React.FC = () => {
                     defaultValue={0}
                     min={0}
                     max={1000}
-                    {...register(m.type, { min: 0, max: 50 })}
+                    {...register(m.type, { min: 0, max: 1000 })}
                   />
                   <label className="mb-4 font-medium">{m.title}</label>
                 </div>
