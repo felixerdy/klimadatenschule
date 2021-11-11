@@ -19,11 +19,11 @@ module.exports = {
       },
       colors: {
         nutrition: {
-          darkest: colors.red[900],
-          dark: colors.red[600],
+          darkest: '#002c32',
+          dark: '#005560',
           DEFAULT: '#00B6CE',
           light: '#6AC7D9',
-          lightest: colors.red[100]
+          lightest: '#9ef4ff'
         },
         tree: {
           darkest: colors.green[900],

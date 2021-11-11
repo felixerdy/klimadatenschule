@@ -8,6 +8,8 @@ import { GetServerSideProps } from 'next';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Button from '../../components/ui/Button';
+import UserSchoolModal from '../../components/Modals/UserSchoolModal';
+import { Organisation } from '.prisma/client';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const organisations = await prisma.organisation.findMany();
@@ -18,10 +20,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 };
 
 type Props = {
-  organisations: { id: string; name: string }[];
+  organisations: Organisation[];
 };
 
 const CompleteSignup: React.FC<Props> = props => {
+  const [schoolModalOpen, setSchoolModalOpen] = React.useState(false);
+  const [schoolName, setSchoolName] = React.useState('');
   const [session, loading] = useSession();
   const router = useRouter();
 
@@ -37,6 +41,24 @@ const CompleteSignup: React.FC<Props> = props => {
       router.push('/api/auth/signin');
     }
   }, [session, loading, router]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function fetchData() {
+    try {
+      const request = await axios.get('/api/user/org');
+      if (request.status === 201) {
+        const school = request.data;
+        setSchoolName(school.name);
+      } else {
+        setSchoolName(' ');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   if (loading) {
     return (
@@ -61,8 +83,7 @@ const CompleteSignup: React.FC<Props> = props => {
     console.log(data);
 
     const request = await axios.post('/api/user', {
-      name: data.name,
-      organisation: data.organisation
+      name: data.name
     });
 
     if (request.status === 201) {
@@ -101,27 +122,25 @@ const CompleteSignup: React.FC<Props> = props => {
               Schule oder Organisation
             </label>
 
-            <select
-              className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
-              name="organisation"
-              // @ts-ignore
-              defaultValue={String(session.user.organisationId)}
-              {...register('organisation', {
-                required: true
-              })}
-            >
-              <option disabled>Wähle deine Schule / Organisation</option>
-              {props.organisations.map(s => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-              <option disabled>------------</option>
-              <option value="null">Keine Schule / Organisation</option>
-            </select>
+            <div>
+              <p
+                className="border-solid bg-white border-gray-300 border py-2 px-4 w-full rounded h-10 text-gray-700 cursor-pointer"
+                onClick={() => setSchoolModalOpen(true)}
+              >
+                {schoolName ?? ' '}
+              </p>
+            </div>
 
             <Button type="submit">Speichern</Button>
           </form>
+          <UserSchoolModal
+            opened={schoolModalOpen}
+            organisations={props.organisations}
+            closeModal={() => {
+              setSchoolModalOpen(false);
+              fetchData();
+            }}
+          ></UserSchoolModal>
         </main>
       </div>
     </Layout>

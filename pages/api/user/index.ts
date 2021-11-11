@@ -45,7 +45,6 @@ export default async function handle(
         if (req.body.organisation === 'null') {
           const result = await prisma.user.update({
             data: {
-              name: req.body.name,
               organisationId: null
             },
             where: { email: token.email }
@@ -59,13 +58,21 @@ export default async function handle(
 
           const result = await prisma.user.update({
             data: {
-              name: req.body.name,
               organisationId: organisation.id
             },
             where: { email: token.email }
           });
           res.status(201).json(result);
         }
+      }
+      if ('name' in req.body) {
+        const result = await prisma.user.update({
+          data: {
+            name: req.body.name
+          },
+          where: { email: token.email }
+        });
+        res.status(201).json(result);
       }
     } catch (e) {
       res.status(500).json({

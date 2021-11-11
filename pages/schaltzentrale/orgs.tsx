@@ -1,4 +1,4 @@
-import { Organisation, User } from '@prisma/client';
+import { Organisation, User, Role } from '@prisma/client';
 import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 import prisma from './../../lib/prisma';
@@ -147,7 +147,9 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
                         {org.type}
                       </td>
                       <td>
-                        {org.createdBy.email === session.user.email && (
+                        {(org.createdBy.email === session.user.email ||
+                          // @ts-ignore
+                          session.user?.role === Role.ADMIN) && (
                           <>
                             <button
                               className="m-4 text-nutrition-darkest bg-yellow-100 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-yellow-200 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
@@ -164,7 +166,7 @@ const OrgTable: React.FC<Props> = ({ organisations }) => {
                               <span>Editieren</span>
                             </button>
                             <button
-                              className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+                              className="m-4 text-nutrition-darkest bg-red-200 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-red-300 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
                               type="button"
                               onClick={() => deleteOrganisation(org)}
                             >

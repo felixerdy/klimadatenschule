@@ -42,6 +42,16 @@ const App = ({ Component, pageProps }: AppProps) => {
     };
   }, []);
 
+  // disable number input change on scroll
+  React.useEffect(() => {
+    document.addEventListener('wheel', event => {
+      const numberInput = document.activeElement as HTMLInputElement;
+      if (numberInput.type === 'number') {
+        numberInput.blur();
+      }
+    });
+  }, []);
+
   return (
     <Provider session={pageProps.session}>
       <WindyProvider>

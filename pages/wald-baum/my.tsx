@@ -64,6 +64,7 @@ const WaldBaum: React.FC<{ records: TreeRecord[] }> = props => {
   function closeModal() {
     setSelectedRecord(null);
     setOpened(false);
+    router.replace(router.asPath);
   }
 
   function openModal(record) {

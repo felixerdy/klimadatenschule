@@ -50,7 +50,7 @@ const DatasetActions: React.FC<Props> = ({
       <div className="flex-1 px-6 py-4" title="Datensatz löschen">
         <div className="w-full text-center">
           <button
-            className="m-4 text-nutrition-darkest bg-nutrition-lightest px-4 py-2 text-sm font-semibold rounded-lg hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
+            className="m-4 text-nutrition-darkest bg-red-200 px-4 py-2 text-sm font-semibold rounded-lg hover:bg-red-300 focus:bg-gray focus:outline-none focus:shadow-outline inline-flex items-center"
             type="button"
             onClick={clickDelete}
           >
