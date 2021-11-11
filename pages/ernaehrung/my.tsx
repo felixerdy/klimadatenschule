@@ -51,6 +51,7 @@ const MyMealRecords: React.FC<Props> = props => {
   function closeModal() {
     setSelectedRecord(null);
     setOpened(false);
+    router.replace(router.asPath);
   }
 
   function openModal(record: MealRecord) {
