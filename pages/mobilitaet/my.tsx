@@ -87,76 +87,78 @@ const MyMobilityRecords: React.FC<Props> = props => {
         <h1 className="text-3xl text-center">Mein Schulweg</h1>
         <main>
           <div className="w-full max-w-4xl p-2 mx-auto bg-white rounded-2xl">
-            {props.records.map((r, i) => (
-              <Disclosure key={i}>
-                {({ open }) => (
-                  <>
-                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 m-1 text-sm font-medium text-left text-mobility-darker bg-mobility-light rounded-lg hover:bg-mobility-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
-                      <span>{r.createdAt.toDateString()}</span>
-                      <ChevronUpIcon
-                        className={`${
-                          open ? 'transform rotate-180' : ''
-                        } w-5 h-5 text-mobility-darker`}
-                      />
-                    </Disclosure.Button>
-                    <Transition
-                      enter="transition duration-100 ease-out"
-                      enterFrom="transform scale-95 opacity-0"
-                      enterTo="transform scale-100 opacity-100"
-                      leave="transition duration-75 ease-out"
-                      leaveFrom="transform scale-100 opacity-100"
-                      leaveTo="transform scale-95 opacity-0"
-                    >
-                      <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                        <div className="max-w-xl shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg m-auto">
-                          <table className="min-w-full divide-y divide-gray-200">
-                            <thead className="bg-gray-50">
-                              <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  Verkehrsmittel
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  km pro Woche
-                                </th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                  Treibhausgase
-                                </th>
-                              </tr>
-                            </thead>
-                            <tbody className="bg-white divide-y divide-gray-200">
-                              {Mobilities.map(m => (
-                                <tr key={m.type}>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    {m.title}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    {r[m.type]}
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    {r[m.type] * m.thgpkm}g CO₂
+            {props.records
+              .sort((a, b) => +b.timestamp - +a.timestamp)
+              .map((r, i) => (
+                <Disclosure key={i}>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className="flex justify-between w-full px-4 py-2 m-1 text-sm font-medium text-left text-mobility-darker bg-mobility-light rounded-lg hover:bg-mobility-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                        <span>{r.timestamp.toLocaleDateString()}</span>
+                        <ChevronUpIcon
+                          className={`${
+                            open ? 'transform rotate-180' : ''
+                          } w-5 h-5 text-mobility-darker`}
+                        />
+                      </Disclosure.Button>
+                      <Transition
+                        enter="transition duration-100 ease-out"
+                        enterFrom="transform scale-95 opacity-0"
+                        enterTo="transform scale-100 opacity-100"
+                        leave="transition duration-75 ease-out"
+                        leaveFrom="transform scale-100 opacity-100"
+                        leaveTo="transform scale-95 opacity-0"
+                      >
+                        <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+                          <div className="max-w-xl shadow overflow-scroll sm:overflow-auto border-b border-gray-200 sm:rounded-lg m-auto">
+                            <table className="min-w-full divide-y divide-gray-200">
+                              <thead className="bg-gray-50">
+                                <tr>
+                                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Verkehrsmittel
+                                  </th>
+                                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    km pro Woche
+                                  </th>
+                                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Treibhausgase
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody className="bg-white divide-y divide-gray-200">
+                                {Mobilities.map(m => (
+                                  <tr key={m.type}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      {m.title}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      {r[m.type]}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                      {r[m.type] * m.thgpkm}g CO₂
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colSpan={3}>
+                                    <DatasetActions
+                                      record={r}
+                                      deleteRecord={deleteRecord}
+                                      openRecord={openModal}
+                                    ></DatasetActions>
                                   </td>
                                 </tr>
-                              ))}
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colSpan={3}>
-                                  <DatasetActions
-                                    record={r}
-                                    deleteRecord={deleteRecord}
-                                    openRecord={openModal}
-                                  ></DatasetActions>
-                                </td>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                      </Disclosure.Panel>
-                    </Transition>
-                  </>
-                )}
-              </Disclosure>
-            ))}
+                              </tfoot>
+                            </table>
+                          </div>
+                        </Disclosure.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Disclosure>
+              ))}
           </div>
           {selectedRecord && (
             <MobilityModal
