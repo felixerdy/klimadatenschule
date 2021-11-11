@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 
+import { utils, writeFile } from 'xlsx';
+
 type Inputs = {
   format: string;
 };
@@ -18,57 +20,12 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
   const { register, handleSubmit } = useForm<Inputs>();
   const downloadRef = useRef(null);
 
-  const [fromColor, setFromColor] = useState('from-blue-100');
-  const [toColor, setToColor] = useState('to-blue-300');
-  const [textColor, setTextColor] = useState('text-blue-900');
-  const [bgColor, setBgColor] = useState('bg-blue-100');
-  const [bgColorHover, setBgColorHover] = useState('bg-blue');
-
-  // useEffect(() => {
-  //   // https://tailwindcss.com/docs/optimizing-for-production#writing-purgeable-html
-  //   switch (dataset) {
-  //     case 'tree':
-  //       setFromColor(`from-tree-lightest`);
-  //       setToColor(`to-tree-light`);
-  //       setTextColor(`text-tree-darkest`);
-  //       setBgColor(`bg-tree-lightest`);
-  //       setBgColorHover(`bg-tree`);
-  //       break;
-  //     case 'paper':
-  //       setFromColor(`from-paper-lightest`);
-  //       setToColor(`to-paper-light`);
-  //       setTextColor(`text-paper-darkest`);
-  //       setBgColor(`bg-paper-lightest`);
-  //       setBgColorHover(`bg-paper`);
-  //       break;
-  //     case 'mobility':
-  //       setFromColor(`from-mobility-lightest`);
-  //       setToColor(`to-mobility-light`);
-  //       setTextColor(`text-mobility-darkest`);
-  //       setBgColor(`bg-mobility-lightest`);
-  //       setBgColorHover(`bg-mobility`);
-  //       break;
-  //     case 'nutrition':
-  //       setFromColor(`from-nutrition-lightest`);
-  //       setToColor(`to-nutrition-light-light`);
-  //       setTextColor(`text-nutrition-darkest`);
-  //       setBgColor(`bg-nutrition-lightest`);
-  //       setBgColorHover(`bg-nutrition`);
-  //       break;
-  //   }
-  // }, [dataset]);
-
   const onSubmit = async (data: Inputs) => {
     try {
-      const format = 'csv';
+      const format = data.format ?? 'xlsx';
       const response = await fetch(`/api/dataset/${dataset}?format=${format}`, {
         method: 'GET'
       });
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(new Blob([blob]));
-      const link = downloadRef.current;
-      link.href = url;
 
       let datasetName = 'kds';
       switch (dataset) {
@@ -90,15 +47,43 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
         }
       }
 
-      link.setAttribute(
-        'download',
-        `kds_${datasetName}_${new Date()
-          .toISOString()
-          .slice(0, 10)
-          .replaceAll('-', '_')}.${format}`
-      );
-      link.click();
-      link.href = '';
+      if (format === 'xlsx') {
+        const data = await response.json();
+        if (data.length > 0) {
+          let wsData = data.map(e => ({
+            ...e,
+            createdAt: new Date(e.createdAt),
+            updatedAt: new Date(e.updatedAt)
+          }));
+          const wb = utils.book_new();
+          const ws = utils.json_to_sheet(wsData);
+          utils.book_append_sheet(wb, ws);
+          writeFile(
+            wb,
+            `kds_${datasetName}_${new Date()
+              .toISOString()
+              .slice(0, 10)
+              .replaceAll('-', '_')}.${format}`
+          );
+
+          return;
+        }
+      } else {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = downloadRef.current;
+        link.href = url;
+
+        link.setAttribute(
+          'download',
+          `kds_${datasetName}_${new Date()
+            .toISOString()
+            .slice(0, 10)
+            .replaceAll('-', '_')}.${format}`
+        );
+        link.click();
+        link.href = '';
+      }
 
       if (response.ok) {
         toast.success('Datensatz erfolgreich runtergeladen');
@@ -123,6 +108,31 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
           <p>
             {entries} {entries !== 1 ? 'Einträge' : 'Eintrag'}
           </p>
+
+          <div className="my-4">
+            <input
+              type="radio"
+              name="format"
+              value="xlsx"
+              id={`${dataset}_excel`}
+              checked
+              {...register('format')}
+            />
+            <label htmlFor={`${dataset}_excel`} className="m-2">
+              Excel
+            </label>
+            <br />
+            <input
+              type="radio"
+              name="format"
+              value="csv"
+              id={`${dataset}_csv`}
+              {...register('format')}
+            />
+            <label htmlFor={`${dataset}_csv`} className="m-2">
+              CSV
+            </label>
+          </div>
 
           <button
             className="bg-kds-green-neon mt-8 px-4 py-2 text-sm font-semibold rounded-full hover:bg-gray-300 focus:bg-gray focus:outline-none focus:shadow-outline self-center"

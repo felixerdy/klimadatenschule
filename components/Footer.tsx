@@ -66,7 +66,7 @@ export default function Footer() {
             Datenschutzhinweise
           </p>
           <a
-            href="https://klimadatenschule.de/wp-content/uploads/2021/08/KlimaDatenSchule_Teilnahmebedingungen.pdf"
+            href="https://klimadatenschule.de/content/pdf/KlimaDatenSchule_Teilnahmebedingungen.pdf"
             target="_blank"
             rel="noreferrer"
           >
