@@ -50,11 +50,20 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
       if (format === 'xlsx') {
         const data = await response.json();
         if (data.length > 0) {
-          let wsData = data.map(e => ({
-            ...e,
-            createdAt: new Date(e.createdAt),
-            updatedAt: new Date(e.updatedAt)
-          }));
+          // convert dates to date objects
+          let wsData = data.map(e => {
+            const record = {
+              ...e,
+              createdAt: new Date(e.createdAt),
+              updatedAt: new Date(e.updatedAt)
+            };
+
+            if (dataset === 'mobility' || dataset === 'nutrition') {
+              record.timestamp = new Date(e.timestamp);
+            }
+
+            return record;
+          });
           const wb = utils.book_new();
           const ws = utils.json_to_sheet(wsData);
           utils.book_append_sheet(wb, ws);

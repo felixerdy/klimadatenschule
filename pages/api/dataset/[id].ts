@@ -27,7 +27,8 @@ const buildResponse = async (
   res: NextApiResponse,
   data,
   format: string,
-  co2Values?: number[]
+  co2Values?: number[],
+  isPaper?: boolean
 ) => {
   let resData;
 
@@ -35,7 +36,7 @@ const buildResponse = async (
     resData = data.map((e, i) => {
       const obj = {
         ...e,
-        co2: co2Values[i],
+        [isPaper ? 'co2_in_g' : 'co2_in_kg']: co2Values[i],
         school: e.user.organisation?.name || 'null'
       };
 
@@ -114,10 +115,21 @@ export default async function handle(
             co2: true,
             createdAt: true,
             updatedAt: true,
+            timestamp: true,
             user
           }
         });
-        return buildResponse(res, nutritionData, format);
+        const nutritionDataRename = nutritionData.map(n => {
+          return {
+            name: n.name,
+            co2_in_kg: n.co2,
+            createdAt: n.createdAt,
+            updatedAt: n.updatedAt,
+            timestamp: n.timestamp,
+            user: n.user
+          };
+        });
+        return buildResponse(res, nutritionDataRename, format);
       case 'mobility':
         const mobilityData = await prisma.mobilityRecord.findMany({
           select: {
@@ -129,13 +141,20 @@ export default async function handle(
             fuss: true,
             createdAt: true,
             updatedAt: true,
+            timestamp: true,
             user
           }
         });
 
         const co2ValuesMobility = mobilityData.map(p =>
           Object.keys(p)
-            .filter(k => k !== 'createdAt' && k !== 'updatedAt' && k !== 'user')
+            .filter(
+              k =>
+                k !== 'createdAt' &&
+                k !== 'updatedAt' &&
+                k !== 'user' &&
+                k !== 'timestamp'
+            )
             .reduce<number>(
               (prev, cur) => prev + mobilityToCO2(p[cur], cur as MobilityType),
               0
@@ -156,7 +175,20 @@ export default async function handle(
             user
           }
         });
-        return buildResponse(res, treeData, format);
+
+        const treeDataRename = treeData.map(t => {
+          return {
+            circumference_in_m: t.circumference,
+            height_in_m: t.height,
+            latitude: t.latitude,
+            longitude: t.longitude,
+            createdAt: t.createdAt,
+            updatedAt: t.updatedAt,
+            co2_in_kg: t.co2,
+            user: t.user
+          };
+        });
+        return buildResponse(res, treeDataRename, format);
       case 'paper':
         const paperData = await prisma.paperRecord.findMany({
           select: {
@@ -187,7 +219,7 @@ export default async function handle(
             )
         );
 
-        return buildResponse(res, paperData, format, co2ValuesPaper);
+        return buildResponse(res, paperData, format, co2ValuesPaper, true);
       default:
         break;
     }
