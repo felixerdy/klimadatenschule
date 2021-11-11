@@ -1,6 +1,7 @@
-import { getProviders, signIn } from 'next-auth/client';
+import { getProviders, signIn, useSession } from 'next-auth/client';
 import { Provider } from 'next-auth/providers';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
 
 type Props = {
@@ -15,6 +16,15 @@ export async function getServerSideProps(context) {
 }
 
 const SignIn: React.FC<Props> = ({ providers }) => {
+  const [session, loading] = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session, router]);
+
   return (
     <Layout>
       <div className="page text-center">
