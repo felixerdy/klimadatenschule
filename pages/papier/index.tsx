@@ -262,6 +262,20 @@ const Papier: React.FC = () => {
           </FlexSplitLayout>
           <FlexSplitLayout>
             <div className="flex-1"></div>
+            <div className="flex-1">
+              <p>
+                Ihr möchtet wissen, wie und auf welcher Datengrundlage die Werte
+                berechnet werden?{' '}
+                <Link href={'/quellen#papier'} passHref>
+                  <a className="font-semibold underline">
+                    Hier geht´s zu den Quellen
+                  </a>
+                </Link>
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
               <hr className="my-4"></hr>
 

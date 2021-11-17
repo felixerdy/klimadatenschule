@@ -120,6 +120,20 @@ const Ernaehrung: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
+              <p>
+                Ihr möchtet wissen, wie und auf welcher Datengrundlage die Werte
+                berechnet werden?{' '}
+                <Link href={'/quellen#ernaehrung'} passHref>
+                  <a className="font-semibold underline">
+                    Hier geht´s zu den Quellen
+                  </a>
+                </Link>
+              </p>
+            </div>
+          </FlexSplitLayout>
+          <FlexSplitLayout>
+            <div className="flex-1"></div>
+            <div className="flex-1">
               <hr className="my-4" />
               <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
