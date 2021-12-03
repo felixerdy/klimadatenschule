@@ -113,6 +113,7 @@ export default async function handle(
           select: {
             name: true,
             co2: true,
+            count: true,
             createdAt: true,
             updatedAt: true,
             timestamp: true,
@@ -123,6 +124,7 @@ export default async function handle(
           return {
             name: n.name,
             co2_in_kg: n.co2,
+            count: n.count,
             createdAt: n.createdAt,
             updatedAt: n.updatedAt,
             timestamp: n.timestamp,
