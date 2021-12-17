@@ -17,7 +17,7 @@ import { PlusIcon } from '@heroicons/react/solid';
 import LoginCheck from '../../components/LoginCheck';
 
 const Ernaehrung: React.FC = () => {
-  const { register, watch, handleSubmit } = useForm<any>();
+  const { register, watch, handleSubmit, reset } = useForm<any>();
   const [uploadLoading, setUploadLoading] = useState(false);
 
   const [meals, setMeals] = useState(1);
@@ -45,6 +45,8 @@ const Ernaehrung: React.FC = () => {
         toast.success('Datensatz erfolgreich hochgeladen', {
           onClose: () => setUploadLoading(false)
         });
+        reset();
+        setMeals(1);
       } else {
         toast.error(`Error: ${response.statusText}`, {
           onClose: () => setUploadLoading(false)

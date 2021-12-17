@@ -86,7 +86,7 @@ const Papier: React.FC = () => {
   // Set defaultValues to render table on page load
   // First render of watch will return undefined because it is called before register
   // https://react-hook-form.com/api/useform/watch
-  const { register, watch, handleSubmit } = useForm<IPaperForm>({
+  const { register, watch, handleSubmit, reset } = useForm<IPaperForm>({
     defaultValues: {
       a4: 0,
       a4_recycling: 0,
@@ -127,6 +127,7 @@ const Papier: React.FC = () => {
         toast.success('Datensatz erfolgreich hochgeladen', {
           onClose: () => setUploadLoading(false)
         });
+        reset();
       } else {
         toast.error(`Error: ${response.statusText}`, {
           onClose: () => setUploadLoading(false)
