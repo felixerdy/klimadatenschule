@@ -66,7 +66,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
   });
 
   const [markers, setMarkers] = useState<TreeMarker[]>([]);
-  const { register, watch, handleSubmit } = useForm<any>();
+  const { register, watch, handleSubmit, reset } = useForm<any>();
 
   const geolocation = useGeolocation();
   const [popupInfo, setPopupInfo] = useState<TreeMarker>(null);
@@ -147,6 +147,8 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
         toast.success('Datensatz erfolgreich hochgeladen', {
           onClose: () => setUploadLoading(false)
         });
+        reset();
+        setMarkers([]);
       } else {
         toast.error(`Error: ${response.statusText}`, {
           onClose: () => setUploadLoading(false)
