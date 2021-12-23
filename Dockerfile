@@ -15,6 +15,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 RUN npx prisma migrate deploy
+RUN npx prisma generate
 
 RUN yarn build
 
