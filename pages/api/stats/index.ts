@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../lib/prisma';
+import { treeToCO2 } from '../../../tools';
 
 // POST /api/user
 export default async function handle(
@@ -12,11 +13,16 @@ export default async function handle(
   const paperCount = await prisma.paperRecord.count();
   const mobilityCount = await prisma.mobilityRecord.count();
 
-  const totalTreeCo2 = await prisma.treeRecord.aggregate({
-    _sum: {
-      co2: true
+  const allTrees = await prisma.treeRecord.findMany({
+    select: {
+      circumference: true,
+      height: true
     }
   });
+
+  const treeTotalCo2 = allTrees
+    .filter(t => t.height <= 70 && t.circumference <= 20)
+    .reduce((a, b) => a + treeToCO2(b.circumference, b.height), 0);
 
   const totalTrafficKm = await prisma.mobilityRecord.aggregate({
     _sum: {
@@ -60,7 +66,7 @@ export default async function handle(
     datasets: treeCount + mealCount + paperCount + mobilityCount,
     tree: {
       count: treeCount,
-      totalCo2: totalTreeCo2._sum.co2.toFixed(2)
+      totalCo2: treeTotalCo2
     },
     mobility: {
       count: mobilityCount,

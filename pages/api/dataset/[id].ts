@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import csv from 'csvtojson';
 import axios from 'axios';
 import { utils, writeFile } from 'xlsx';
-import { mobilityToCO2, paperToCO2 } from '../../../tools';
+import { mobilityToCO2, paperToCO2, treeToCO2 } from '../../../tools';
 import { PaperType } from '../../../types/paper';
 import { MobilityType } from '../../../types/mobility';
 
@@ -173,7 +173,6 @@ export default async function handle(
             longitude: true,
             createdAt: true,
             updatedAt: true,
-            co2: true,
             user
           }
         });
@@ -186,11 +185,16 @@ export default async function handle(
             longitude: t.longitude,
             createdAt: t.createdAt,
             updatedAt: t.updatedAt,
-            co2_in_kg: t.co2,
             user: t.user
           };
         });
-        return buildResponse(res, treeDataRename, format);
+
+        const treeDataCo2 = treeDataRename.map(t => ({
+          ...t,
+          co2_in_kg: treeToCO2(t.circumference_in_m, t.height_in_m)
+        }));
+
+        return buildResponse(res, treeDataCo2, format);
       case 'paper':
         const paperData = await prisma.paperRecord.findMany({
           select: {
