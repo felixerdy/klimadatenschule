@@ -332,7 +332,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             step="any"
                             name={`tree_${i}_circumference`}
                             defaultValue={0}
-                            max={5}
+                            max={20}
                             min={0}
                             {...register(`tree_${m.id}_circumference`, {
                               min: 0

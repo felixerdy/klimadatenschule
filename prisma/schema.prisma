@@ -140,7 +140,6 @@ model TreeRecord {
   height        Float
   latitude      Float
   longitude     Float
-  co2           Float    @default(0)
 }
 
 model PaperRecord {
