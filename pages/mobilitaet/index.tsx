@@ -66,7 +66,7 @@ const Mobilitaet: React.FC = () => {
   // Set defaultValues to render table on page load
   // First render of watch will return undefined because it is called before register
   // https://react-hook-form.com/api/useform/watch
-  const { register, watch, handleSubmit } = useForm<IMobilityForm>({
+  const { register, watch, handleSubmit, reset } = useForm<IMobilityForm>({
     defaultValues: {
       pkw: 0,
       bahn: 0,
@@ -102,6 +102,7 @@ const Mobilitaet: React.FC = () => {
         toast.success('Datensatz erfolgreich hochgeladen', {
           onClose: () => setUploadLoading(false)
         });
+        reset();
       } else {
         toast.error(`Error: ${response.statusText}`, {
           onClose: () => setUploadLoading(false)
