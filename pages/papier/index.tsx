@@ -18,62 +18,62 @@ export const PaperProducts: PaperDescription[] = [
   {
     type: 'a4',
     title: 'Heft A4 (16 Blatt)',
-    thgpst: 84
+    thgpst: 84.62361599304732
   },
   {
     type: 'a4_recycling',
     title: 'Heft A4 (16 Blatt recycling)',
-    thgpst: 70
+    thgpst: 70.73256959418861
   },
   {
     type: 'a5',
     title: 'Heft A5 (16 Blatt)',
-    thgpst: 42
+    thgpst: 42.31180799652366
   },
   {
     type: 'a5_recycling',
     title: 'Heft A5 (16 Blatt recycling)',
-    thgpst: 35
+    thgpst: 35.366284797094305
   },
   {
     type: 'a6',
     title: 'Heft A6 (32 Blatt)',
-    thgpst: 42
+    thgpst: 42.31180799652366
   },
   {
     type: 'a6_recycling',
     title: 'Heft A6 (32 Blatt recycling)',
-    thgpst: 35
+    thgpst: 35.366284797094305
   },
   {
     type: 'collegeblock',
     title: 'Collegeblock (80 Blatt)',
-    thgpst: 420
+    thgpst: 423.1180799652366
   },
   {
     type: 'collegeblock_recycling',
     title: 'Collegeblock (80 Blatt recycling)',
-    thgpst: 350
+    thgpst: 353.66284797094305
   },
   {
     type: 'zeichenmappe',
     title: 'Zeichenmappe A3 (20 Blatt)',
-    thgpst: 210
+    thgpst: 211.5590399826183
   },
   {
     type: 'zeichenmappe_recycling',
     title: 'Zeichenmappe A3 (20 Blatt recycling)',
-    thgpst: 175
+    thgpst: 176.831423985471
   },
   {
     type: 'kopierpapier',
     title: 'Kopierpapier A4 (500 Blatt)',
-    thgpst: 2600
+    thgpst: 2644.487999782729
   },
   {
     type: 'kopierpapier_recycling',
     title: 'Kopierpapier A4 (500 Blatt recycling)',
-    thgpst: 2200
+    thgpst: 2210.392799818394
   }
 ];
 
