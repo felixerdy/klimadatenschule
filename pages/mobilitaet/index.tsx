@@ -28,7 +28,7 @@ export const Mobilities: MobilityDescription[] = [
   },
   {
     type: 'bahn',
-    title: 'Zug in km',
+    title: 'Zug (Nahverkehr) in km',
     thgpkm: 54
   },
   {
@@ -38,7 +38,7 @@ export const Mobilities: MobilityDescription[] = [
   },
   {
     type: 'ubahn',
-    title: 'S-Bahn / U-Bahn in km',
+    title: 'S-Bahn / U-Bahn / Straßenbahn in km',
     thgpkm: 54
   },
   {
