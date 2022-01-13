@@ -346,6 +346,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             step="any"
                             name={`tree_${i}_circumference`}
                             defaultValue={0}
+                            max={20}
                             min={0}
                             {...register(`tree_${m.id}_circumference`, {
                               min: 0
@@ -363,6 +364,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             name={`tree_${i}_height`}
                             defaultValue={0}
                             min={0}
+                            max={70}
                             {...register(`tree_${m.id}_height`, { min: 0 })}
                           />
                           <label className="">Höhe in m</label>

@@ -60,7 +60,6 @@ export default async function handle(
             prisma.treeRecord.create({
               data: {
                 ...tree,
-                co2: treeToCO2(tree.circumference, tree.height),
                 user: { connect: { email: token?.email } }
               }
             })

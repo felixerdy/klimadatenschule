@@ -2,7 +2,10 @@ import { PaperProducts } from '../pages/papier';
 import { MobilityDescription, MobilityType } from '../types/mobility';
 import { PaperType } from '../types/paper';
 
-const DARRDICHTE_KG_M3 = 600;
+// based on average from IPCC report
+// https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf
+// p. 71 table 4.14
+const DARRDICHTE_KG_M3 = 452;
 const UMRECHNUNGSFAKTOR = 3.67;
 
 const treeToCO2 = (
@@ -12,7 +15,7 @@ const treeToCO2 = (
 ): number => {
   const radiusInM = circumference / (2 * Math.PI);
 
-  const volumeInM3 = (Math.PI * Math.pow(radiusInM, 2) * height) / 2;
+  const volumeInM3 = Math.PI * Math.pow(radiusInM, 2) * height;
 
   const darrdichteTotal = darrdichte * volumeInM3;
 
