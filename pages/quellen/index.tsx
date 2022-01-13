@@ -95,7 +95,7 @@ const Sources = () => {
                     Kohlenstoffanteil der gesamten Holzmasse und Faktor zur
                     Umrechnung von Kohlenstoff zu CO₂:
                   </span>{' '}
-                  co2online (ohne Datum): Wie viel CO2 wird bei der Verbrennung
+                  co2online (ohne Datum): Wie viel CO₂ wird bei der Verbrennung
                   von Holz frei? Unter:{' '}
                   <a
                     href="https://www.co2online.de/service/klima-orakel/beitrag/wie-viel-co2-wird-bei-der-verbrennung-von-holz-frei-8572/"
@@ -326,7 +326,7 @@ const Sources = () => {
               <p className="mt-8 text-2xl">Quellen:</p>
               <ul className="list-disc my-2">
                 <li>
-                  <span className="font-semibold">Klimatarier-CO2-Recher</span>{' '}
+                  <span className="font-semibold">Klimatarier-CO₂-Recher</span>{' '}
                   (2016) Unter:{' '}
                   <a
                     href="https://web.archive.org/web/20210814110817/https://www.klimatarier.com/de/Fragen/Glossar#CO2Lebensmittel"
@@ -338,7 +338,7 @@ const Sources = () => {
                 </li>
                 <li>
                   <span className="font-semibold">
-                    CO2-Rechner von schools4future
+                    CO₂-Rechner von schools4future
                   </span>{' '}
                   (2021) Unter:{' '}
                   <a
@@ -351,7 +351,7 @@ const Sources = () => {
                 </li>
                 <li>
                   <span className="font-semibold">
-                    Ergänzende Quelle für CO2-Fußabdrücke vieler Lebensmittel in
+                    Ergänzende Quelle für CO₂-Fußabdrücke vieler Lebensmittel in
                     Deutschland:
                   </span>{' '}
                   IFEU-Institut (2020): Ökologische Fußabdrücke von
