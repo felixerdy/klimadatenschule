@@ -145,6 +145,11 @@ const Header: React.FC = () => {
               Datensätze
             </a>
           </Link>
+          <Link href={'/quellen'}>
+            <a className="bg-kds-green-neon px-4 py-2 mt-2 ml-4 text-sm font-semibold rounded-full md:mt-0 md:ml-4 hover:bg-kds-light focus:bg-gray focus:outline-none focus:shadow-outline self-center">
+              Datenquellen
+            </a>
+          </Link>
           {/* <NavButtonLink href="/dataset" text="Datensätze" /> */}
           {/* <NavButtonLink href="/tools" text="Werkzeuge" /> */}
           {session ? (

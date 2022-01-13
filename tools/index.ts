@@ -1,6 +1,7 @@
 import { PaperProducts } from '../pages/papier';
-import { MobilityDescription, MobilityType } from '../types/mobility';
 import { PaperType } from '../types/paper';
+import { Mobilities } from '../pages/mobilitaet';
+import { MobilityType } from '../types/mobility';
 
 // based on average from IPCC report
 // https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf
@@ -33,40 +34,6 @@ const treeToCO2 = (
 const paperToCO2 = (gram: number, type: PaperType): number => {
   return Number(gram * PaperProducts.find(e => e.type === type).thgpst);
 };
-
-// https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
-const Mobilities: MobilityDescription[] = [
-  {
-    type: 'pkw',
-    title: 'Auto in km',
-    thgpkm: 154
-  },
-  {
-    type: 'bahn',
-    title: 'Zug in km',
-    thgpkm: 54
-  },
-  {
-    type: 'bus',
-    title: 'Bus in km',
-    thgpkm: 83
-  },
-  {
-    type: 'ubahn',
-    title: 'S-Bahn / U-Bahn in km',
-    thgpkm: 54
-  },
-  {
-    type: 'fahrrad',
-    title: 'Fahrrad in km',
-    thgpkm: 0
-  },
-  {
-    type: 'fuss',
-    title: 'zu Fuß in km',
-    thgpkm: 0
-  }
-];
 
 const mobilityToCO2 = (distanceInKm: number, type: MobilityType): number => {
   return Number(
