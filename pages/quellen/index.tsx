@@ -100,6 +100,7 @@ const Sources = () => {
                   <a
                     href="https://www.co2online.de/service/klima-orakel/beitrag/wie-viel-co2-wird-bei-der-verbrennung-von-holz-frei-8572/"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://www.co2online.de/service/klima-orakel/beitrag/wie-viel-co2-wird-bei-der-verbrennung-von-holz-frei-8572/
                   </a>
@@ -114,6 +115,7 @@ const Sources = () => {
                   <a
                     href="https://regenwald-unterrichtsmaterial.oroverde.de/fileadmin/user_upload/Unterrichtseinheiten/Hintergrund-Dateien/07.04_LI_WievielinBaeumen.pdf"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://regenwald-unterrichtsmaterial.oroverde.de/fileadmin/user_upload/Unterrichtseinheiten/Hintergrund-Dateien/07.04_LI_WievielinBaeumen.pdf
                   </a>
@@ -130,6 +132,7 @@ const Sources = () => {
                   <a
                     href="https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf
                   </a>
@@ -170,6 +173,7 @@ const Sources = () => {
                 <a
                   href="https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#TREMOD"
                   className="text-blue-800 break-all"
+                  target="_blank"
                 >
                   https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#TREMOD
                 </a>
@@ -185,6 +189,7 @@ const Sources = () => {
                   <a
                     href="https://www.umweltbundesamt.de/bild/vergleich-der-durchschnittlichen-emissionen-0"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     Umweltbundesamt
                   </a>{' '}
@@ -193,6 +198,7 @@ const Sources = () => {
                   <a
                     href="https://www.umweltbundesamt.de/sites/default/files/medien/366/bilder/dateien/uba_emissionstabelle_personenverkehr_2020.pdf"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://www.umweltbundesamt.de/sites/default/files/medien/366/bilder/dateien/uba_emissionstabelle_personenverkehr_2020.pdf
                   </a>
@@ -249,6 +255,7 @@ const Sources = () => {
                   <a
                     href="https://www.papiernetz.de/informationen/nachhaltigkeitsrechner/"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://www.papiernetz.de/informationen/nachhaltigkeitsrechner/
                   </a>
@@ -264,6 +271,7 @@ const Sources = () => {
                   <a
                     href="http://www.papiernetz.de/wp-content/uploads/ifeu-studie_langfassung.pdf"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     http://www.papiernetz.de/wp-content/uploads/ifeu-studie_langfassung.pdf
                   </a>
@@ -295,7 +303,11 @@ const Sources = () => {
                 durchschnittlichen Lebensmittel in Deutschland entsprechen. Mehr
                 Informationen dazu, wie die CO₂-Werte von Lebensmitteln im
                 Klimatarier-Rechner ermittelt wurden, findet ihr{' '}
-                <a href="https://web.archive.org/web/20210814110817/https://www.klimatarier.com/de/Fragen/Glossar#CO2Lebensmittel">
+                <a
+                  href="https://web.archive.org/web/20210814110817/https://www.klimatarier.com/de/Fragen/Glossar#CO2Lebensmittel"
+                  className="text-blue-800 break-all"
+                  target="_blank"
+                >
                   hier
                 </a>
                 .
@@ -331,6 +343,7 @@ const Sources = () => {
                   <a
                     href="https://web.archive.org/web/20210814110817/https://www.klimatarier.com/de/Fragen/Glossar#CO2Lebensmittel"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://web.archive.org/web/20210814110817/https://www.klimatarier.com/de/Fragen/Glossar#CO2Lebensmittel
                   </a>
@@ -344,6 +357,7 @@ const Sources = () => {
                   <a
                     href="https://schools4future.de/materialien_co2-rechner/"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://schools4future.de/materialien_co2-rechner/
                   </a>
@@ -359,6 +373,7 @@ const Sources = () => {
                   <a
                     href=" https://www.ifeu.de/fileadmin/uploads/Reinhardt-Gaertner-Wagner-2020-Oekologische-Fu%C3%9Fabdruecke-von-Lebensmitteln-und-Gerichten-in-Deutschland-ifeu-2020.pdf"
                     className="text-blue-800 break-all"
+                    target="_blank"
                   >
                     https://www.ifeu.de/fileadmin/uploads/Reinhardt-Gaertner-Wagner-2020-Oekologische-Fu%C3%9Fabdruecke-von-Lebensmitteln-und-Gerichten-in-Deutschland-ifeu-2020.pdf
                   </a>
