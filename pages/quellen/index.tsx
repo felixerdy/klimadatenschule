@@ -62,7 +62,7 @@ const Sources = () => {
                   <p className="my-2">m = V * D</p>
                   <p>
                     Die Dichte des trockenen Holzes ist von der Baumart
-                    abhängig. In der KlimaDaten-App nutzen wir einen
+                    abhängig. In der <i>KlimaDaten-App</i> nutzen wir einen
                     Durchschnittswert von 452 kg/m³ basierend auf Daten des IPCC
                     für Baumarten unserer Klimazone.
                   </p>
@@ -223,7 +223,7 @@ const Sources = () => {
             <div className="flex-1">
               <h1 className=" text-4xl">Papier</h1>
               <p className="my-2">
-                Der Papierrechner der KlimaDaten-App basiert auf dem
+                Der Papierrechner der <i>KlimaDaten-App</i> basiert auf dem
                 Nachhaltigkeitsrechner der Initiative Pro Recyclingpapier. Die
                 Daten beruhen auf einer Studie des Instituts für Energie- und
                 Umweltforschung Heidelberg (IFEU-Institut) von 2006. Die Studie

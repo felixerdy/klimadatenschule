@@ -22,7 +22,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'a4_recycling',
-    title: 'Heft A4 (16 Blatt recycling)',
+    title: 'Heft A4 (16 Blatt Recycling)',
     thgpst: 70.73256959418861
   },
   {
@@ -32,7 +32,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'a5_recycling',
-    title: 'Heft A5 (16 Blatt recycling)',
+    title: 'Heft A5 (16 Blatt Recycling)',
     thgpst: 35.366284797094305
   },
   {
@@ -42,7 +42,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'a6_recycling',
-    title: 'Heft A6 (32 Blatt recycling)',
+    title: 'Heft A6 (32 Blatt Recycling)',
     thgpst: 35.366284797094305
   },
   {
@@ -52,7 +52,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'collegeblock_recycling',
-    title: 'Collegeblock (80 Blatt recycling)',
+    title: 'Collegeblock (80 Blatt Recycling)',
     thgpst: 353.66284797094305
   },
   {
@@ -62,7 +62,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'zeichenmappe_recycling',
-    title: 'Zeichenmappe A3 (20 Blatt recycling)',
+    title: 'Zeichenmappe A3 (20 Blatt Recycling)',
     thgpst: 176.831423985471
   },
   {
@@ -72,7 +72,7 @@ export const PaperProducts: PaperDescription[] = [
   },
   {
     type: 'kopierpapier_recycling',
-    title: 'Kopierpapier A4 (500 Blatt recycling)',
+    title: 'Kopierpapier A4 (500 Blatt Recycling)',
     thgpst: 2210.392799818394
   }
 ];
@@ -239,7 +239,7 @@ const Papier: React.FC = () => {
               <p>
                 Wie viel Kopierpapier wurde in eurer Schule im letzten Halbjahr
                 verbraucht? Achtung! Eventuell habt ihr die Daten für ein ganzes
-                Schuljahr erhalten. Teilt sie dann durch 2 bevor ihr sie
+                Schuljahr erhalten. Teilt sie dann durch 2, bevor ihr sie
                 eintragt.
               </p>
             </div>
@@ -256,7 +256,7 @@ const Papier: React.FC = () => {
                   rel="noreferrer"
                   className="font-semibold underline"
                 >
-                  Hier geht’s zu einer Schritt für Schritt Anleitung.
+                  Hier geht&apos;s zu einer Schritt-für-Schritt-Anleitung.
                 </a>
               </p>
             </div>
@@ -269,7 +269,7 @@ const Papier: React.FC = () => {
                 berechnet werden?{' '}
                 <Link href={'/quellen#papier'} passHref>
                   <a className="font-semibold underline">
-                    Hier geht´s zu den Quellen
+                    Hier geht&apos;s zu den Quellen
                   </a>
                 </Link>
               </p>
