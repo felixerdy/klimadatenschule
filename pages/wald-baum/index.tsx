@@ -179,10 +179,9 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
             <h1 className="text-4xl my-8 md:w-1/2">Bäume im Klima-Check</h1>
             <p>
               Wie viele Bäume gibt es in eurer Umgebung und wie viel CO₂
-              <a href="#co2-notice">*</a>
-              speichern sie? Kartiert alle Bäume indem ihr den Standort auf der
-              Karte markiert und Umfang sowie Höhe des Baumes in die
-              Eingabefelder eintragt.
+              <a href="#co2-notice">*</a> speichern sie? Kartiert alle Bäume,
+              indem ihr den Standort auf der Karte markiert und Umfang sowie
+              Höhe des Baumes in die Eingabefelder eintragt.
             </p>
           </div>
         </FlexSplitLayout>
@@ -198,7 +197,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 rel="noreferrer"
                 className="font-semibold underline"
               >
-                Hier geht’s zu einer Schritt für Schritt Anleitung.
+                Hier geht's zu einer Schritt-für-Schritt-Anleitung.
               </a>
             </p>
           </div>

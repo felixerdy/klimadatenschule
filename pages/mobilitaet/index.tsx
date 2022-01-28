@@ -221,7 +221,7 @@ const Mobilitaet: React.FC = () => {
                 rel="noreferrer"
                 className="font-semibold underline"
               >
-                Hier geht’s zu einer Schritt für Schritt Anleitung.
+                Hier geht's zu einer Schritt-für-Schritt-Anleitung.
               </a>
             </p>
           </div>
