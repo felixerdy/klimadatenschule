@@ -197,7 +197,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 rel="noreferrer"
                 className="font-semibold underline"
               >
-                Hier geht's zu einer Schritt-für-Schritt-Anleitung.
+                Hier geht&apos;s zu einer Schritt-für-Schritt-Anleitung.
               </a>
             </p>
           </div>
@@ -210,7 +210,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
               berechnet werden?{' '}
               <Link href={'/quellen#baeume'} passHref>
                 <a className="font-semibold underline">
-                  Hier geht´s zu den Quellen
+                  Hier geht&apos;s zu den Quellen
                 </a>
               </Link>
             </p>

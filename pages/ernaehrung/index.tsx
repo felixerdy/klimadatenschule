@@ -114,7 +114,7 @@ const Ernaehrung: React.FC = () => {
                   rel="noreferrer"
                   className="font-semibold underline"
                 >
-                  Hier geht's zu einer Schritt-für-Schritt-Anleitung.
+                  Hier geht&apos;s zu einer Schritt-für-Schritt-Anleitung.
                 </a>
               </p>
             </div>
@@ -127,7 +127,7 @@ const Ernaehrung: React.FC = () => {
                 berechnet werden?{' '}
                 <Link href={'/quellen#ernaehrung'} passHref>
                   <a className="font-semibold underline">
-                    Hier geht´s zu den Quellen
+                    Hier geht&apos;s zu den Quellen
                   </a>
                 </Link>
               </p>
