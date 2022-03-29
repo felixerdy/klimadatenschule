@@ -11,7 +11,7 @@ import ReactMapGL, {
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Coordinate } from 'react-map-gl/src/components/draggable-control';
 import Image from 'next/image';
-import { TrashIcon } from '@heroicons/react/outline';
+import { ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
@@ -24,6 +24,7 @@ import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import Button from '../../components/ui/Button';
 import { treeToCO2 } from '../../tools';
 import LoginCheck from '../../components/LoginCheck';
+import { Disclosure, Transition } from '@headlessui/react';
 
 interface TreeMarker {
   id: string;
@@ -214,6 +215,49 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 </a>
               </Link>
             </p>
+            <div className="my-4 bg-white rounded-lg p-4">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-tree-darker bg-tree-light rounded-lg hover:bg-tree-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                      <span>Formel zur CO₂-Berechnung</span>
+                      <ChevronUpIcon
+                        className={`${
+                          open ? 'transform rotate-180' : ''
+                        } w-5 h-5 text-tree-darker`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Disclosure.Panel className="px-4 pt-4 pb-2">
+                        <pre>
+                          DARRDICHTE_KG_M3 = 452;
+                          <br />
+                          UMRECHNUNGSFAKTOR = 3.67;
+                          <br />
+                          radiusInM = circumference / (2 * Math.PI);
+                          <br />
+                          volumeInM3 = Math.PI * Math.pow(radiusInM, 2) *
+                          height;
+                          <br />
+                          darrdichteTotal = DARRDICHTE_KG_M3 * volumeInM3;
+                          <br />
+                          kohlenstoffanteil = darrdichteTotal * 0.5;
+                          <br />
+                          co2InKg = kohlenstoffanteil * UMRECHNUNGSFAKTOR;
+                        </pre>
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+            </div>
           </div>
         </FlexSplitLayout>
         <FlexSplitLayout>
