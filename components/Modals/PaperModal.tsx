@@ -50,7 +50,7 @@ const PaperModal: React.FC<ModalProps> = ({ opened, record, closeModal }) => {
                   name={m.title}
                   defaultValue={record[m.type]}
                   min={0}
-                  max={1000}
+                  max={5000}
                   {...register(m.type, { min: 0, max: 50 })}
                 />
               </React.Fragment>
