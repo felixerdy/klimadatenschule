@@ -32,7 +32,7 @@ const buildResponse = async (
 ) => {
   let resData;
 
-  if (co2Values && co2Values.length > 0) {
+  if (format === 'csv' && co2Values && co2Values.length > 0) {
     resData = data.map((e, i) => {
       const obj = {
         ...e,
@@ -209,12 +209,11 @@ export default async function handle(
           };
         });
 
-        const treeDataCo2 = treeDataRename.map(t => ({
-          ...t,
-          co2_in_kg: treeToCO2(t.umfang_in_m, t.hoehe_in_m)
-        }));
+        const treeDataCo2 = treeDataRename.map(t =>
+          treeToCO2(t.umfang_in_m, t.hoehe_in_m)
+        );
 
-        return buildResponse(res, treeDataCo2, format);
+        return buildResponse(res, treeDataRename, format, treeDataCo2);
       case 'paper':
         const paperData = await prisma.paperRecord.findMany({
           select: {

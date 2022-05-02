@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 
 import { utils, writeFile } from 'xlsx';
+import { DARRDICHTE_KG_M3, UMRECHNUNGSFAKTOR } from '../tools';
 
 type Inputs = {
   format: string;
@@ -51,12 +52,32 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
         const data = await response.json();
         if (data.length > 0) {
           // convert dates to date objects
-          let wsData = data.map(e => {
+          let wsData = data.map((e, i) => {
             const record = {
               ...e,
               erstellt_am: new Date(e.erstellt_am),
               bearbeitet_am: new Date(e.bearbeitet_am)
             };
+
+            if (dataset === 'tree') {
+              record.radius_in_m = { t: 'n', f: `A${i + 2}/(2*PI())` };
+              record.volumen_in_m3 = {
+                t: 'n',
+                f: `PI()*POW(H${i + 2};2)*B${i + 2}`
+              };
+              record.darrdichte_total = {
+                t: 'n',
+                f: `I${i + 2}*${DARRDICHTE_KG_M3}`
+              };
+              record.kohlenstoffanteil = {
+                t: 'n',
+                f: `J${i + 2}*0.5`
+              };
+              record.co2_in_kg = {
+                t: 'n',
+                f: `K${i + 2}*${UMRECHNUNGSFAKTOR}`
+              };
+            }
 
             if (dataset === 'mobility' || dataset === 'nutrition') {
               record.datum = new Date(e.datum);
