@@ -37,7 +37,7 @@ const buildResponse = async (
       const obj = {
         ...e,
         [isPaper ? 'co2_in_g' : 'co2_in_kg']: co2Values[i],
-        school: e.user.organisation?.name || 'null'
+        schule: e.user.organisation?.name || 'null'
       };
 
       delete obj.user;
@@ -48,7 +48,7 @@ const buildResponse = async (
     resData = data.map(e => {
       const obj = {
         ...e,
-        school: e.user.organisation?.name || 'null'
+        schule: e.user.organisation?.name || 'null'
       };
 
       delete obj.user;
@@ -124,10 +124,10 @@ export default async function handle(
           return {
             name: n.name,
             co2_in_kg: n.co2,
-            count: n.count,
-            createdAt: n.createdAt,
-            updatedAt: n.updatedAt,
-            timestamp: n.timestamp,
+            anzahl: n.count,
+            erstellt_am: n.createdAt,
+            bearbeitet_am: n.updatedAt,
+            datum: n.timestamp,
             user: n.user
           };
         });
@@ -148,14 +148,29 @@ export default async function handle(
           }
         });
 
-        const co2ValuesMobility = mobilityData.map(p =>
+        const mobilityDataRename = mobilityData.map(n => {
+          return {
+            pkw: n.pkw,
+            bahn: n.bahn,
+            bus: n.bus,
+            ubahn: n.ubahn,
+            fahrrad: n.fahrrad,
+            fuss: n.fuss,
+            erstellt_am: n.createdAt,
+            bearbeitet_am: n.updatedAt,
+            datum: n.timestamp,
+            user: n.user
+          };
+        });
+
+        const co2ValuesMobility = mobilityDataRename.map(p =>
           Object.keys(p)
             .filter(
               k =>
-                k !== 'createdAt' &&
-                k !== 'updatedAt' &&
+                k !== 'erstellt_am' &&
+                k !== 'bearbeitet_am' &&
                 k !== 'user' &&
-                k !== 'timestamp'
+                k !== 'datum'
             )
             .reduce<number>(
               (prev, cur) => prev + mobilityToCO2(p[cur], cur as MobilityType),
@@ -163,7 +178,12 @@ export default async function handle(
             )
         );
 
-        return buildResponse(res, mobilityData, format, co2ValuesMobility);
+        return buildResponse(
+          res,
+          mobilityDataRename,
+          format,
+          co2ValuesMobility
+        );
       case 'tree':
         const treeData = await prisma.treeRecord.findMany({
           select: {
@@ -179,19 +199,19 @@ export default async function handle(
 
         const treeDataRename = treeData.map(t => {
           return {
-            circumference_in_m: t.circumference,
-            height_in_m: t.height,
-            latitude: t.latitude,
-            longitude: t.longitude,
-            createdAt: t.createdAt,
-            updatedAt: t.updatedAt,
+            umfang_in_m: t.circumference,
+            hoehe_in_m: t.height,
+            breitengrad: t.latitude,
+            laengengrad: t.longitude,
+            erstellt_am: t.createdAt,
+            bearbeitet_am: t.updatedAt,
             user: t.user
           };
         });
 
         const treeDataCo2 = treeDataRename.map(t => ({
           ...t,
-          co2_in_kg: treeToCO2(t.circumference_in_m, t.height_in_m)
+          co2_in_kg: treeToCO2(t.umfang_in_m, t.hoehe_in_m)
         }));
 
         return buildResponse(res, treeDataCo2, format);
@@ -216,16 +236,44 @@ export default async function handle(
           }
         });
 
-        const co2ValuesPaper = paperData.map(p =>
+        const paperDataRename = paperData.map(t => {
+          return {
+            a4: t.a4,
+            a5: t.a5,
+            a6: t.a6,
+            collegeblock: t.collegeblock,
+            zeichenmappe: t.zeichenmappe,
+            kopierpapier: t.kopierpapier,
+            a4_recycling: t.a4_recycling,
+            a5_recycling: t.a5_recycling,
+            a6_recycling: t.a6_recycling,
+            collegeblock_recycling: t.collegeblock_recycling,
+            zeichenmappe_recycling: t.zeichenmappe_recycling,
+            kopierpapier_recycling: t.kopierpapier_recycling,
+            erstellt_am: t.createdAt,
+            bearbeitet_am: t.updatedAt,
+            user: t.user
+          };
+        });
+
+        const co2ValuesPaper = paperDataRename.map(p =>
           Object.keys(p)
-            .filter(k => k !== 'createdAt' && k !== 'updatedAt' && k !== 'user')
+            .filter(
+              k => k !== 'erstellt_am' && k !== 'bearbeitet_am' && k !== 'user'
+            )
             .reduce<number>(
               (prev, cur) => prev + paperToCO2(p[cur], cur as PaperType),
               0
             )
         );
 
-        return buildResponse(res, paperData, format, co2ValuesPaper, true);
+        return buildResponse(
+          res,
+          paperDataRename,
+          format,
+          co2ValuesPaper,
+          true
+        );
       default:
         break;
     }

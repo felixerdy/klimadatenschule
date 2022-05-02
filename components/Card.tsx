@@ -54,12 +54,12 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
           let wsData = data.map(e => {
             const record = {
               ...e,
-              createdAt: new Date(e.createdAt),
-              updatedAt: new Date(e.updatedAt)
+              erstellt_am: new Date(e.erstellt_am),
+              bearbeitet_am: new Date(e.bearbeitet_am)
             };
 
             if (dataset === 'mobility' || dataset === 'nutrition') {
-              record.timestamp = new Date(e.timestamp);
+              record.datum = new Date(e.datum);
             }
 
             return record;
