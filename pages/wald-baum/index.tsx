@@ -383,6 +383,11 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                       )}
                       <div className="flex flex-col w-full">
                         <div className="mb-4 ">
+                          {watch(`tree_${m.id}_circumference`) > 10 && (
+                            <p className="bg-mobility py-1 px-2 my-2 rounded">
+                              Bist du sicher? Dein Wert ist sehr hoch.
+                            </p>
+                          )}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
                             type="number"
@@ -390,25 +395,30 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             name={`tree_${i}_circumference`}
                             defaultValue={0}
                             max={20}
-                            min={0}
-                            {...register(`tree_${m.id}_circumference`, {
-                              min: 0
-                            })}
+                            min={0.0001}
+                            {...register(`tree_${m.id}_circumference`)}
                           />
                           <label className="">
                             Umfang in m (auf 1,30m Höhe)
                           </label>
                         </div>
                         <div className="mb-4 ">
+                          {watch(`tree_${m.id}_height`) > 25 && (
+                            <p className="bg-mobility py-1 px-2 mb-2 rounded">
+                              Bist du sicher? Dein Wert ist sehr hoch.
+                            </p>
+                          )}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
                             type="number"
                             step="any"
                             name={`tree_${i}_height`}
                             defaultValue={0}
-                            min={0}
+                            min={0.0001}
                             max={70}
-                            {...register(`tree_${m.id}_height`, { min: 0 })}
+                            {...register(`tree_${m.id}_height`, {
+                              min: 0.0001
+                            })}
                           />
                           <label className="">Höhe in m</label>
                         </div>
