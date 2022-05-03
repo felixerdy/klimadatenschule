@@ -25,6 +25,7 @@ import Button from '../../components/ui/Button';
 import { treeToCO2 } from '../../tools';
 import LoginCheck from '../../components/LoginCheck';
 import { Disclosure, Transition } from '@headlessui/react';
+import { TreeInfo } from '../../components/InfoText/tree';
 
 interface TreeMarker {
   id: string;
@@ -236,22 +237,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                       leaveTo="transform scale-95 opacity-0"
                     >
                       <Disclosure.Panel className="px-4 pt-4 pb-2">
-                        <pre>
-                          DARRDICHTE_KG_M3 = 452;
-                          <br />
-                          UMRECHNUNGSFAKTOR = 3.67;
-                          <br />
-                          radiusInM = circumference / (2 * Math.PI);
-                          <br />
-                          volumeInM3 = Math.PI * Math.pow(radiusInM, 2) *
-                          height;
-                          <br />
-                          darrdichteTotal = DARRDICHTE_KG_M3 * volumeInM3;
-                          <br />
-                          kohlenstoffanteil = darrdichteTotal * 0.5;
-                          <br />
-                          co2InKg = kohlenstoffanteil * UMRECHNUNGSFAKTOR;
-                        </pre>
+                        <TreeInfo />
                       </Disclosure.Panel>
                     </Transition>
                   </>
