@@ -81,6 +81,11 @@ const Drafts: React.FC<Props> = props => {
             entries={props.mealCount}
             image={ErnaehrungIcon}
           />
+
+          <p className="mt-8 text-lg">
+            Die Vorgehensweise bei der Datenerhebung können sich unterscheiden.
+            Bitte beachtet das bei eurer Datenanalyse.
+          </p>
         </main>
       </div>
     </Layout>
