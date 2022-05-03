@@ -63,7 +63,7 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
               record.radius_in_m = { t: 'n', f: `A${i + 2}/(2*PI())` };
               record.volumen_in_m3 = {
                 t: 'n',
-                f: `PI()*POW(H${i + 2};2)*B${i + 2}`
+                f: `PI()*H${i + 2}*H${i + 2}*B${i + 2}`
               };
               record.darrdichte_total = {
                 t: 'n',
