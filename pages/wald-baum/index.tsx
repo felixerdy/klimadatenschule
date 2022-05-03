@@ -370,7 +370,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                       <div className="flex flex-col w-full">
                         <div className="mb-4 ">
                           {watch(`tree_${m.id}_circumference`) > 10 && (
-                            <p className="bg-mobility py-1 px-2 my-2 rounded">
+                            <p className="bg-mobility py-1 px-2 mb-2 rounded">
                               Bist du sicher? Dein Wert ist sehr hoch.
                             </p>
                           )}
