@@ -18,6 +18,7 @@ import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
 import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
 import Image from 'next/image';
 import LoginCheck from '../../components/LoginCheck';
+import Warning from '../../components/Warning';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -259,6 +260,7 @@ const Mobilitaet: React.FC = () => {
 
               {Mobilities.map(m => (
                 <div className="mb-4" key={m.title}>
+                  {watch(m.type) > 100 && <Warning />}
                   <input
                     className="border-solid border-gray-300 border py-2 px-4  w-full rounded "
                     type="number"

@@ -26,6 +26,7 @@ import { treeToCO2 } from '../../tools';
 import LoginCheck from '../../components/LoginCheck';
 import { Disclosure, Transition } from '@headlessui/react';
 import { TreeInfo } from '../../components/InfoText/tree';
+import Warning from '../../components/Warning';
 
 interface TreeMarker {
   id: string;
@@ -370,9 +371,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                       <div className="flex flex-col w-full">
                         <div className="mb-4 ">
                           {watch(`tree_${m.id}_circumference`) > 10 && (
-                            <p className="bg-mobility py-1 px-2 mb-2 rounded">
-                              Bist du sicher? Dein Wert ist sehr hoch.
-                            </p>
+                            <Warning />
                           )}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
@@ -389,11 +388,7 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                           </label>
                         </div>
                         <div className="mb-4 ">
-                          {watch(`tree_${m.id}_height`) > 25 && (
-                            <p className="bg-mobility py-1 px-2 mb-2 rounded">
-                              Bist du sicher? Dein Wert ist sehr hoch.
-                            </p>
-                          )}
+                          {watch(`tree_${m.id}_height`) > 25 && <Warning />}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
                             type="number"
