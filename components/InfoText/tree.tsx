@@ -28,7 +28,7 @@ const TreeInfo = () => (
             Dazu benötigt man den Radius (r), der mit dem Umfang (u) berechnet
             werden kann:
           </p>
-          <p>r = (u / π) / 2</p>
+          <p>r = u / (2 * π)</p>
         </p>
       </li>
       <li className="my-2">

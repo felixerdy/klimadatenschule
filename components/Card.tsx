@@ -65,11 +65,11 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
                 t: 'n',
                 f: `PI()*H${i + 2}*H${i + 2}*B${i + 2}`
               };
-              record.darrdichte_total = {
+              record.masse_in_kg = {
                 t: 'n',
                 f: `I${i + 2}*${DARRDICHTE_KG_M3}`
               };
-              record.kohlenstoffanteil = {
+              record.kohlenstoffgehalt = {
                 t: 'n',
                 f: `J${i + 2}*0.5`
               };
