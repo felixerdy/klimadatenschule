@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import { utils, writeFile } from 'xlsx';
 import { DARRDICHTE_KG_M3, UMRECHNUNGSFAKTOR } from '../tools';
+import { Mobilities } from '../pages/mobilitaet';
 
 type Inputs = {
   format: string;
@@ -76,6 +77,51 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
               record.co2_in_kg = {
                 t: 'n',
                 f: `K${i + 2}*${UMRECHNUNGSFAKTOR}`
+              };
+            }
+
+            if (dataset === 'mobility') {
+              record.pkw_co2_in_kg = {
+                t: 'n',
+                f: `A${i + 2} * ${
+                  Mobilities.find(m => m.type === 'pkw').thgpkm / 1000
+                }`
+              };
+              record.bahn_co2_in_kg = {
+                t: 'n',
+                f: `B${i + 2} * ${
+                  Mobilities.find(m => m.type === 'bahn').thgpkm / 1000
+                }`
+              };
+              record.bus_co2_in_kg = {
+                t: 'n',
+                f: `C${i + 2} * ${
+                  Mobilities.find(m => m.type === 'bus').thgpkm / 1000
+                }`
+              };
+              record.ubahn_co2_in_kg = {
+                t: 'n',
+                f: `D${i + 2} * ${
+                  Mobilities.find(m => m.type === 'ubahn').thgpkm / 1000
+                }`
+              };
+              record.fahrrad_co2_in_kg = {
+                t: 'n',
+                f: `E${i + 2} * ${
+                  Mobilities.find(m => m.type === 'fahrrad').thgpkm / 1000
+                }`
+              };
+              record.zu_fuss_co2_in_kg = {
+                t: 'n',
+                f: `F${i + 2} * ${
+                  Mobilities.find(m => m.type === 'fuss').thgpkm / 1000
+                }`
+              };
+              record.co2_in_kg = {
+                t: 'n',
+                f: `K${i + 2} + L${i + 2} + M${i + 2} + N${i + 2} + O${
+                  i + 2
+                } + P${i + 2}`
               };
             }
 
