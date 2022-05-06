@@ -19,6 +19,8 @@ import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
 import Image from 'next/image';
 import LoginCheck from '../../components/LoginCheck';
 import Warning from '../../components/Warning';
+import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/outline';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -205,8 +207,16 @@ const Mobilitaet: React.FC = () => {
             <h1 className="text-4xl my-8 md:w-1/2">Mobilität im Klima-Check</h1>
             <p>
               Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
-              auf deinem Schulweg pro Tag zurück? Gib die Daten für eine ganze
-              Woche ein.
+              auf deinem Schulweg pro Tag zurück?
+            </p>
+            <p>
+              Gib <b>pro Person</b> und <b>pro Tag</b> die Daten einzeln ein.{' '}
+              <b>Wiederhole</b> das jeden Tag in einer Woche, sodass du für jede
+              Person <b>fünf Mal</b> Daten einträgst.
+            </p>
+            <p>
+              Wenn du die Daten anders eingibst, dann berücksichtige das bei der
+              Auswertung der Daten.
             </p>
           </div>
         </FlexSplitLayout>
@@ -239,6 +249,40 @@ const Mobilitaet: React.FC = () => {
                 </a>
               </Link>
             </p>
+            <div className="my-4 bg-white rounded-lg p-4">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-tree-darker bg-mobility-light rounded-lg hover:bg-mobility-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                      <span>Formel zur CO₂-Berechnung</span>
+                      <ChevronUpIcon
+                        className={`${
+                          open ? 'transform rotate-180' : ''
+                        } w-5 h-5 text-tree-darker`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Disclosure.Panel className="px-4 pt-4 pb-2">
+                        <p>
+                          {co2sum.toFixed(2)} kg CO₂ = 0.15 * {watch('pkw')} km
+                          Auto + 0,05 * {watch('bahn')} km Zug + 0,08 *{' '}
+                          {watch('bus')} km Bus + 0,05 * {watch('ubahn')} km
+                          S-Bahn + 0 * {watch('fahrrad')} km Rad + 0 *{' '}
+                          {watch('fuss')} km zu Fuß
+                        </p>
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+            </div>
           </div>
         </FlexSplitLayout>
         <FlexSplitLayout>
