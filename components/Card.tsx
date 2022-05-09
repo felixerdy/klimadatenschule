@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { utils, writeFile } from 'xlsx';
 import { DARRDICHTE_KG_M3, UMRECHNUNGSFAKTOR } from '../tools';
 import { Mobilities } from '../pages/mobilitaet';
+import { PaperProducts } from '../pages/papier';
 
 type Inputs = {
   format: string;
@@ -122,6 +123,33 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
                 f: `K${i + 2} + L${i + 2} + M${i + 2} + N${i + 2} + O${
                   i + 2
                 } + P${i + 2}`
+              };
+            }
+
+            if (dataset === 'paper') {
+              PaperProducts.forEach((p, j) => {
+                record[`${p.type}_co2_in_g`] = {
+                  t: 'n',
+                  f: `${(j + 10).toString(36).toUpperCase()}${i + 2} * ${
+                    p.thgpst
+                  }`
+                };
+              });
+              record.frischfaser_co2_in_g = {
+                t: 'n',
+                f: `P${i + 2} + R${i + 2} + T${i + 2} + V${i + 2} + X${
+                  i + 2
+                } + Z${i + 2}`
+              };
+              record.recycling_co2_in_g = {
+                t: 'n',
+                f: `Q${i + 2} + S${i + 2} + U${i + 2} + W${i + 2} + Y${
+                  i + 2
+                } + AA${i + 2}`
+              };
+              record.co2_in_g = {
+                t: 'n',
+                f: `AB${i + 2} + AC${i + 2}`
               };
             }
 
