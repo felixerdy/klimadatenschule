@@ -98,7 +98,8 @@ const Ernaehrung: React.FC = () => {
               </p>
               <p>
                 Übertragt die CO₂-Werte in die untenstehenden Eingabefelder.
-                Erstellt für jedes Gericht einen eigenen Eintrag.
+                Erstellt für jedes Gericht <b>pro Tag eine Woche lang</b>einen
+                eigenen Eintrag.
               </p>
             </div>
           </FlexSplitLayout>
@@ -166,11 +167,19 @@ const Ernaehrung: React.FC = () => {
                         )}
                         <div className="flex flex-col w-full">
                           <div className="flex flex-col">
+                            {!watch(`meal_${i}_name`) && (
+                              <label className="text-gray-800">
+                                Beschreibe hier das Gericht mit möglichst vielen
+                                Zutaten, das erleichtert den Vergleich mit
+                                anderen Gerichten.
+                              </label>
+                            )}
                             <input
                               className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
                               type="text"
                               name={`meal_${i}_name`}
-                              defaultValue={`Gericht ${i + 1}`}
+                              placeholder={`Gericht ${i + 1}`}
+                              required
                               {...register(`meal_${i}_name`, {
                                 required: true
                               })}
