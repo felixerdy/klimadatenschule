@@ -18,6 +18,7 @@ import Footer from '../components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { WindyProvider } from '@webeetle/windy';
+import Script from 'next/script';
 
 import { CookieBanner } from '@palmabit/react-cookie-law';
 
@@ -55,6 +56,37 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider session={pageProps.session}>
       <WindyProvider>
+        <Script
+          type="text/javascript"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+          var _paq = window._paq = window._paq || [];
+
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+
+          _paq.push(['trackPageView']);
+
+          _paq.push(['enableLinkTracking']);
+
+          _paq.push(['disableCookies']);
+
+          (function() {
+
+            var u="https://matomo.bildungscent.de/";
+
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+
+            _paq.push(['setSiteId', '7']);
+
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+
+            g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+
+          })();
+          `
+          }}
+        />
         <Head>
           <title>KlimaDatenSchule WebApp</title>
           <meta
