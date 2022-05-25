@@ -304,9 +304,9 @@ const Papier: React.FC = () => {
                         <Disclosure.Panel className="px-4 pt-4 pb-2">
                           <b>Frischfaserpapier</b>
                           <p>
-                            {co2sumFrisch.toFixed(2)} g CO₂ = 84.62 *{' '}
-                            {watch('a4')} Hefte A4 + 42.31 * {watch('a5')} Hefte
-                            A5 + 42,31 * {watch('a6')} Hefte A6 + 423.12 *{' '}
+                            CO₂-Emission (in g) = 84.62 * {watch('a4')} Hefte A4
+                            + 42.31 * {watch('a5')} Hefte A5 + 42,31 *{' '}
+                            {watch('a6')} Hefte A6 + 423.12 *{' '}
                             {watch('collegeblock')} Collegeblöcke + 211,56 *{' '}
                             {watch('zeichenmappe')} Zeichenmappe A3 + 2644.49 *{' '}
                             {watch('kopierpapier')} Kopierpapier A4
@@ -314,7 +314,7 @@ const Papier: React.FC = () => {
                           <div className="h-8"></div>
                           <b>Recyclingpapier</b>
                           <p>
-                            {co2sumRecycling.toFixed(2)} g CO₂ = 70.73 *{' '}
+                            CO₂-Emission (in g) = 70.73 *{' '}
                             {watch('a4_recycling')} Hefte A4 + 35.37 *{' '}
                             {watch('a5_recycling')} Hefte A5 + 35.37 *{' '}
                             {watch('a6_recycling')} Hefte A6 + 353.66 *{' '}
