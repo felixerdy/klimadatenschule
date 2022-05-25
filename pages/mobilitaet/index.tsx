@@ -399,12 +399,46 @@ const Mobilitaet: React.FC = () => {
                 ))}
               </tfoot>
             </table>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="mt-8 rounded-lg overflow-hidden "
-              src="/images/KDS-Grafik-Mobilitaet-final.jpg"
-              alt="mobilitaet grafik"
-            />
+            <div className="mt-8 p-8 bg-white rounded-lg overflow-hidden">
+              <h1 className="text-2xl">
+                Treibhausgas-Emissionen im Personenverkehr 2019
+              </h1>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/KDS-Grafik-Mobilitaet-final.jpg"
+                alt="mobilitaet grafik"
+              />
+              <br />
+              <p>
+                Quelle: Umweltbundesamt, TREMOD 6.21 (11/2021) Gleiche
+                Datengrundlage wie im Rechner unserer{' '}
+                <span className="italic">KlimaDaten-App</span>.
+              </p>
+              <br />
+              <p>
+                g/Pkm = Gramm pro Personenkilometer, inkl. der Emissionen aus
+                der Bereitstellung und Umwandlung der Energieträger in Strom,
+                Benzin, Diesel, Flüssig- und Erdgas. Personenkilometer bedeutet,
+                dass die Treibhausgasemissionen der jeweiligen Verkehrsmittel
+                pro Person und pro Kilometer angegeben werden.
+              </p>
+              <br />
+              <p>
+                Treibhausgasemissionen sind hierbei: Kohlenstoffdioxid (CO₂),
+                Methan (CH₄) und Distickstoffmonoxid (N₂O) angegeben in
+                CO₂-Äquivalenten.
+              </p>
+              <br />
+              <p>
+                Die zur Herstellung benötigten Emissionen sind hier nicht
+                berücksichtigt.
+              </p>
+              <br />
+              <p>
+                Die ausgewiesenen Emissionsfaktoren für die Bahn basieren auf
+                Angaben zum durchschnittlichen Strom-Mix in Deutschland.
+              </p>
+            </div>
           </div>
         </FlexSplitLayout>
       </div>
