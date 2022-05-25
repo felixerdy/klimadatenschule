@@ -271,11 +271,11 @@ const Mobilitaet: React.FC = () => {
                     >
                       <Disclosure.Panel className="px-4 pt-4 pb-2">
                         <p>
-                          {co2sum.toFixed(2)} kg CO₂ = 0.15 * {watch('pkw')} km
-                          Auto + 0,05 * {watch('bahn')} km Zug + 0,08 *{' '}
-                          {watch('bus')} km Bus + 0,05 * {watch('ubahn')} km
-                          S-Bahn + 0 * {watch('fahrrad')} km Rad + 0 *{' '}
-                          {watch('fuss')} km zu Fuß
+                          CO₂-Emission (in kg) = 0.15 * {watch('pkw')} km Auto +
+                          0,05 * {watch('bahn')} km Zug + 0,08 * {watch('bus')}{' '}
+                          km Bus + 0,05 * {watch('ubahn')} km S-Bahn + 0 *{' '}
+                          {watch('fahrrad')} km Rad + 0 * {watch('fuss')} km zu
+                          Fuß
                         </p>
                       </Disclosure.Panel>
                     </Transition>
@@ -399,6 +399,12 @@ const Mobilitaet: React.FC = () => {
                 ))}
               </tfoot>
             </table>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="mt-8 rounded-lg overflow-hidden "
+              src="/images/KDS-Grafik-Mobilitaet-final.jpg"
+              alt="mobilitaet grafik"
+            />
           </div>
         </FlexSplitLayout>
       </div>
