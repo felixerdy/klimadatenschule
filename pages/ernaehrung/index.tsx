@@ -98,7 +98,7 @@ const Ernaehrung: React.FC = () => {
               </p>
               <p>
                 Übertragt die CO₂-Werte in die untenstehenden Eingabefelder.
-                Erstellt für jedes Gericht <b>pro Tag eine Woche lang</b>einen
+                Erstellt für jedes Gericht <b>pro Tag eine Woche lang</b> einen
                 eigenen Eintrag.
               </p>
             </div>
@@ -209,7 +209,7 @@ const Ernaehrung: React.FC = () => {
                               {...register(`meal_${i}_count`, { min: 1 })}
                             />
                             <label className="font-bold">
-                              Anzahl der Gerichte
+                              Anzahl der Portionen
                             </label>
                           </div>
                         </div>

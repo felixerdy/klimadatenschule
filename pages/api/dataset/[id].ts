@@ -123,7 +123,7 @@ export default async function handle(
         const nutritionDataRename = nutritionData.map(n => {
           return {
             name: n.name,
-            co2_in_kg: n.co2,
+            co2_in_kg_pro_person: n.co2,
             anzahl: n.count,
             erstellt_am: n.createdAt,
             bearbeitet_am: n.updatedAt,

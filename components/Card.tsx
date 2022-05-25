@@ -153,6 +153,10 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
               };
             }
 
+            if (dataset === 'nutrition') {
+              record.co2_in_kg_gesamt = { t: 'n', f: `B${i + 2}*C${i + 2}` };
+            }
+
             if (dataset === 'mobility' || dataset === 'nutrition') {
               record.datum = new Date(e.datum);
             }
