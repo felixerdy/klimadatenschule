@@ -410,8 +410,8 @@ const Mobilitaet: React.FC = () => {
               />
               <br />
               <p>
-                Quelle: Umweltbundesamt, TREMOD 6.21 (11/2021) Gleiche
-                Datengrundlage wie im Rechner unserer{' '}
+                Quelle: Umweltbundesamt, TREMOD 6.21 (11/2021). Wir verwenden
+                die Daten auch im Rechner unserer{' '}
                 <span className="italic">KlimaDaten-App</span>.
               </p>
               <br />
