@@ -13,6 +13,8 @@ import PapierIcon from '../../public/images/kds-icon-papier.svg';
 import Image from 'next/image';
 import { paperToCO2 } from '../../tools';
 import LoginCheck from '../../components/LoginCheck';
+import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/outline';
 
 export const PaperProducts: PaperDescription[] = [
   {
@@ -153,6 +155,26 @@ const Papier: React.FC = () => {
       );
   }, [inputData]);
 
+  const co2sumFrisch = React.useMemo(() => {
+    return Object.keys(inputData)
+      .filter(e => e !== 'timestamp' && !e.includes('recycling'))
+      .reduce(
+        (acc, val) =>
+          Number(acc) + Number(paperToCO2(inputData[val], val as PaperType)),
+        0
+      );
+  }, [inputData]);
+
+  const co2sumRecycling = React.useMemo(() => {
+    return Object.keys(inputData)
+      .filter(e => e !== 'timestamp' && e.includes('recycling'))
+      .reduce(
+        (acc, val) =>
+          Number(acc) + Number(paperToCO2(inputData[val], val as PaperType)),
+        0
+      );
+  }, [inputData]);
+
   const data = React.useMemo(
     () => [
       ...Object.keys(inputData)
@@ -259,6 +281,54 @@ const Papier: React.FC = () => {
                   Hier geht&apos;s zu einer Schritt-für-Schritt-Anleitung.
                 </a>
               </p>
+              <div className="my-4 bg-white rounded-lg p-4">
+                <Disclosure>
+                  {({ open }) => (
+                    <>
+                      <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-tree-darker bg-paper-light rounded-lg hover:bg-paper-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                        <span>Formel zur CO₂-Berechnung</span>
+                        <ChevronUpIcon
+                          className={`${
+                            open ? 'transform rotate-180' : ''
+                          } w-5 h-5 text-tree-darker`}
+                        />
+                      </Disclosure.Button>
+                      <Transition
+                        enter="transition duration-100 ease-out"
+                        enterFrom="transform scale-95 opacity-0"
+                        enterTo="transform scale-100 opacity-100"
+                        leave="transition duration-75 ease-out"
+                        leaveFrom="transform scale-100 opacity-100"
+                        leaveTo="transform scale-95 opacity-0"
+                      >
+                        <Disclosure.Panel className="px-4 pt-4 pb-2">
+                          <b>Frischfaserpapier</b>
+                          <p>
+                            CO₂-Emission (in g) = 84.62 * {watch('a4')} Hefte A4
+                            + 42.31 * {watch('a5')} Hefte A5 + 42,31 *{' '}
+                            {watch('a6')} Hefte A6 + 423.12 *{' '}
+                            {watch('collegeblock')} Collegeblöcke + 211,56 *{' '}
+                            {watch('zeichenmappe')} Zeichenmappe A3 + 2644.49 *{' '}
+                            {watch('kopierpapier')} Kopierpapier A4
+                          </p>
+                          <div className="h-8"></div>
+                          <b>Recyclingpapier</b>
+                          <p>
+                            CO₂-Emission (in g) = 70.73 *{' '}
+                            {watch('a4_recycling')} Hefte A4 + 35.37 *{' '}
+                            {watch('a5_recycling')} Hefte A5 + 35.37 *{' '}
+                            {watch('a6_recycling')} Hefte A6 + 353.66 *{' '}
+                            {watch('collegeblock_recycling')} Collegeblöcke +
+                            176.83 * {watch('zeichenmappe_recycling')}{' '}
+                            Zeichenmappe A3 + 2210.39 *{' '}
+                            {watch('kopierpapier_recycling')} Kopierpapier A4
+                          </p>
+                        </Disclosure.Panel>
+                      </Transition>
+                    </>
+                  )}
+                </Disclosure>
+              </div>
             </div>
           </FlexSplitLayout>
           <FlexSplitLayout>

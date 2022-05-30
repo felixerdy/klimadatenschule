@@ -56,6 +56,10 @@ const Drafts: React.FC<Props> = props => {
             Daten&shy;sätze
           </h1>
         </div>
+        <p className="text-center text-lg">
+          Die Vorgehensweise bei der Datenerhebung können sich unterscheiden.
+          Bitte beachtet das bei eurer Datenanalyse.
+        </p>
         <main className="mt-20 flex flex-col flex-wrap md:flex-row justify-center items-center">
           <Card
             dataset="tree"

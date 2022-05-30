@@ -4,6 +4,9 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 
 import { utils, writeFile } from 'xlsx';
+import { DARRDICHTE_KG_M3, UMRECHNUNGSFAKTOR } from '../tools';
+import { Mobilities } from '../pages/mobilitaet';
+import { PaperProducts } from '../pages/papier';
 
 type Inputs = {
   format: string;
@@ -51,15 +54,111 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
         const data = await response.json();
         if (data.length > 0) {
           // convert dates to date objects
-          let wsData = data.map(e => {
+          let wsData = data.map((e, i) => {
             const record = {
               ...e,
-              createdAt: new Date(e.createdAt),
-              updatedAt: new Date(e.updatedAt)
+              erstellt_am: new Date(e.erstellt_am),
+              bearbeitet_am: new Date(e.bearbeitet_am)
             };
 
+            if (dataset === 'tree') {
+              record.radius_in_m = { t: 'n', f: `A${i + 2}/(2*PI())` };
+              record.volumen_in_m3 = {
+                t: 'n',
+                f: `PI()*H${i + 2}*H${i + 2}*B${i + 2}`
+              };
+              record.masse_in_kg = {
+                t: 'n',
+                f: `I${i + 2}*${DARRDICHTE_KG_M3}`
+              };
+              record.kohlenstoffgehalt = {
+                t: 'n',
+                f: `J${i + 2}*0.5`
+              };
+              record.co2_in_kg = {
+                t: 'n',
+                f: `K${i + 2}*${UMRECHNUNGSFAKTOR}`
+              };
+            }
+
+            if (dataset === 'mobility') {
+              record.pkw_co2_in_kg = {
+                t: 'n',
+                f: `A${i + 2} * ${
+                  Mobilities.find(m => m.type === 'pkw').thgpkm / 1000
+                }`
+              };
+              record.bahn_co2_in_kg = {
+                t: 'n',
+                f: `B${i + 2} * ${
+                  Mobilities.find(m => m.type === 'bahn').thgpkm / 1000
+                }`
+              };
+              record.bus_co2_in_kg = {
+                t: 'n',
+                f: `C${i + 2} * ${
+                  Mobilities.find(m => m.type === 'bus').thgpkm / 1000
+                }`
+              };
+              record.ubahn_co2_in_kg = {
+                t: 'n',
+                f: `D${i + 2} * ${
+                  Mobilities.find(m => m.type === 'ubahn').thgpkm / 1000
+                }`
+              };
+              record.fahrrad_co2_in_kg = {
+                t: 'n',
+                f: `E${i + 2} * ${
+                  Mobilities.find(m => m.type === 'fahrrad').thgpkm / 1000
+                }`
+              };
+              record.zu_fuss_co2_in_kg = {
+                t: 'n',
+                f: `F${i + 2} * ${
+                  Mobilities.find(m => m.type === 'fuss').thgpkm / 1000
+                }`
+              };
+              record.co2_in_kg = {
+                t: 'n',
+                f: `K${i + 2} + L${i + 2} + M${i + 2} + N${i + 2} + O${
+                  i + 2
+                } + P${i + 2}`
+              };
+            }
+
+            if (dataset === 'paper') {
+              PaperProducts.forEach((p, j) => {
+                record[`${p.type}_co2_in_g`] = {
+                  t: 'n',
+                  f: `${(j + 10).toString(36).toUpperCase()}${i + 2} * ${
+                    p.thgpst
+                  }`
+                };
+              });
+              record.frischfaser_co2_in_g = {
+                t: 'n',
+                f: `P${i + 2} + R${i + 2} + T${i + 2} + V${i + 2} + X${
+                  i + 2
+                } + Z${i + 2}`
+              };
+              record.recycling_co2_in_g = {
+                t: 'n',
+                f: `Q${i + 2} + S${i + 2} + U${i + 2} + W${i + 2} + Y${
+                  i + 2
+                } + AA${i + 2}`
+              };
+              record.co2_in_g = {
+                t: 'n',
+                f: `AB${i + 2} + AC${i + 2}`
+              };
+            }
+
+            if (dataset === 'nutrition') {
+              record.co2_in_kg_gesamt = { t: 'n', f: `B${i + 2}*C${i + 2}` };
+            }
+
             if (dataset === 'mobility' || dataset === 'nutrition') {
-              record.timestamp = new Date(e.timestamp);
+              record.datum = new Date(e.datum);
             }
 
             return record;

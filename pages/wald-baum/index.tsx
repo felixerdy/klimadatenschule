@@ -11,7 +11,7 @@ import ReactMapGL, {
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Coordinate } from 'react-map-gl/src/components/draggable-control';
 import Image from 'next/image';
-import { TrashIcon } from '@heroicons/react/outline';
+import { ChevronUpIcon, TrashIcon } from '@heroicons/react/outline';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
@@ -24,6 +24,9 @@ import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import Button from '../../components/ui/Button';
 import { treeToCO2 } from '../../tools';
 import LoginCheck from '../../components/LoginCheck';
+import { Disclosure, Transition } from '@headlessui/react';
+import { TreeInfo } from '../../components/InfoText/tree';
+import Warning from '../../components/Warning';
 
 interface TreeMarker {
   id: string;
@@ -214,6 +217,34 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                 </a>
               </Link>
             </p>
+            <div className="my-4 bg-white rounded-lg p-4">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-tree-darker bg-tree-light rounded-lg hover:bg-tree-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                      <span>Formel zur CO₂-Berechnung</span>
+                      <ChevronUpIcon
+                        className={`${
+                          open ? 'transform rotate-180' : ''
+                        } w-5 h-5 text-tree-darker`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Disclosure.Panel className="px-4 pt-4 pb-2">
+                        <TreeInfo />
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+            </div>
           </div>
         </FlexSplitLayout>
         <FlexSplitLayout>
@@ -339,6 +370,9 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                       )}
                       <div className="flex flex-col w-full">
                         <div className="mb-4 ">
+                          {watch(`tree_${m.id}_circumference`) > 10 && (
+                            <Warning />
+                          )}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded "
                             type="number"
@@ -346,25 +380,26 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
                             name={`tree_${i}_circumference`}
                             defaultValue={0}
                             max={20}
-                            min={0}
-                            {...register(`tree_${m.id}_circumference`, {
-                              min: 0
-                            })}
+                            min={0.0001}
+                            {...register(`tree_${m.id}_circumference`)}
                           />
                           <label className="">
                             Umfang in m (auf 1,30m Höhe)
                           </label>
                         </div>
                         <div className="mb-4 ">
+                          {watch(`tree_${m.id}_height`) > 25 && <Warning />}
                           <input
                             className="border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700"
                             type="number"
                             step="any"
                             name={`tree_${i}_height`}
                             defaultValue={0}
-                            min={0}
+                            min={0.0001}
                             max={70}
-                            {...register(`tree_${m.id}_height`, { min: 0 })}
+                            {...register(`tree_${m.id}_height`, {
+                              min: 0.0001
+                            })}
                           />
                           <label className="">Höhe in m</label>
                         </div>

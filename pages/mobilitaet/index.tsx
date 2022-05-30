@@ -18,6 +18,9 @@ import FlexSplitLayout from '../../components/Layouts/FlexSplitLayout';
 import MobilitaetIcon from '../../public/images/kds-icon-mobilitaet.svg';
 import Image from 'next/image';
 import LoginCheck from '../../components/LoginCheck';
+import Warning from '../../components/Warning';
+import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/outline';
 
 // https://www.umweltbundesamt.de/themen/verkehr-laerm/emissionsdaten#grafik
 export const Mobilities: MobilityDescription[] = [
@@ -204,8 +207,16 @@ const Mobilitaet: React.FC = () => {
             <h1 className="text-4xl my-8 md:w-1/2">Mobilität im Klima-Check</h1>
             <p>
               Wie viele Kilometer legst du mit folgenden Fortbewegungsmitteln
-              auf deinem Schulweg pro Tag zurück? Gib die Daten für eine ganze
-              Woche ein.
+              auf deinem Schulweg pro Tag zurück?
+            </p>
+            <p>
+              Gib <b>pro Person</b> und <b>pro Tag</b> die Daten einzeln ein.{' '}
+              <b>Wiederhole</b> das jeden Tag in einer Woche, sodass du für jede
+              Person <b>fünf Mal</b> Daten einträgst.
+            </p>
+            <p>
+              Wenn du die Daten anders eingibst, dann berücksichtige das bei der
+              Auswertung der Daten.
             </p>
           </div>
         </FlexSplitLayout>
@@ -238,6 +249,40 @@ const Mobilitaet: React.FC = () => {
                 </a>
               </Link>
             </p>
+            <div className="my-4 bg-white rounded-lg p-4">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-tree-darker bg-mobility-light rounded-lg hover:bg-mobility-lighter focus:outline-none focus-visible:ring focus-visible:ring-mobility focus-visible:ring-opacity-75">
+                      <span>Formel zur CO₂-Berechnung</span>
+                      <ChevronUpIcon
+                        className={`${
+                          open ? 'transform rotate-180' : ''
+                        } w-5 h-5 text-tree-darker`}
+                      />
+                    </Disclosure.Button>
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Disclosure.Panel className="px-4 pt-4 pb-2">
+                        <p>
+                          CO₂-Emission (in kg) = 0.15 * {watch('pkw')} km Auto +
+                          0,05 * {watch('bahn')} km Zug + 0,08 * {watch('bus')}{' '}
+                          km Bus + 0,05 * {watch('ubahn')} km S-Bahn + 0 *{' '}
+                          {watch('fahrrad')} km Rad + 0 * {watch('fuss')} km zu
+                          Fuß
+                        </p>
+                      </Disclosure.Panel>
+                    </Transition>
+                  </>
+                )}
+              </Disclosure>
+            </div>
           </div>
         </FlexSplitLayout>
         <FlexSplitLayout>
@@ -259,6 +304,7 @@ const Mobilitaet: React.FC = () => {
 
               {Mobilities.map(m => (
                 <div className="mb-4" key={m.title}>
+                  {watch(m.type) > 100 && <Warning />}
                   <input
                     className="border-solid border-gray-300 border py-2 px-4  w-full rounded "
                     type="number"
@@ -353,6 +399,46 @@ const Mobilitaet: React.FC = () => {
                 ))}
               </tfoot>
             </table>
+            <div className="mt-8 p-8 bg-white rounded-lg overflow-hidden">
+              <h1 className="text-2xl">
+                Treibhausgas-Emissionen im Personenverkehr 2019
+              </h1>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/KDS-Grafik-Mobilitaet-final.jpg"
+                alt="mobilitaet grafik"
+              />
+              <br />
+              <p>
+                Quelle: Umweltbundesamt, TREMOD 6.21 (11/2021). Wir verwenden
+                die Daten auch im Rechner unserer{' '}
+                <span className="italic">KlimaDaten-App</span>.
+              </p>
+              <br />
+              <p>
+                g/Pkm = Gramm pro Personenkilometer, inkl. der Emissionen aus
+                der Bereitstellung und Umwandlung der Energieträger in Strom,
+                Benzin, Diesel, Flüssig- und Erdgas. Personenkilometer bedeutet,
+                dass die Treibhausgasemissionen der jeweiligen Verkehrsmittel
+                pro Person und pro Kilometer angegeben werden.
+              </p>
+              <br />
+              <p>
+                Treibhausgasemissionen sind hierbei: Kohlenstoffdioxid (CO₂),
+                Methan (CH₄) und Distickstoffmonoxid (N₂O) angegeben in
+                CO₂-Äquivalenten.
+              </p>
+              <br />
+              <p>
+                Die zur Herstellung benötigten Emissionen sind hier nicht
+                berücksichtigt.
+              </p>
+              <br />
+              <p>
+                Die ausgewiesenen Emissionsfaktoren für die Bahn basieren auf
+                Angaben zum durchschnittlichen Strom-Mix in Deutschland.
+              </p>
+            </div>
           </div>
         </FlexSplitLayout>
       </div>

@@ -6,8 +6,8 @@ import { MobilityType } from '../types/mobility';
 // based on average from IPCC report
 // https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/4_Volume4/V4_04_Ch4_Forest_Land.pdf
 // p. 71 table 4.14
-const DARRDICHTE_KG_M3 = 452;
-const UMRECHNUNGSFAKTOR = 3.67;
+export const DARRDICHTE_KG_M3 = 452;
+export const UMRECHNUNGSFAKTOR = 3.67;
 
 const treeToCO2 = (
   circumference: number,
