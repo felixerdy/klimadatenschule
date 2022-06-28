@@ -57,13 +57,13 @@ const buildResponse = async (
     });
   }
 
-  // https://github.com/vercel/next.js/discussions/15453
-  res.setHeader(
-    'content-disposition',
-    `attachment; filename=nutrition.${format}`
-  );
   switch (format) {
     case 'csv':
+      // https://github.com/vercel/next.js/discussions/15453
+      res.setHeader(
+        'content-disposition',
+        `attachment; filename=nutrition.${format}`
+      );
       res.setHeader('Content-Type', 'text/csv');
       const csv: string = await convertJsonToCsv(resData);
       res.send(csv);
@@ -73,17 +73,25 @@ const buildResponse = async (
       res.send(resData);
       break;
     case 'xlsx':
+      // https://github.com/vercel/next.js/discussions/15453
+      res.setHeader(
+        'content-disposition',
+        `attachment; filename=nutrition.${format}`
+      );
       res.setHeader('Content-Type', 'application/json');
       res.send(resData);
-    // console.log();
-    // const header = Object.keys(resData[0]);
-    // const wb = utils.book_new();
-    // const ws = utils.json_to_sheet(resData, { header });
-    // utils.book_append_sheet(wb, ws);
-    // writeFile(wb, 'out.xlsb');
-    // res.setHeader('Content-Type', 'application/json');
-    // res.send(resData);
+      // console.log();
+      // const header = Object.keys(resData[0]);
+      // const wb = utils.book_new();
+      // const ws = utils.json_to_sheet(resData, { header });
+      // utils.book_append_sheet(wb, ws);
+      // writeFile(wb, 'out.xlsb');
+      // res.setHeader('Content-Type', 'application/json');
+      // res.send(resData);
+      break;
     default:
+      res.setHeader('Content-Type', 'application/json');
+      res.send(resData);
       break;
   }
 };
