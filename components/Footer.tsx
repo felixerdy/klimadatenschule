@@ -47,8 +47,8 @@ export default function Footer() {
             KlimaDatenSchule ist ein Programm von BildungsCent e.V. und wird
             gemeinsam mit mediale pfade.org – Verein für Medienbildung e.V. und
             re:edu GmbH & Co. KG umgesetzt. Es wird gefördert vom
-            Bundesministerium für Umwelt, Naturschutz und nukleare Sicherheit
-            aufgrund eines Beschlusses des Deutschen Bundestages.
+            Bundesministerium für Wirtschaft und Klimaschutz aufgrund eines
+            Beschlusses des Deutschen Bundestages.
           </p>
         </div>
 
@@ -66,7 +66,7 @@ export default function Footer() {
             Datenschutzhinweise
           </p>
           <a
-            href="https://klimadatenschule.de/content/pdf/KlimaDatenSchule_Teilnahmebedingungen.pdf"
+            href="/documents/220801_KDS_Teilnahmebedingungen_geändert_Log o.pdf"
             target="_blank"
             rel="noreferrer"
           >
