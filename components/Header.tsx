@@ -83,6 +83,14 @@ const Header: React.FC = () => {
 
   return (
     <>
+      {/* @ts-ignore */}
+      {session && session?.user.organisationId === null && (
+        <div className="w-full p-4 bg-yellow-300 font-semibold text-center">
+          <Link href={'/auth/complete-signup'} passHref>
+            <a className="">Bitte eine Schule auswählen →</a>
+          </Link>
+        </div>
+      )}
       <div
         x-data="{ open: false }"
         className="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
