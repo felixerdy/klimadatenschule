@@ -348,8 +348,15 @@ const Papier: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1 max-w-full">
+              {/* @ts-ignore */}
+              {session && session?.user.organisationId === null && (
+                <Link href={'/auth/complete-signup'} passHref>
+                  <div className="w-full p-4 bg-yellow-300 font-semibold text-center rounded-full cursor-pointer">
+                    <a>Bitte eine Schule auswählen →</a>
+                  </div>
+                </Link>
+              )}
               <hr className="my-4"></hr>
-
               <form onSubmit={handleSubmit(onSubmit)}>
                 {PaperProducts.map(m => (
                   <div className="mb-4" key={m.title}>

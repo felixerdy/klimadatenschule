@@ -250,6 +250,14 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
         <FlexSplitLayout>
           <div className="flex-1"></div>
           <div className="flex-1">
+            {/* @ts-ignore */}
+            {session && session?.user.organisationId === null && (
+              <Link href={'/auth/complete-signup'} passHref>
+                <div className="w-full p-4 bg-yellow-300 font-semibold text-center rounded-full cursor-pointer">
+                  <a>Bitte eine Schule auswählen →</a>
+                </div>
+              </Link>
+            )}
             <div className="shadow overflow-hidden border-gray-200 rounded-lg mt-4">
               <ReactMapGL
                 {...viewport}
@@ -438,7 +446,6 @@ const WaldBaum: React.FC<{ trees: TreeMarker[] }> = ({ trees }) => {
               >
                 + Baum hinzufügen
               </button> */}
-
               <LoginCheck>
                 <Link href={'/wald-baum/my'}>
                   <a className="bg-kds-green-neon rounded-full p-3 m-4 text-sm font-semibold hover:bg-nutrition-light focus:bg-gray focus:outline-none focus:shadow-outline">
