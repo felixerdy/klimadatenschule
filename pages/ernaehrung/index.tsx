@@ -137,6 +137,14 @@ const Ernaehrung: React.FC = () => {
           <FlexSplitLayout>
             <div className="flex-1"></div>
             <div className="flex-1">
+              {/* @ts-ignore */}
+              {session && session?.user.organisationId === null && (
+                <Link href={'/auth/complete-signup'} passHref>
+                  <div className="w-full p-4 bg-yellow-300 font-semibold text-center rounded-full cursor-pointer">
+                    <a>Bitte eine Schule auswählen →</a>
+                  </div>
+                </Link>
+              )}
               <hr className="my-4" />
               <form className="my-4" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">

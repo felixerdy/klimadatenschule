@@ -37,7 +37,7 @@ const buildResponse = async (
       const obj = {
         ...e,
         [isPaper ? 'co2_in_g' : 'co2_in_kg']: co2Values[i],
-        schule: e.user.organisation?.name || 'null'
+        schule: e.user.organisation?.name || 'Keine Angabe'
       };
 
       delete obj.user;
@@ -48,7 +48,7 @@ const buildResponse = async (
     resData = data.map(e => {
       const obj = {
         ...e,
-        schule: e.user.organisation?.name || 'null'
+        schule: e.user.organisation?.name || 'Keine Angabe'
       };
 
       delete obj.user;
