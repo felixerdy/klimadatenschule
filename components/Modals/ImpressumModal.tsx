@@ -37,7 +37,7 @@ const ImpressumModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
                   <a href="mailto:info@bildungscent.de">info@bildungscent.de</a>
                 </p>
                 <p>
-                  Silke Ramelow (Vorstandsvorsitzende), Michael
+                  Anja Ostermann (Vorstandsvorsitzende), Michael
                   Wend&nbsp;(Stellvertr.), Dr. Christina Masuch
                   <br />
                   Vereinsregister Nummer VR 22596 Amtsgericht Charlottenburg
@@ -53,7 +53,7 @@ const ImpressumModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
         <br />
         <div>
           <h2>Verantwortlich für journalistisch-redaktionelle Inhalte:</h2>
-          <p>Silke Ramelow, Vorstandvorsitzende</p>
+          <p>Anja Ostermann, Vorstandvorsitzende</p>
         </div>
         <br />
         <div>
