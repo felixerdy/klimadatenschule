@@ -57,8 +57,9 @@ const Drafts: React.FC<Props> = props => {
           </h1>
         </div>
         <p className="text-center text-lg">
-          Die Vorgehensweise bei der Datenerhebung können sich unterscheiden.
-          Bitte beachtet das bei eurer Datenanalyse.
+          Die Vorgehensweisen bei der Datenerhebung können sich unterscheiden.
+          Bitte beachtet das bei eurer Datenanalyse. Die Datensätze sind offen
+          sowie lizenzfrei. Sie stehen euch zur freien Nutzung zur Verfügung.
         </p>
         <main className="mt-20 flex flex-col flex-wrap md:flex-row justify-center items-center">
           <Card
