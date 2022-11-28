@@ -16,7 +16,7 @@ const ImpressumModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
   return (
     <Modal isOpen={opened} title="Impressum" onClickIcon={closeModal} size="lg">
       <div>
-        <h3>Impressum</h3>
+        <h3 className="font-semibold">Impressum</h3>
         <div>
           <div>
             <div>
@@ -36,9 +36,12 @@ const ImpressumModal: React.FC<ModalProps> = ({ opened, closeModal }) => {
                   E-Mail:{' '}
                   <a href="mailto:info@bildungscent.de">info@bildungscent.de</a>
                 </p>
-                <p>
-                  Anja Ostermann (Vorstandsvorsitzende), Michael
-                  Wend&nbsp;(Stellvertr.), Dr. Christina Masuch
+                <p className="pt-2">
+                  Anja Ostermann (Vorsitz)
+                  <br />
+                  Dr. Christina Masuch (Stellvertret.)
+                  <br />
+                  Inka Rosini
                   <br />
                   Vereinsregister Nummer VR 22596 Amtsgericht Charlottenburg
                 </p>
