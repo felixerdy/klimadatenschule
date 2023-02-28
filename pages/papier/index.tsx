@@ -368,7 +368,7 @@ const Papier: React.FC = () => {
                       name={m.title}
                       defaultValue={0}
                       min={0}
-                      max={5000}
+                      max={50}
                       {...register(m.type, { min: 0, max: 50 })}
                     />
                     <label className="font-medium">{m.title}</label>
