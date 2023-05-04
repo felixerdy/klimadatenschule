@@ -289,6 +289,8 @@ const Ernaehrung: React.FC = () => {
                   Weitere Informationen zur Berechnung findest du{' '}
                   <a
                     className="font-semibold underline"
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://klimadatenschule.de/media/site/2f2f57ec5b-1680012640/klimadatenschule_material_zu_ernaehrung.pdf"
                   >
                     hier
