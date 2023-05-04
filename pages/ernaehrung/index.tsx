@@ -261,6 +261,43 @@ const Ernaehrung: React.FC = () => {
                   </button>
                 </LoginCheck>
               </form>
+              <div className="mt-8 p-8 bg-white rounded-lg overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/ernaehrung/lernreise-ernaehrung.png"
+                  alt="lernreise grafik"
+                  className="rounded overflow-hidden"
+                />
+                <br />
+                <p>
+                  Die Lernreise basiert auf den Daten des „Schools for
+                  Earth“-Klimarechner von Greenpeace e. V.
+                </p>
+                <br />
+                <p>
+                  Die Berechnung erfolgt in CO₂-Äquivalenten, da im Bereich
+                  Ernährung auch Methan und Lachgas ausgestoßen werden.
+                </p>
+                <br />
+                <p>
+                  Die Einsparwerte ergeben sich durch den Wechsel von einem
+                  fleischhaltigen zu einem veganen/vegetarischen Gericht an zwei
+                  Tagen pro Woche.
+                </p>
+                <br />
+                <p>
+                  Weitere Informationen zur Berechnung findest du{' '}
+                  <a
+                    className="font-semibold underline"
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://klimadatenschule.de/media/site/2f2f57ec5b-1680012640/klimadatenschule_material_zu_ernaehrung.pdf"
+                  >
+                    hier
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           </FlexSplitLayout>
         </main>
