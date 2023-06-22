@@ -137,13 +137,13 @@ const Card: React.FC<CardProps> = ({ dataset, image, title, entries = 0 }) => {
               });
               record.frischfaser_co2_in_g = {
                 t: 'n',
-                f: `P${i + 2} + R${i + 2} + T${i + 2} + V${i + 2} + X${
+                f: `P${i + 2} + Q${i + 2} + R${i + 2} + S${i + 2} + T${
                   i + 2
-                } + Z${i + 2}`
+                } + U${i + 2}`
               };
               record.recycling_co2_in_g = {
                 t: 'n',
-                f: `Q${i + 2} + S${i + 2} + U${i + 2} + W${i + 2} + Y${
+                f: `V${i + 2} + W${i + 2} + X${i + 2} + Y${i + 2} + Z${
                   i + 2
                 } + AA${i + 2}`
               };
