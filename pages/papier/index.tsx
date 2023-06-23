@@ -23,19 +23,9 @@ export const PaperProducts: PaperDescription[] = [
     thgpst: 84.62361599304732
   },
   {
-    type: 'a4_recycling',
-    title: 'Heft A4 (16 Blatt Recycling)',
-    thgpst: 70.73256959418861
-  },
-  {
     type: 'a5',
     title: 'Heft A5 (16 Blatt)',
     thgpst: 42.31180799652366
-  },
-  {
-    type: 'a5_recycling',
-    title: 'Heft A5 (16 Blatt Recycling)',
-    thgpst: 35.366284797094305
   },
   {
     type: 'a6',
@@ -43,19 +33,9 @@ export const PaperProducts: PaperDescription[] = [
     thgpst: 42.31180799652366
   },
   {
-    type: 'a6_recycling',
-    title: 'Heft A6 (32 Blatt Recycling)',
-    thgpst: 35.366284797094305
-  },
-  {
     type: 'collegeblock',
     title: 'Collegeblock (80 Blatt)',
     thgpst: 423.1180799652366
-  },
-  {
-    type: 'collegeblock_recycling',
-    title: 'Collegeblock (80 Blatt Recycling)',
-    thgpst: 353.66284797094305
   },
   {
     type: 'zeichenmappe',
@@ -63,14 +43,34 @@ export const PaperProducts: PaperDescription[] = [
     thgpst: 211.5590399826183
   },
   {
-    type: 'zeichenmappe_recycling',
-    title: 'Zeichenmappe A3 (20 Blatt Recycling)',
-    thgpst: 176.831423985471
-  },
-  {
     type: 'kopierpapier',
     title: 'Kopierpapier A4 (500 Blatt)',
     thgpst: 2644.487999782729
+  },
+  {
+    type: 'a4_recycling',
+    title: 'Heft A4 (16 Blatt Recycling)',
+    thgpst: 70.73256959418861
+  },
+  {
+    type: 'a5_recycling',
+    title: 'Heft A5 (16 Blatt Recycling)',
+    thgpst: 35.366284797094305
+  },
+  {
+    type: 'a6_recycling',
+    title: 'Heft A6 (32 Blatt Recycling)',
+    thgpst: 35.366284797094305
+  },
+  {
+    type: 'collegeblock_recycling',
+    title: 'Collegeblock (80 Blatt Recycling)',
+    thgpst: 353.66284797094305
+  },
+  {
+    type: 'zeichenmappe_recycling',
+    title: 'Zeichenmappe A3 (20 Blatt Recycling)',
+    thgpst: 176.831423985471
   },
   {
     type: 'kopierpapier_recycling',
@@ -362,7 +362,7 @@ const Papier: React.FC = () => {
                   <div className="mb-4" key={m.title}>
                     <input
                       className={`border-solid border-gray-300 border py-2 px-4 w-full rounded text-gray-700 ${
-                        m.type === 'kopierpapier' && 'mt-8'
+                        m.type === 'a4_recycling' && 'mt-8'
                       }`}
                       type="number"
                       name={m.title}
